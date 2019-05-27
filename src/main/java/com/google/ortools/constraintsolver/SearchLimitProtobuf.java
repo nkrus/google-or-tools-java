@@ -15,10 +15,10 @@ public final class SearchLimitProtobuf {
         (com.google.protobuf.ExtensionRegistryLite) registry);
   }
   static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_operations_research_SearchLimitParameters_descriptor;
+    internal_static_operations_research_RegularLimitParameters_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_operations_research_SearchLimitParameters_fieldAccessorTable;
+      internal_static_operations_research_RegularLimitParameters_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -27,15 +27,15 @@ public final class SearchLimitProtobuf {
   private static  com.google.protobuf.Descriptors.FileDescriptor
       descriptor;
   static {
-    java.lang.String[] descriptorData = {
+    String[] descriptorData = {
       "\n,ortools/constraint_solver/search_limit" +
-      ".proto\022\023operations_research\"\212\001\n\025SearchLi" +
-      "mitParameters\022\014\n\004time\030\001 \001(\003\022\020\n\010branches\030" +
-      "\002 \001(\003\022\020\n\010failures\030\003 \001(\003\022\021\n\tsolutions\030\004 \001" +
-      "(\003\022\030\n\020smart_time_check\030\005 \001(\010\022\022\n\ncumulati" +
-      "ve\030\006 \001(\010B^\n#com.google.ortools.constrain" +
-      "tsolverB\023SearchLimitProtobufP\001\252\002\037Google." +
-      "OrTools.ConstraintSolverb\006proto3"
+      ".proto\022\023operations_research\"\213\001\n\026RegularL" +
+      "imitParameters\022\014\n\004time\030\001 \001(\003\022\020\n\010branches" +
+      "\030\002 \001(\003\022\020\n\010failures\030\003 \001(\003\022\021\n\tsolutions\030\004 " +
+      "\001(\003\022\030\n\020smart_time_check\030\005 \001(\010\022\022\n\ncumulat" +
+      "ive\030\006 \001(\010B^\n#com.google.ortools.constrai" +
+      "ntsolverB\023SearchLimitProtobufP\001\252\002\037Google" +
+      ".OrTools.ConstraintSolverb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -49,12 +49,12 @@ public final class SearchLimitProtobuf {
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
         }, assigner);
-    internal_static_operations_research_SearchLimitParameters_descriptor =
+    internal_static_operations_research_RegularLimitParameters_descriptor =
       getDescriptor().getMessageTypes().get(0);
-    internal_static_operations_research_SearchLimitParameters_fieldAccessorTable = new
+    internal_static_operations_research_RegularLimitParameters_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_operations_research_SearchLimitParameters_descriptor,
-        new java.lang.String[] { "Time", "Branches", "Failures", "Solutions", "SmartTimeCheck", "Cumulative", });
+        internal_static_operations_research_RegularLimitParameters_descriptor,
+        new String[] { "Time", "Branches", "Failures", "Solutions", "SmartTimeCheck", "Cumulative", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

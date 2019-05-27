@@ -37,50 +37,89 @@ public final class RoutingParameters {
   private static  com.google.protobuf.Descriptors.FileDescriptor
       descriptor;
   static {
-    java.lang.String[] descriptorData = {
+    String[] descriptorData = {
       "\n2ortools/constraint_solver/routing_para" +
-      "meters.proto\022\023operations_research\032-ortoo" +
-      "ls/constraint_solver/routing_enums.proto" +
-      "\0321ortools/constraint_solver/solver_param" +
-      "eters.proto\"\203\n\n\027RoutingSearchParameters\022" +
-      "Q\n\027first_solution_strategy\030\001 \001(\01620.opera" +
-      "tions_research.FirstSolutionStrategy.Val" +
-      "ue\022,\n$use_filtered_first_solution_strate" +
-      "gy\030\002 \001(\010\022\037\n\027savings_neighbors_ratio\030\016 \001(" +
-      "\001\022 \n\030savings_add_reverse_arcs\030\017 \001(\010\022m\n\026l" +
-      "ocal_search_operators\030\003 \001(\0132M.operations" +
-      "_research.RoutingSearchParameters.LocalS" +
-      "earchNeighborhoodOperators\022W\n\032local_sear" +
-      "ch_metaheuristic\030\004 \001(\01623.operations_rese" +
-      "arch.LocalSearchMetaheuristic.Value\022.\n&g" +
-      "uided_local_search_lambda_coefficient\030\005 " +
-      "\001(\001\022\036\n\026use_depth_first_search\030\006 \001(\010\022\031\n\021o" +
-      "ptimization_step\030\007 \001(\003\022\026\n\016solution_limit" +
-      "\030\010 \001(\003\022\025\n\rtime_limit_ms\030\t \001(\003\022\031\n\021lns_tim" +
-      "e_limit_ms\030\n \001(\003\022\035\n\025use_light_propagatio" +
-      "n\030\013 \001(\010\022\'\n\037fingerprint_arc_cost_evaluato" +
-      "rs\030\014 \001(\010\022\022\n\nlog_search\030\r \001(\010\032\312\004\n LocalSe" +
-      "archNeighborhoodOperators\022\024\n\014use_relocat" +
-      "e\030\001 \001(\010\022\031\n\021use_relocate_pair\030\002 \001(\010\022\036\n\026us" +
-      "e_relocate_neighbors\030\003 \001(\010\022\024\n\014use_exchan" +
-      "ge\030\004 \001(\010\022\021\n\tuse_cross\030\005 \001(\010\022\032\n\022use_cross" +
-      "_exchange\030\006 \001(\010\022\023\n\013use_two_opt\030\007 \001(\010\022\022\n\n" +
-      "use_or_opt\030\010 \001(\010\022\031\n\021use_lin_kernighan\030\t " +
-      "\001(\010\022\023\n\013use_tsp_opt\030\n \001(\010\022\027\n\017use_make_act" +
-      "ive\030\013 \001(\010\022$\n\034use_relocate_and_make_activ" +
-      "e\030\025 \001(\010\022\031\n\021use_make_inactive\030\014 \001(\010\022\037\n\027us" +
-      "e_make_chain_inactive\030\r \001(\010\022\027\n\017use_swap_" +
-      "active\030\016 \001(\010\022 \n\030use_extended_swap_active" +
-      "\030\017 \001(\010\022!\n\031use_node_pair_swap_active\030\024 \001(" +
-      "\010\022\024\n\014use_path_lns\030\020 \001(\010\022\031\n\021use_full_path" +
-      "_lns\030\021 \001(\010\022\023\n\013use_tsp_lns\030\022 \001(\010\022\030\n\020use_i" +
-      "nactive_lns\030\023 \001(\010\"\250\001\n\026RoutingModelParame" +
-      "ters\022J\n\021solver_parameters\030\001 \001(\0132/.operat" +
-      "ions_research.ConstraintSolverParameters" +
-      "\022!\n\031reduce_vehicle_cost_model\030\002 \001(\010\022\037\n\027m" +
-      "ax_callback_cache_size\030\003 \001(\005BI\n#com.goog" +
-      "le.ortools.constraintsolverP\001\252\002\037Google.O" +
-      "rTools.ConstraintSolverb\006proto3"
+      "meters.proto\022\023operations_research\032\036googl" +
+      "e/protobuf/duration.proto\032-ortools/const" +
+      "raint_solver/routing_enums.proto\0321ortool" +
+      "s/constraint_solver/solver_parameters.pr" +
+      "oto\032#ortools/util/optional_boolean.proto" +
+      "\"\314\025\n\027RoutingSearchParameters\022Q\n\027first_so" +
+      "lution_strategy\030\001 \001(\01620.operations_resea" +
+      "rch.FirstSolutionStrategy.Value\022.\n&use_u" +
+      "nfiltered_first_solution_strategy\030\002 \001(\010\022" +
+      "\037\n\027savings_neighbors_ratio\030\016 \001(\001\022&\n\036savi" +
+      "ngs_max_memory_usage_bytes\030\027 \001(\001\022 \n\030savi" +
+      "ngs_add_reverse_arcs\030\017 \001(\010\022\037\n\027savings_ar" +
+      "c_coefficient\030\022 \001(\001\022\037\n\027savings_parallel_" +
+      "routes\030\023 \001(\010\022/\n\'cheapest_insertion_farth" +
+      "est_seeds_ratio\030\020 \001(\001\022*\n\"cheapest_insert" +
+      "ion_neighbors_ratio\030\025 \001(\001\022m\n\026local_searc" +
+      "h_operators\030\003 \001(\0132M.operations_research." +
+      "RoutingSearchParameters.LocalSearchNeigh" +
+      "borhoodOperators\0225\n-relocate_expensive_c" +
+      "hain_num_arcs_to_consider\030\024 \001(\005\022W\n\032local" +
+      "_search_metaheuristic\030\004 \001(\01623.operations" +
+      "_research.LocalSearchMetaheuristic.Value" +
+      "\022.\n&guided_local_search_lambda_coefficie" +
+      "nt\030\005 \001(\001\022\036\n\026use_depth_first_search\030\006 \001(\010" +
+      "\022\031\n\021optimization_step\030\007 \001(\001\022&\n\036number_of" +
+      "_solutions_to_collect\030\021 \001(\005\022\026\n\016solution_" +
+      "limit\030\010 \001(\003\022-\n\ntime_limit\030\t \001(\0132\031.google" +
+      ".protobuf.Duration\0221\n\016lns_time_limit\030\n \001" +
+      "(\0132\031.google.protobuf.Duration\022\034\n\024use_ful" +
+      "l_propagation\030\013 \001(\010\022\022\n\nlog_search\030\r \001(\010\022" +
+      "\037\n\027log_cost_scaling_factor\030\026 \001(\001\032\304\r\n Loc" +
+      "alSearchNeighborhoodOperators\022:\n\014use_rel" +
+      "ocate\030\001 \001(\0162$.operations_research.Option" +
+      "alBoolean\022?\n\021use_relocate_pair\030\002 \001(\0162$.o" +
+      "perations_research.OptionalBoolean\022E\n\027us" +
+      "e_light_relocate_pair\030\030 \001(\0162$.operations" +
+      "_research.OptionalBoolean\022D\n\026use_relocat" +
+      "e_neighbors\030\003 \001(\0162$.operations_research." +
+      "OptionalBoolean\022B\n\024use_relocate_subtrip\030" +
+      "\031 \001(\0162$.operations_research.OptionalBool" +
+      "ean\022:\n\014use_exchange\030\004 \001(\0162$.operations_r" +
+      "esearch.OptionalBoolean\022?\n\021use_exchange_" +
+      "pair\030\026 \001(\0162$.operations_research.Optiona" +
+      "lBoolean\022B\n\024use_exchange_subtrip\030\032 \001(\0162$" +
+      ".operations_research.OptionalBoolean\0227\n\t" +
+      "use_cross\030\005 \001(\0162$.operations_research.Op" +
+      "tionalBoolean\022@\n\022use_cross_exchange\030\006 \001(" +
+      "\0162$.operations_research.OptionalBoolean\022" +
+      "J\n\034use_relocate_expensive_chain\030\027 \001(\0162$." +
+      "operations_research.OptionalBoolean\0229\n\013u" +
+      "se_two_opt\030\007 \001(\0162$.operations_research.O" +
+      "ptionalBoolean\0228\n\nuse_or_opt\030\010 \001(\0162$.ope" +
+      "rations_research.OptionalBoolean\022?\n\021use_" +
+      "lin_kernighan\030\t \001(\0162$.operations_researc" +
+      "h.OptionalBoolean\0229\n\013use_tsp_opt\030\n \001(\0162$" +
+      ".operations_research.OptionalBoolean\022=\n\017" +
+      "use_make_active\030\013 \001(\0162$.operations_resea" +
+      "rch.OptionalBoolean\022J\n\034use_relocate_and_" +
+      "make_active\030\025 \001(\0162$.operations_research." +
+      "OptionalBoolean\022?\n\021use_make_inactive\030\014 \001" +
+      "(\0162$.operations_research.OptionalBoolean" +
+      "\022E\n\027use_make_chain_inactive\030\r \001(\0162$.oper" +
+      "ations_research.OptionalBoolean\022=\n\017use_s" +
+      "wap_active\030\016 \001(\0162$.operations_research.O" +
+      "ptionalBoolean\022F\n\030use_extended_swap_acti" +
+      "ve\030\017 \001(\0162$.operations_research.OptionalB" +
+      "oolean\022G\n\031use_node_pair_swap_active\030\024 \001(" +
+      "\0162$.operations_research.OptionalBoolean\022" +
+      ":\n\014use_path_lns\030\020 \001(\0162$.operations_resea" +
+      "rch.OptionalBoolean\022?\n\021use_full_path_lns" +
+      "\030\021 \001(\0162$.operations_research.OptionalBoo" +
+      "lean\0229\n\013use_tsp_lns\030\022 \001(\0162$.operations_r" +
+      "esearch.OptionalBoolean\022>\n\020use_inactive_" +
+      "lns\030\023 \001(\0162$.operations_research.Optional" +
+      "Boolean\"\250\001\n\026RoutingModelParameters\022J\n\021so" +
+      "lver_parameters\030\001 \001(\0132/.operations_resea" +
+      "rch.ConstraintSolverParameters\022!\n\031reduce" +
+      "_vehicle_cost_model\030\002 \001(\010\022\037\n\027max_callbac" +
+      "k_cache_size\030\003 \001(\005BI\n#com.google.ortools" +
+      ".constraintsolverP\001\252\002\037Google.OrTools.Con" +
+      "straintSolverb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -93,29 +132,33 @@ public final class RoutingParameters {
     com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
+          com.google.protobuf.DurationProto.getDescriptor(),
           com.google.ortools.constraintsolver.RoutingEnums.getDescriptor(),
           com.google.ortools.constraintsolver.SolverParameters.getDescriptor(),
+          com.google.ortools.util.OptionalBooleanOuterClass.getDescriptor(),
         }, assigner);
     internal_static_operations_research_RoutingSearchParameters_descriptor =
       getDescriptor().getMessageTypes().get(0);
     internal_static_operations_research_RoutingSearchParameters_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_operations_research_RoutingSearchParameters_descriptor,
-        new java.lang.String[] { "FirstSolutionStrategy", "UseFilteredFirstSolutionStrategy", "SavingsNeighborsRatio", "SavingsAddReverseArcs", "LocalSearchOperators", "LocalSearchMetaheuristic", "GuidedLocalSearchLambdaCoefficient", "UseDepthFirstSearch", "OptimizationStep", "SolutionLimit", "TimeLimitMs", "LnsTimeLimitMs", "UseLightPropagation", "FingerprintArcCostEvaluators", "LogSearch", });
+        new String[] { "FirstSolutionStrategy", "UseUnfilteredFirstSolutionStrategy", "SavingsNeighborsRatio", "SavingsMaxMemoryUsageBytes", "SavingsAddReverseArcs", "SavingsArcCoefficient", "SavingsParallelRoutes", "CheapestInsertionFarthestSeedsRatio", "CheapestInsertionNeighborsRatio", "LocalSearchOperators", "RelocateExpensiveChainNumArcsToConsider", "LocalSearchMetaheuristic", "GuidedLocalSearchLambdaCoefficient", "UseDepthFirstSearch", "OptimizationStep", "NumberOfSolutionsToCollect", "SolutionLimit", "TimeLimit", "LnsTimeLimit", "UseFullPropagation", "LogSearch", "LogCostScalingFactor", });
     internal_static_operations_research_RoutingSearchParameters_LocalSearchNeighborhoodOperators_descriptor =
       internal_static_operations_research_RoutingSearchParameters_descriptor.getNestedTypes().get(0);
     internal_static_operations_research_RoutingSearchParameters_LocalSearchNeighborhoodOperators_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_operations_research_RoutingSearchParameters_LocalSearchNeighborhoodOperators_descriptor,
-        new java.lang.String[] { "UseRelocate", "UseRelocatePair", "UseRelocateNeighbors", "UseExchange", "UseCross", "UseCrossExchange", "UseTwoOpt", "UseOrOpt", "UseLinKernighan", "UseTspOpt", "UseMakeActive", "UseRelocateAndMakeActive", "UseMakeInactive", "UseMakeChainInactive", "UseSwapActive", "UseExtendedSwapActive", "UseNodePairSwapActive", "UsePathLns", "UseFullPathLns", "UseTspLns", "UseInactiveLns", });
+        new String[] { "UseRelocate", "UseRelocatePair", "UseLightRelocatePair", "UseRelocateNeighbors", "UseRelocateSubtrip", "UseExchange", "UseExchangePair", "UseExchangeSubtrip", "UseCross", "UseCrossExchange", "UseRelocateExpensiveChain", "UseTwoOpt", "UseOrOpt", "UseLinKernighan", "UseTspOpt", "UseMakeActive", "UseRelocateAndMakeActive", "UseMakeInactive", "UseMakeChainInactive", "UseSwapActive", "UseExtendedSwapActive", "UseNodePairSwapActive", "UsePathLns", "UseFullPathLns", "UseTspLns", "UseInactiveLns", });
     internal_static_operations_research_RoutingModelParameters_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_operations_research_RoutingModelParameters_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_operations_research_RoutingModelParameters_descriptor,
-        new java.lang.String[] { "SolverParameters", "ReduceVehicleCostModel", "MaxCallbackCacheSize", });
+        new String[] { "SolverParameters", "ReduceVehicleCostModel", "MaxCallbackCacheSize", });
+    com.google.protobuf.DurationProto.getDescriptor();
     com.google.ortools.constraintsolver.RoutingEnums.getDescriptor();
     com.google.ortools.constraintsolver.SolverParameters.getDescriptor();
+    com.google.ortools.util.OptionalBooleanOuterClass.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

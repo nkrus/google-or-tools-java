@@ -21,38 +21,10 @@ private static final long serialVersionUID = 0L;
   }
   private ConstraintSolverParameters() {
     compressTrail_ = 0;
-    trailBlockSize_ = 0;
-    arraySplitSize_ = 0;
-    storeNames_ = false;
-    nameCastVariables_ = false;
-    nameAllVariables_ = false;
-    profilePropagation_ = false;
     profileFile_ = "";
-    profileLocalSearch_ = false;
-    printLocalSearchProfile_ = false;
-    tracePropagation_ = false;
-    traceSearch_ = false;
-    printModel_ = false;
-    printModelStats_ = false;
-    printAddedConstraints_ = false;
-    exportFile_ = "";
-    disableSolve_ = false;
-    useCompactTable_ = false;
-    useSmallTable_ = false;
-    useSatTable_ = false;
-    ac4RTableThreshold_ = 0;
-    useMddTable_ = false;
-    useCumulativeEdgeFinder_ = false;
-    useCumulativeTimeTable_ = false;
-    useCumulativeTimeTableSync_ = false;
-    useSequenceHighDemandTasks_ = false;
-    useAllPossibleDisjunctions_ = false;
-    maxEdgeFinderSize_ = 0;
-    diffnUseCumulative_ = false;
-    useElementRmq_ = false;
   }
 
-  @java.lang.Override
+  @Override
   public final com.google.protobuf.UnknownFieldSet
   getUnknownFields() {
     return this.unknownFields;
@@ -63,7 +35,7 @@ private static final long serialVersionUID = 0L;
       throws com.google.protobuf.InvalidProtocolBufferException {
     this();
     if (extensionRegistry == null) {
-      throw new java.lang.NullPointerException();
+      throw new NullPointerException();
     }
     int mutable_bitField0_ = 0;
     com.google.protobuf.UnknownFieldSet.Builder unknownFields =
@@ -76,13 +48,6 @@ private static final long serialVersionUID = 0L;
           case 0:
             done = true;
             break;
-          default: {
-            if (!parseUnknownFieldProto3(
-                input, unknownFields, extensionRegistry, tag)) {
-              done = true;
-            }
-            break;
-          }
           case 8: {
             int rawValue = input.readEnum();
 
@@ -120,7 +85,7 @@ private static final long serialVersionUID = 0L;
             break;
           }
           case 66: {
-            java.lang.String s = input.readStringRequireUtf8();
+            String s = input.readStringRequireUtf8();
 
             profileFile_ = s;
             break;
@@ -150,12 +115,6 @@ private static final long serialVersionUID = 0L;
             printAddedConstraints_ = input.readBool();
             break;
           }
-          case 114: {
-            java.lang.String s = input.readStringRequireUtf8();
-
-            exportFile_ = s;
-            break;
-          }
           case 120: {
 
             disableSolve_ = input.readBool();
@@ -171,29 +130,9 @@ private static final long serialVersionUID = 0L;
             printLocalSearchProfile_ = input.readBool();
             break;
           }
-          case 800: {
-
-            useCompactTable_ = input.readBool();
-            break;
-          }
           case 808: {
 
             useSmallTable_ = input.readBool();
-            break;
-          }
-          case 816: {
-
-            useSatTable_ = input.readBool();
-            break;
-          }
-          case 824: {
-
-            ac4RTableThreshold_ = input.readInt32();
-            break;
-          }
-          case 832: {
-
-            useMddTable_ = input.readBool();
             break;
           }
           case 840: {
@@ -236,6 +175,23 @@ private static final long serialVersionUID = 0L;
             useCumulativeTimeTableSync_ = input.readBool();
             break;
           }
+          case 904: {
+
+            skipLocallyOptimalPaths_ = input.readBool();
+            break;
+          }
+          case 912: {
+
+            checkSolutionPeriod_ = input.readInt32();
+            break;
+          }
+          default: {
+            if (!parseUnknownField(
+                input, unknownFields, extensionRegistry, tag)) {
+              done = true;
+            }
+            break;
+          }
         }
       }
     } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -253,6 +209,7 @@ private static final long serialVersionUID = 0L;
     return com.google.ortools.constraintsolver.SolverParameters.internal_static_operations_research_ConstraintSolverParameters_descriptor;
   }
 
+  @Override
   protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internalGetFieldAccessorTable() {
     return com.google.ortools.constraintsolver.SolverParameters.internal_static_operations_research_ConstraintSolverParameters_fieldAccessorTable
@@ -292,7 +249,7 @@ private static final long serialVersionUID = 0L;
 
     public final int getNumber() {
       if (this == UNRECOGNIZED) {
-        throw new java.lang.IllegalArgumentException(
+        throw new IllegalArgumentException(
             "Can't get the number of an unknown enum value.");
       }
       return value;
@@ -301,7 +258,7 @@ private static final long serialVersionUID = 0L;
     /**
      * @deprecated Use {@link #forNumber(int)} instead.
      */
-    @java.lang.Deprecated
+    @Deprecated
     public static TrailCompression valueOf(int value) {
       return forNumber(value);
     }
@@ -344,7 +301,7 @@ private static final long serialVersionUID = 0L;
     public static TrailCompression valueOf(
         com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
       if (desc.getType() != getDescriptor()) {
-        throw new java.lang.IllegalArgumentException(
+        throw new IllegalArgumentException(
           "EnumValueDescriptor is not for this type.");
       }
       if (desc.getIndex() == -1) {
@@ -386,6 +343,7 @@ private static final long serialVersionUID = 0L;
    * <code>.operations_research.ConstraintSolverParameters.TrailCompression compress_trail = 1;</code>
    */
   public com.google.ortools.constraintsolver.ConstraintSolverParameters.TrailCompression getCompressTrail() {
+    @SuppressWarnings("deprecation")
     com.google.ortools.constraintsolver.ConstraintSolverParameters.TrailCompression result = com.google.ortools.constraintsolver.ConstraintSolverParameters.TrailCompression.valueOf(compressTrail_);
     return result == null ? com.google.ortools.constraintsolver.ConstraintSolverParameters.TrailCompression.UNRECOGNIZED : result;
   }
@@ -472,7 +430,7 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int PROFILE_FILE_FIELD_NUMBER = 8;
-  private volatile java.lang.Object profileFile_;
+  private volatile Object profileFile_;
   /**
    * <pre>
    * Export propagation profiling data to file.
@@ -480,14 +438,14 @@ private static final long serialVersionUID = 0L;
    *
    * <code>string profile_file = 8;</code>
    */
-  public java.lang.String getProfileFile() {
-    java.lang.Object ref = profileFile_;
-    if (ref instanceof java.lang.String) {
-      return (java.lang.String) ref;
+  public String getProfileFile() {
+    Object ref = profileFile_;
+    if (ref instanceof String) {
+      return (String) ref;
     } else {
       com.google.protobuf.ByteString bs = 
           (com.google.protobuf.ByteString) ref;
-      java.lang.String s = bs.toStringUtf8();
+      String s = bs.toStringUtf8();
       profileFile_ = s;
       return s;
     }
@@ -501,11 +459,11 @@ private static final long serialVersionUID = 0L;
    */
   public com.google.protobuf.ByteString
       getProfileFileBytes() {
-    java.lang.Object ref = profileFile_;
-    if (ref instanceof java.lang.String) {
+    Object ref = profileFile_;
+    if (ref instanceof String) {
       com.google.protobuf.ByteString b = 
           com.google.protobuf.ByteString.copyFromUtf8(
-              (java.lang.String) ref);
+              (String) ref);
       profileFile_ = b;
       return b;
     } else {
@@ -604,48 +562,6 @@ private static final long serialVersionUID = 0L;
     return printAddedConstraints_;
   }
 
-  public static final int EXPORT_FILE_FIELD_NUMBER = 14;
-  private volatile java.lang.Object exportFile_;
-  /**
-   * <pre>
-   * Export model to file.
-   * </pre>
-   *
-   * <code>string export_file = 14;</code>
-   */
-  public java.lang.String getExportFile() {
-    java.lang.Object ref = exportFile_;
-    if (ref instanceof java.lang.String) {
-      return (java.lang.String) ref;
-    } else {
-      com.google.protobuf.ByteString bs = 
-          (com.google.protobuf.ByteString) ref;
-      java.lang.String s = bs.toStringUtf8();
-      exportFile_ = s;
-      return s;
-    }
-  }
-  /**
-   * <pre>
-   * Export model to file.
-   * </pre>
-   *
-   * <code>string export_file = 14;</code>
-   */
-  public com.google.protobuf.ByteString
-      getExportFileBytes() {
-    java.lang.Object ref = exportFile_;
-    if (ref instanceof java.lang.String) {
-      com.google.protobuf.ByteString b = 
-          com.google.protobuf.ByteString.copyFromUtf8(
-              (java.lang.String) ref);
-      exportFile_ = b;
-      return b;
-    } else {
-      return (com.google.protobuf.ByteString) ref;
-    }
-  }
-
   public static final int DISABLE_SOLVE_FIELD_NUMBER = 15;
   private boolean disableSolve_;
   /**
@@ -655,53 +571,17 @@ private static final long serialVersionUID = 0L;
     return disableSolve_;
   }
 
-  public static final int USE_COMPACT_TABLE_FIELD_NUMBER = 100;
-  private boolean useCompactTable_;
+  public static final int USE_SMALL_TABLE_FIELD_NUMBER = 101;
+  private boolean useSmallTable_;
   /**
    * <pre>
    * Control the implementation of the table constraint.
    * </pre>
    *
-   * <code>bool use_compact_table = 100;</code>
-   */
-  public boolean getUseCompactTable() {
-    return useCompactTable_;
-  }
-
-  public static final int USE_SMALL_TABLE_FIELD_NUMBER = 101;
-  private boolean useSmallTable_;
-  /**
    * <code>bool use_small_table = 101;</code>
    */
   public boolean getUseSmallTable() {
     return useSmallTable_;
-  }
-
-  public static final int USE_SAT_TABLE_FIELD_NUMBER = 102;
-  private boolean useSatTable_;
-  /**
-   * <code>bool use_sat_table = 102;</code>
-   */
-  public boolean getUseSatTable() {
-    return useSatTable_;
-  }
-
-  public static final int AC4R_TABLE_THRESHOLD_FIELD_NUMBER = 103;
-  private int ac4RTableThreshold_;
-  /**
-   * <code>int32 ac4r_table_threshold = 103;</code>
-   */
-  public int getAc4RTableThreshold() {
-    return ac4RTableThreshold_;
-  }
-
-  public static final int USE_MDD_TABLE_FIELD_NUMBER = 104;
-  private boolean useMddTable_;
-  /**
-   * <code>bool use_mdd_table = 104;</code>
-   */
-  public boolean getUseMddTable() {
-    return useMddTable_;
   }
 
   public static final int USE_CUMULATIVE_EDGE_FINDER_FIELD_NUMBER = 105;
@@ -788,7 +668,37 @@ private static final long serialVersionUID = 0L;
     return useElementRmq_;
   }
 
+  public static final int SKIP_LOCALLY_OPTIMAL_PATHS_FIELD_NUMBER = 113;
+  private boolean skipLocallyOptimalPaths_;
+  /**
+   * <pre>
+   * Skip locally optimal pairs of paths in PathOperators. Setting this
+   * parameter to true might skip valid neighbors if there are constraints
+   * linking paths together (such as precedences). In any other case this
+   * should only speed up the search without omitting any neighbors.
+   * </pre>
+   *
+   * <code>bool skip_locally_optimal_paths = 113;</code>
+   */
+  public boolean getSkipLocallyOptimalPaths() {
+    return skipLocallyOptimalPaths_;
+  }
+
+  public static final int CHECK_SOLUTION_PERIOD_FIELD_NUMBER = 114;
+  private int checkSolutionPeriod_;
+  /**
+   * <pre>
+   * Control the behavior of local search.
+   * </pre>
+   *
+   * <code>int32 check_solution_period = 114;</code>
+   */
+  public int getCheckSolutionPeriod() {
+    return checkSolutionPeriod_;
+  }
+
   private byte memoizedIsInitialized = -1;
+  @Override
   public final boolean isInitialized() {
     byte isInitialized = memoizedIsInitialized;
     if (isInitialized == 1) return true;
@@ -798,6 +708,7 @@ private static final long serialVersionUID = 0L;
     return true;
   }
 
+  @Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
     if (compressTrail_ != com.google.ortools.constraintsolver.ConstraintSolverParameters.TrailCompression.NO_COMPRESSION.getNumber()) {
@@ -839,9 +750,6 @@ private static final long serialVersionUID = 0L;
     if (printAddedConstraints_ != false) {
       output.writeBool(13, printAddedConstraints_);
     }
-    if (!getExportFileBytes().isEmpty()) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 14, exportFile_);
-    }
     if (disableSolve_ != false) {
       output.writeBool(15, disableSolve_);
     }
@@ -851,20 +759,8 @@ private static final long serialVersionUID = 0L;
     if (printLocalSearchProfile_ != false) {
       output.writeBool(17, printLocalSearchProfile_);
     }
-    if (useCompactTable_ != false) {
-      output.writeBool(100, useCompactTable_);
-    }
     if (useSmallTable_ != false) {
       output.writeBool(101, useSmallTable_);
-    }
-    if (useSatTable_ != false) {
-      output.writeBool(102, useSatTable_);
-    }
-    if (ac4RTableThreshold_ != 0) {
-      output.writeInt32(103, ac4RTableThreshold_);
-    }
-    if (useMddTable_ != false) {
-      output.writeBool(104, useMddTable_);
     }
     if (useCumulativeEdgeFinder_ != false) {
       output.writeBool(105, useCumulativeEdgeFinder_);
@@ -890,9 +786,16 @@ private static final long serialVersionUID = 0L;
     if (useCumulativeTimeTableSync_ != false) {
       output.writeBool(112, useCumulativeTimeTableSync_);
     }
+    if (skipLocallyOptimalPaths_ != false) {
+      output.writeBool(113, skipLocallyOptimalPaths_);
+    }
+    if (checkSolutionPeriod_ != 0) {
+      output.writeInt32(114, checkSolutionPeriod_);
+    }
     unknownFields.writeTo(output);
   }
 
+  @Override
   public int getSerializedSize() {
     int size = memoizedSize;
     if (size != -1) return size;
@@ -949,9 +852,6 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeBoolSize(13, printAddedConstraints_);
     }
-    if (!getExportFileBytes().isEmpty()) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(14, exportFile_);
-    }
     if (disableSolve_ != false) {
       size += com.google.protobuf.CodedOutputStream
         .computeBoolSize(15, disableSolve_);
@@ -964,25 +864,9 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeBoolSize(17, printLocalSearchProfile_);
     }
-    if (useCompactTable_ != false) {
-      size += com.google.protobuf.CodedOutputStream
-        .computeBoolSize(100, useCompactTable_);
-    }
     if (useSmallTable_ != false) {
       size += com.google.protobuf.CodedOutputStream
         .computeBoolSize(101, useSmallTable_);
-    }
-    if (useSatTable_ != false) {
-      size += com.google.protobuf.CodedOutputStream
-        .computeBoolSize(102, useSatTable_);
-    }
-    if (ac4RTableThreshold_ != 0) {
-      size += com.google.protobuf.CodedOutputStream
-        .computeInt32Size(103, ac4RTableThreshold_);
-    }
-    if (useMddTable_ != false) {
-      size += com.google.protobuf.CodedOutputStream
-        .computeBoolSize(104, useMddTable_);
     }
     if (useCumulativeEdgeFinder_ != false) {
       size += com.google.protobuf.CodedOutputStream
@@ -1016,13 +900,21 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeBoolSize(112, useCumulativeTimeTableSync_);
     }
+    if (skipLocallyOptimalPaths_ != false) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeBoolSize(113, skipLocallyOptimalPaths_);
+    }
+    if (checkSolutionPeriod_ != 0) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeInt32Size(114, checkSolutionPeriod_);
+    }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
     return size;
   }
 
-  @java.lang.Override
-  public boolean equals(final java.lang.Object obj) {
+  @Override
+  public boolean equals(final Object obj) {
     if (obj == this) {
      return true;
     }
@@ -1031,71 +923,64 @@ private static final long serialVersionUID = 0L;
     }
     com.google.ortools.constraintsolver.ConstraintSolverParameters other = (com.google.ortools.constraintsolver.ConstraintSolverParameters) obj;
 
-    boolean result = true;
-    result = result && compressTrail_ == other.compressTrail_;
-    result = result && (getTrailBlockSize()
-        == other.getTrailBlockSize());
-    result = result && (getArraySplitSize()
-        == other.getArraySplitSize());
-    result = result && (getStoreNames()
-        == other.getStoreNames());
-    result = result && (getNameCastVariables()
-        == other.getNameCastVariables());
-    result = result && (getNameAllVariables()
-        == other.getNameAllVariables());
-    result = result && (getProfilePropagation()
-        == other.getProfilePropagation());
-    result = result && getProfileFile()
-        .equals(other.getProfileFile());
-    result = result && (getProfileLocalSearch()
-        == other.getProfileLocalSearch());
-    result = result && (getPrintLocalSearchProfile()
-        == other.getPrintLocalSearchProfile());
-    result = result && (getTracePropagation()
-        == other.getTracePropagation());
-    result = result && (getTraceSearch()
-        == other.getTraceSearch());
-    result = result && (getPrintModel()
-        == other.getPrintModel());
-    result = result && (getPrintModelStats()
-        == other.getPrintModelStats());
-    result = result && (getPrintAddedConstraints()
-        == other.getPrintAddedConstraints());
-    result = result && getExportFile()
-        .equals(other.getExportFile());
-    result = result && (getDisableSolve()
-        == other.getDisableSolve());
-    result = result && (getUseCompactTable()
-        == other.getUseCompactTable());
-    result = result && (getUseSmallTable()
-        == other.getUseSmallTable());
-    result = result && (getUseSatTable()
-        == other.getUseSatTable());
-    result = result && (getAc4RTableThreshold()
-        == other.getAc4RTableThreshold());
-    result = result && (getUseMddTable()
-        == other.getUseMddTable());
-    result = result && (getUseCumulativeEdgeFinder()
-        == other.getUseCumulativeEdgeFinder());
-    result = result && (getUseCumulativeTimeTable()
-        == other.getUseCumulativeTimeTable());
-    result = result && (getUseCumulativeTimeTableSync()
-        == other.getUseCumulativeTimeTableSync());
-    result = result && (getUseSequenceHighDemandTasks()
-        == other.getUseSequenceHighDemandTasks());
-    result = result && (getUseAllPossibleDisjunctions()
-        == other.getUseAllPossibleDisjunctions());
-    result = result && (getMaxEdgeFinderSize()
-        == other.getMaxEdgeFinderSize());
-    result = result && (getDiffnUseCumulative()
-        == other.getDiffnUseCumulative());
-    result = result && (getUseElementRmq()
-        == other.getUseElementRmq());
-    result = result && unknownFields.equals(other.unknownFields);
-    return result;
+    if (compressTrail_ != other.compressTrail_) return false;
+    if (getTrailBlockSize()
+        != other.getTrailBlockSize()) return false;
+    if (getArraySplitSize()
+        != other.getArraySplitSize()) return false;
+    if (getStoreNames()
+        != other.getStoreNames()) return false;
+    if (getNameCastVariables()
+        != other.getNameCastVariables()) return false;
+    if (getNameAllVariables()
+        != other.getNameAllVariables()) return false;
+    if (getProfilePropagation()
+        != other.getProfilePropagation()) return false;
+    if (!getProfileFile()
+        .equals(other.getProfileFile())) return false;
+    if (getProfileLocalSearch()
+        != other.getProfileLocalSearch()) return false;
+    if (getPrintLocalSearchProfile()
+        != other.getPrintLocalSearchProfile()) return false;
+    if (getTracePropagation()
+        != other.getTracePropagation()) return false;
+    if (getTraceSearch()
+        != other.getTraceSearch()) return false;
+    if (getPrintModel()
+        != other.getPrintModel()) return false;
+    if (getPrintModelStats()
+        != other.getPrintModelStats()) return false;
+    if (getPrintAddedConstraints()
+        != other.getPrintAddedConstraints()) return false;
+    if (getDisableSolve()
+        != other.getDisableSolve()) return false;
+    if (getUseSmallTable()
+        != other.getUseSmallTable()) return false;
+    if (getUseCumulativeEdgeFinder()
+        != other.getUseCumulativeEdgeFinder()) return false;
+    if (getUseCumulativeTimeTable()
+        != other.getUseCumulativeTimeTable()) return false;
+    if (getUseCumulativeTimeTableSync()
+        != other.getUseCumulativeTimeTableSync()) return false;
+    if (getUseSequenceHighDemandTasks()
+        != other.getUseSequenceHighDemandTasks()) return false;
+    if (getUseAllPossibleDisjunctions()
+        != other.getUseAllPossibleDisjunctions()) return false;
+    if (getMaxEdgeFinderSize()
+        != other.getMaxEdgeFinderSize()) return false;
+    if (getDiffnUseCumulative()
+        != other.getDiffnUseCumulative()) return false;
+    if (getUseElementRmq()
+        != other.getUseElementRmq()) return false;
+    if (getSkipLocallyOptimalPaths()
+        != other.getSkipLocallyOptimalPaths()) return false;
+    if (getCheckSolutionPeriod()
+        != other.getCheckSolutionPeriod()) return false;
+    if (!unknownFields.equals(other.unknownFields)) return false;
+    return true;
   }
 
-  @java.lang.Override
+  @Override
   public int hashCode() {
     if (memoizedHashCode != 0) {
       return memoizedHashCode;
@@ -1143,25 +1028,12 @@ private static final long serialVersionUID = 0L;
     hash = (37 * hash) + PRINT_ADDED_CONSTRAINTS_FIELD_NUMBER;
     hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
         getPrintAddedConstraints());
-    hash = (37 * hash) + EXPORT_FILE_FIELD_NUMBER;
-    hash = (53 * hash) + getExportFile().hashCode();
     hash = (37 * hash) + DISABLE_SOLVE_FIELD_NUMBER;
     hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
         getDisableSolve());
-    hash = (37 * hash) + USE_COMPACT_TABLE_FIELD_NUMBER;
-    hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
-        getUseCompactTable());
     hash = (37 * hash) + USE_SMALL_TABLE_FIELD_NUMBER;
     hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
         getUseSmallTable());
-    hash = (37 * hash) + USE_SAT_TABLE_FIELD_NUMBER;
-    hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
-        getUseSatTable());
-    hash = (37 * hash) + AC4R_TABLE_THRESHOLD_FIELD_NUMBER;
-    hash = (53 * hash) + getAc4RTableThreshold();
-    hash = (37 * hash) + USE_MDD_TABLE_FIELD_NUMBER;
-    hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
-        getUseMddTable());
     hash = (37 * hash) + USE_CUMULATIVE_EDGE_FINDER_FIELD_NUMBER;
     hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
         getUseCumulativeEdgeFinder());
@@ -1185,6 +1057,11 @@ private static final long serialVersionUID = 0L;
     hash = (37 * hash) + USE_ELEMENT_RMQ_FIELD_NUMBER;
     hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
         getUseElementRmq());
+    hash = (37 * hash) + SKIP_LOCALLY_OPTIMAL_PATHS_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+        getSkipLocallyOptimalPaths());
+    hash = (37 * hash) + CHECK_SOLUTION_PERIOD_FIELD_NUMBER;
+    hash = (53 * hash) + getCheckSolutionPeriod();
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -1260,6 +1137,7 @@ private static final long serialVersionUID = 0L;
         .parseWithIOException(PARSER, input, extensionRegistry);
   }
 
+  @Override
   public Builder newBuilderForType() { return newBuilder(); }
   public static Builder newBuilder() {
     return DEFAULT_INSTANCE.toBuilder();
@@ -1267,12 +1145,13 @@ private static final long serialVersionUID = 0L;
   public static Builder newBuilder(com.google.ortools.constraintsolver.ConstraintSolverParameters prototype) {
     return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
   }
+  @Override
   public Builder toBuilder() {
     return this == DEFAULT_INSTANCE
         ? new Builder() : new Builder().mergeFrom(this);
   }
 
-  @java.lang.Override
+  @Override
   protected Builder newBuilderForType(
       com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
     Builder builder = new Builder(parent);
@@ -1294,6 +1173,7 @@ private static final long serialVersionUID = 0L;
       return com.google.ortools.constraintsolver.SolverParameters.internal_static_operations_research_ConstraintSolverParameters_descriptor;
     }
 
+    @Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.google.ortools.constraintsolver.SolverParameters.internal_static_operations_research_ConstraintSolverParameters_fieldAccessorTable
@@ -1316,6 +1196,7 @@ private static final long serialVersionUID = 0L;
               .alwaysUseFieldBuilders) {
       }
     }
+    @Override
     public Builder clear() {
       super.clear();
       compressTrail_ = 0;
@@ -1348,19 +1229,9 @@ private static final long serialVersionUID = 0L;
 
       printAddedConstraints_ = false;
 
-      exportFile_ = "";
-
       disableSolve_ = false;
 
-      useCompactTable_ = false;
-
       useSmallTable_ = false;
-
-      useSatTable_ = false;
-
-      ac4RTableThreshold_ = 0;
-
-      useMddTable_ = false;
 
       useCumulativeEdgeFinder_ = false;
 
@@ -1378,18 +1249,25 @@ private static final long serialVersionUID = 0L;
 
       useElementRmq_ = false;
 
+      skipLocallyOptimalPaths_ = false;
+
+      checkSolutionPeriod_ = 0;
+
       return this;
     }
 
+    @Override
     public com.google.protobuf.Descriptors.Descriptor
         getDescriptorForType() {
       return com.google.ortools.constraintsolver.SolverParameters.internal_static_operations_research_ConstraintSolverParameters_descriptor;
     }
 
+    @Override
     public com.google.ortools.constraintsolver.ConstraintSolverParameters getDefaultInstanceForType() {
       return com.google.ortools.constraintsolver.ConstraintSolverParameters.getDefaultInstance();
     }
 
+    @Override
     public com.google.ortools.constraintsolver.ConstraintSolverParameters build() {
       com.google.ortools.constraintsolver.ConstraintSolverParameters result = buildPartial();
       if (!result.isInitialized()) {
@@ -1398,6 +1276,7 @@ private static final long serialVersionUID = 0L;
       return result;
     }
 
+    @Override
     public com.google.ortools.constraintsolver.ConstraintSolverParameters buildPartial() {
       com.google.ortools.constraintsolver.ConstraintSolverParameters result = new com.google.ortools.constraintsolver.ConstraintSolverParameters(this);
       result.compressTrail_ = compressTrail_;
@@ -1415,13 +1294,8 @@ private static final long serialVersionUID = 0L;
       result.printModel_ = printModel_;
       result.printModelStats_ = printModelStats_;
       result.printAddedConstraints_ = printAddedConstraints_;
-      result.exportFile_ = exportFile_;
       result.disableSolve_ = disableSolve_;
-      result.useCompactTable_ = useCompactTable_;
       result.useSmallTable_ = useSmallTable_;
-      result.useSatTable_ = useSatTable_;
-      result.ac4RTableThreshold_ = ac4RTableThreshold_;
-      result.useMddTable_ = useMddTable_;
       result.useCumulativeEdgeFinder_ = useCumulativeEdgeFinder_;
       result.useCumulativeTimeTable_ = useCumulativeTimeTable_;
       result.useCumulativeTimeTableSync_ = useCumulativeTimeTableSync_;
@@ -1430,36 +1304,45 @@ private static final long serialVersionUID = 0L;
       result.maxEdgeFinderSize_ = maxEdgeFinderSize_;
       result.diffnUseCumulative_ = diffnUseCumulative_;
       result.useElementRmq_ = useElementRmq_;
+      result.skipLocallyOptimalPaths_ = skipLocallyOptimalPaths_;
+      result.checkSolutionPeriod_ = checkSolutionPeriod_;
       onBuilt();
       return result;
     }
 
+    @Override
     public Builder clone() {
-      return (Builder) super.clone();
+      return super.clone();
     }
+    @Override
     public Builder setField(
         com.google.protobuf.Descriptors.FieldDescriptor field,
-        java.lang.Object value) {
-      return (Builder) super.setField(field, value);
+        Object value) {
+      return super.setField(field, value);
     }
+    @Override
     public Builder clearField(
         com.google.protobuf.Descriptors.FieldDescriptor field) {
-      return (Builder) super.clearField(field);
+      return super.clearField(field);
     }
+    @Override
     public Builder clearOneof(
         com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-      return (Builder) super.clearOneof(oneof);
+      return super.clearOneof(oneof);
     }
+    @Override
     public Builder setRepeatedField(
         com.google.protobuf.Descriptors.FieldDescriptor field,
-        int index, java.lang.Object value) {
-      return (Builder) super.setRepeatedField(field, index, value);
+        int index, Object value) {
+      return super.setRepeatedField(field, index, value);
     }
+    @Override
     public Builder addRepeatedField(
         com.google.protobuf.Descriptors.FieldDescriptor field,
-        java.lang.Object value) {
-      return (Builder) super.addRepeatedField(field, value);
+        Object value) {
+      return super.addRepeatedField(field, value);
     }
+    @Override
     public Builder mergeFrom(com.google.protobuf.Message other) {
       if (other instanceof com.google.ortools.constraintsolver.ConstraintSolverParameters) {
         return mergeFrom((com.google.ortools.constraintsolver.ConstraintSolverParameters)other);
@@ -1517,27 +1400,11 @@ private static final long serialVersionUID = 0L;
       if (other.getPrintAddedConstraints() != false) {
         setPrintAddedConstraints(other.getPrintAddedConstraints());
       }
-      if (!other.getExportFile().isEmpty()) {
-        exportFile_ = other.exportFile_;
-        onChanged();
-      }
       if (other.getDisableSolve() != false) {
         setDisableSolve(other.getDisableSolve());
       }
-      if (other.getUseCompactTable() != false) {
-        setUseCompactTable(other.getUseCompactTable());
-      }
       if (other.getUseSmallTable() != false) {
         setUseSmallTable(other.getUseSmallTable());
-      }
-      if (other.getUseSatTable() != false) {
-        setUseSatTable(other.getUseSatTable());
-      }
-      if (other.getAc4RTableThreshold() != 0) {
-        setAc4RTableThreshold(other.getAc4RTableThreshold());
-      }
-      if (other.getUseMddTable() != false) {
-        setUseMddTable(other.getUseMddTable());
       }
       if (other.getUseCumulativeEdgeFinder() != false) {
         setUseCumulativeEdgeFinder(other.getUseCumulativeEdgeFinder());
@@ -1563,15 +1430,23 @@ private static final long serialVersionUID = 0L;
       if (other.getUseElementRmq() != false) {
         setUseElementRmq(other.getUseElementRmq());
       }
+      if (other.getSkipLocallyOptimalPaths() != false) {
+        setSkipLocallyOptimalPaths(other.getSkipLocallyOptimalPaths());
+      }
+      if (other.getCheckSolutionPeriod() != 0) {
+        setCheckSolutionPeriod(other.getCheckSolutionPeriod());
+      }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
       return this;
     }
 
+    @Override
     public final boolean isInitialized() {
       return true;
     }
 
+    @Override
     public Builder mergeFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -1627,6 +1502,7 @@ private static final long serialVersionUID = 0L;
      * <code>.operations_research.ConstraintSolverParameters.TrailCompression compress_trail = 1;</code>
      */
     public com.google.ortools.constraintsolver.ConstraintSolverParameters.TrailCompression getCompressTrail() {
+      @SuppressWarnings("deprecation")
       com.google.ortools.constraintsolver.ConstraintSolverParameters.TrailCompression result = com.google.ortools.constraintsolver.ConstraintSolverParameters.TrailCompression.valueOf(compressTrail_);
       return result == null ? com.google.ortools.constraintsolver.ConstraintSolverParameters.TrailCompression.UNRECOGNIZED : result;
     }
@@ -1901,7 +1777,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private java.lang.Object profileFile_ = "";
+    private Object profileFile_ = "";
     /**
      * <pre>
      * Export propagation profiling data to file.
@@ -1909,16 +1785,16 @@ private static final long serialVersionUID = 0L;
      *
      * <code>string profile_file = 8;</code>
      */
-    public java.lang.String getProfileFile() {
-      java.lang.Object ref = profileFile_;
-      if (!(ref instanceof java.lang.String)) {
+    public String getProfileFile() {
+      Object ref = profileFile_;
+      if (!(ref instanceof String)) {
         com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
+        String s = bs.toStringUtf8();
         profileFile_ = s;
         return s;
       } else {
-        return (java.lang.String) ref;
+        return (String) ref;
       }
     }
     /**
@@ -1930,11 +1806,11 @@ private static final long serialVersionUID = 0L;
      */
     public com.google.protobuf.ByteString
         getProfileFileBytes() {
-      java.lang.Object ref = profileFile_;
+      Object ref = profileFile_;
       if (ref instanceof String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
+                (String) ref);
         profileFile_ = b;
         return b;
       } else {
@@ -1949,7 +1825,7 @@ private static final long serialVersionUID = 0L;
      * <code>string profile_file = 8;</code>
      */
     public Builder setProfileFile(
-        java.lang.String value) {
+        String value) {
       if (value == null) {
     throw new NullPointerException();
   }
@@ -2256,95 +2132,6 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private java.lang.Object exportFile_ = "";
-    /**
-     * <pre>
-     * Export model to file.
-     * </pre>
-     *
-     * <code>string export_file = 14;</code>
-     */
-    public java.lang.String getExportFile() {
-      java.lang.Object ref = exportFile_;
-      if (!(ref instanceof java.lang.String)) {
-        com.google.protobuf.ByteString bs =
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        exportFile_ = s;
-        return s;
-      } else {
-        return (java.lang.String) ref;
-      }
-    }
-    /**
-     * <pre>
-     * Export model to file.
-     * </pre>
-     *
-     * <code>string export_file = 14;</code>
-     */
-    public com.google.protobuf.ByteString
-        getExportFileBytes() {
-      java.lang.Object ref = exportFile_;
-      if (ref instanceof String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        exportFile_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-    /**
-     * <pre>
-     * Export model to file.
-     * </pre>
-     *
-     * <code>string export_file = 14;</code>
-     */
-    public Builder setExportFile(
-        java.lang.String value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  
-      exportFile_ = value;
-      onChanged();
-      return this;
-    }
-    /**
-     * <pre>
-     * Export model to file.
-     * </pre>
-     *
-     * <code>string export_file = 14;</code>
-     */
-    public Builder clearExportFile() {
-      
-      exportFile_ = getDefaultInstance().getExportFile();
-      onChanged();
-      return this;
-    }
-    /**
-     * <pre>
-     * Export model to file.
-     * </pre>
-     *
-     * <code>string export_file = 14;</code>
-     */
-    public Builder setExportFileBytes(
-        com.google.protobuf.ByteString value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-      
-      exportFile_ = value;
-      onChanged();
-      return this;
-    }
-
     private boolean disableSolve_ ;
     /**
      * <code>bool disable_solve = 15;</code>
@@ -2371,52 +2158,22 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private boolean useCompactTable_ ;
-    /**
-     * <pre>
-     * Control the implementation of the table constraint.
-     * </pre>
-     *
-     * <code>bool use_compact_table = 100;</code>
-     */
-    public boolean getUseCompactTable() {
-      return useCompactTable_;
-    }
-    /**
-     * <pre>
-     * Control the implementation of the table constraint.
-     * </pre>
-     *
-     * <code>bool use_compact_table = 100;</code>
-     */
-    public Builder setUseCompactTable(boolean value) {
-      
-      useCompactTable_ = value;
-      onChanged();
-      return this;
-    }
-    /**
-     * <pre>
-     * Control the implementation of the table constraint.
-     * </pre>
-     *
-     * <code>bool use_compact_table = 100;</code>
-     */
-    public Builder clearUseCompactTable() {
-      
-      useCompactTable_ = false;
-      onChanged();
-      return this;
-    }
-
     private boolean useSmallTable_ ;
     /**
+     * <pre>
+     * Control the implementation of the table constraint.
+     * </pre>
+     *
      * <code>bool use_small_table = 101;</code>
      */
     public boolean getUseSmallTable() {
       return useSmallTable_;
     }
     /**
+     * <pre>
+     * Control the implementation of the table constraint.
+     * </pre>
+     *
      * <code>bool use_small_table = 101;</code>
      */
     public Builder setUseSmallTable(boolean value) {
@@ -2426,89 +2183,15 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
+     * <pre>
+     * Control the implementation of the table constraint.
+     * </pre>
+     *
      * <code>bool use_small_table = 101;</code>
      */
     public Builder clearUseSmallTable() {
       
       useSmallTable_ = false;
-      onChanged();
-      return this;
-    }
-
-    private boolean useSatTable_ ;
-    /**
-     * <code>bool use_sat_table = 102;</code>
-     */
-    public boolean getUseSatTable() {
-      return useSatTable_;
-    }
-    /**
-     * <code>bool use_sat_table = 102;</code>
-     */
-    public Builder setUseSatTable(boolean value) {
-      
-      useSatTable_ = value;
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>bool use_sat_table = 102;</code>
-     */
-    public Builder clearUseSatTable() {
-      
-      useSatTable_ = false;
-      onChanged();
-      return this;
-    }
-
-    private int ac4RTableThreshold_ ;
-    /**
-     * <code>int32 ac4r_table_threshold = 103;</code>
-     */
-    public int getAc4RTableThreshold() {
-      return ac4RTableThreshold_;
-    }
-    /**
-     * <code>int32 ac4r_table_threshold = 103;</code>
-     */
-    public Builder setAc4RTableThreshold(int value) {
-      
-      ac4RTableThreshold_ = value;
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>int32 ac4r_table_threshold = 103;</code>
-     */
-    public Builder clearAc4RTableThreshold() {
-      
-      ac4RTableThreshold_ = 0;
-      onChanged();
-      return this;
-    }
-
-    private boolean useMddTable_ ;
-    /**
-     * <code>bool use_mdd_table = 104;</code>
-     */
-    public boolean getUseMddTable() {
-      return useMddTable_;
-    }
-    /**
-     * <code>bool use_mdd_table = 104;</code>
-     */
-    public Builder setUseMddTable(boolean value) {
-      
-      useMddTable_ = value;
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>bool use_mdd_table = 104;</code>
-     */
-    public Builder clearUseMddTable() {
-      
-      useMddTable_ = false;
       onChanged();
       return this;
     }
@@ -2756,11 +2439,98 @@ private static final long serialVersionUID = 0L;
       onChanged();
       return this;
     }
-    public final Builder setUnknownFields(
-        final com.google.protobuf.UnknownFieldSet unknownFields) {
-      return super.setUnknownFieldsProto3(unknownFields);
+
+    private boolean skipLocallyOptimalPaths_ ;
+    /**
+     * <pre>
+     * Skip locally optimal pairs of paths in PathOperators. Setting this
+     * parameter to true might skip valid neighbors if there are constraints
+     * linking paths together (such as precedences). In any other case this
+     * should only speed up the search without omitting any neighbors.
+     * </pre>
+     *
+     * <code>bool skip_locally_optimal_paths = 113;</code>
+     */
+    public boolean getSkipLocallyOptimalPaths() {
+      return skipLocallyOptimalPaths_;
+    }
+    /**
+     * <pre>
+     * Skip locally optimal pairs of paths in PathOperators. Setting this
+     * parameter to true might skip valid neighbors if there are constraints
+     * linking paths together (such as precedences). In any other case this
+     * should only speed up the search without omitting any neighbors.
+     * </pre>
+     *
+     * <code>bool skip_locally_optimal_paths = 113;</code>
+     */
+    public Builder setSkipLocallyOptimalPaths(boolean value) {
+      
+      skipLocallyOptimalPaths_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * Skip locally optimal pairs of paths in PathOperators. Setting this
+     * parameter to true might skip valid neighbors if there are constraints
+     * linking paths together (such as precedences). In any other case this
+     * should only speed up the search without omitting any neighbors.
+     * </pre>
+     *
+     * <code>bool skip_locally_optimal_paths = 113;</code>
+     */
+    public Builder clearSkipLocallyOptimalPaths() {
+      
+      skipLocallyOptimalPaths_ = false;
+      onChanged();
+      return this;
     }
 
+    private int checkSolutionPeriod_ ;
+    /**
+     * <pre>
+     * Control the behavior of local search.
+     * </pre>
+     *
+     * <code>int32 check_solution_period = 114;</code>
+     */
+    public int getCheckSolutionPeriod() {
+      return checkSolutionPeriod_;
+    }
+    /**
+     * <pre>
+     * Control the behavior of local search.
+     * </pre>
+     *
+     * <code>int32 check_solution_period = 114;</code>
+     */
+    public Builder setCheckSolutionPeriod(int value) {
+      
+      checkSolutionPeriod_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * Control the behavior of local search.
+     * </pre>
+     *
+     * <code>int32 check_solution_period = 114;</code>
+     */
+    public Builder clearCheckSolutionPeriod() {
+      
+      checkSolutionPeriod_ = 0;
+      onChanged();
+      return this;
+    }
+    @Override
+    public final Builder setUnknownFields(
+        final com.google.protobuf.UnknownFieldSet unknownFields) {
+      return super.setUnknownFields(unknownFields);
+    }
+
+    @Override
     public final Builder mergeUnknownFields(
         final com.google.protobuf.UnknownFieldSet unknownFields) {
       return super.mergeUnknownFields(unknownFields);
@@ -2782,6 +2552,7 @@ private static final long serialVersionUID = 0L;
 
   private static final com.google.protobuf.Parser<ConstraintSolverParameters>
       PARSER = new com.google.protobuf.AbstractParser<ConstraintSolverParameters>() {
+    @Override
     public ConstraintSolverParameters parsePartialFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -2794,11 +2565,12 @@ private static final long serialVersionUID = 0L;
     return PARSER;
   }
 
-  @java.lang.Override
+  @Override
   public com.google.protobuf.Parser<ConstraintSolverParameters> getParserForType() {
     return PARSER;
   }
 
+  @Override
   public com.google.ortools.constraintsolver.ConstraintSolverParameters getDefaultInstanceForType() {
     return DEFAULT_INSTANCE;
   }

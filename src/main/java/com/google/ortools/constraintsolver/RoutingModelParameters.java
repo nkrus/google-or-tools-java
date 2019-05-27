@@ -20,11 +20,9 @@ private static final long serialVersionUID = 0L;
     super(builder);
   }
   private RoutingModelParameters() {
-    reduceVehicleCostModel_ = false;
-    maxCallbackCacheSize_ = 0;
   }
 
-  @java.lang.Override
+  @Override
   public final com.google.protobuf.UnknownFieldSet
   getUnknownFields() {
     return this.unknownFields;
@@ -35,7 +33,7 @@ private static final long serialVersionUID = 0L;
       throws com.google.protobuf.InvalidProtocolBufferException {
     this();
     if (extensionRegistry == null) {
-      throw new java.lang.NullPointerException();
+      throw new NullPointerException();
     }
     int mutable_bitField0_ = 0;
     com.google.protobuf.UnknownFieldSet.Builder unknownFields =
@@ -48,13 +46,6 @@ private static final long serialVersionUID = 0L;
           case 0:
             done = true;
             break;
-          default: {
-            if (!parseUnknownFieldProto3(
-                input, unknownFields, extensionRegistry, tag)) {
-              done = true;
-            }
-            break;
-          }
           case 10: {
             com.google.ortools.constraintsolver.ConstraintSolverParameters.Builder subBuilder = null;
             if (solverParameters_ != null) {
@@ -78,6 +69,13 @@ private static final long serialVersionUID = 0L;
             maxCallbackCacheSize_ = input.readInt32();
             break;
           }
+          default: {
+            if (!parseUnknownField(
+                input, unknownFields, extensionRegistry, tag)) {
+              done = true;
+            }
+            break;
+          }
         }
       }
     } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -95,6 +93,7 @@ private static final long serialVersionUID = 0L;
     return com.google.ortools.constraintsolver.RoutingParameters.internal_static_operations_research_RoutingModelParameters_descriptor;
   }
 
+  @Override
   protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internalGetFieldAccessorTable() {
     return com.google.ortools.constraintsolver.RoutingParameters.internal_static_operations_research_RoutingModelParameters_fieldAccessorTable
@@ -166,6 +165,7 @@ private static final long serialVersionUID = 0L;
   }
 
   private byte memoizedIsInitialized = -1;
+  @Override
   public final boolean isInitialized() {
     byte isInitialized = memoizedIsInitialized;
     if (isInitialized == 1) return true;
@@ -175,6 +175,7 @@ private static final long serialVersionUID = 0L;
     return true;
   }
 
+  @Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
     if (solverParameters_ != null) {
@@ -189,6 +190,7 @@ private static final long serialVersionUID = 0L;
     unknownFields.writeTo(output);
   }
 
+  @Override
   public int getSerializedSize() {
     int size = memoizedSize;
     if (size != -1) return size;
@@ -211,8 +213,8 @@ private static final long serialVersionUID = 0L;
     return size;
   }
 
-  @java.lang.Override
-  public boolean equals(final java.lang.Object obj) {
+  @Override
+  public boolean equals(final Object obj) {
     if (obj == this) {
      return true;
     }
@@ -221,21 +223,20 @@ private static final long serialVersionUID = 0L;
     }
     com.google.ortools.constraintsolver.RoutingModelParameters other = (com.google.ortools.constraintsolver.RoutingModelParameters) obj;
 
-    boolean result = true;
-    result = result && (hasSolverParameters() == other.hasSolverParameters());
+    if (hasSolverParameters() != other.hasSolverParameters()) return false;
     if (hasSolverParameters()) {
-      result = result && getSolverParameters()
-          .equals(other.getSolverParameters());
+      if (!getSolverParameters()
+          .equals(other.getSolverParameters())) return false;
     }
-    result = result && (getReduceVehicleCostModel()
-        == other.getReduceVehicleCostModel());
-    result = result && (getMaxCallbackCacheSize()
-        == other.getMaxCallbackCacheSize());
-    result = result && unknownFields.equals(other.unknownFields);
-    return result;
+    if (getReduceVehicleCostModel()
+        != other.getReduceVehicleCostModel()) return false;
+    if (getMaxCallbackCacheSize()
+        != other.getMaxCallbackCacheSize()) return false;
+    if (!unknownFields.equals(other.unknownFields)) return false;
+    return true;
   }
 
-  @java.lang.Override
+  @Override
   public int hashCode() {
     if (memoizedHashCode != 0) {
       return memoizedHashCode;
@@ -326,6 +327,7 @@ private static final long serialVersionUID = 0L;
         .parseWithIOException(PARSER, input, extensionRegistry);
   }
 
+  @Override
   public Builder newBuilderForType() { return newBuilder(); }
   public static Builder newBuilder() {
     return DEFAULT_INSTANCE.toBuilder();
@@ -333,12 +335,13 @@ private static final long serialVersionUID = 0L;
   public static Builder newBuilder(com.google.ortools.constraintsolver.RoutingModelParameters prototype) {
     return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
   }
+  @Override
   public Builder toBuilder() {
     return this == DEFAULT_INSTANCE
         ? new Builder() : new Builder().mergeFrom(this);
   }
 
-  @java.lang.Override
+  @Override
   protected Builder newBuilderForType(
       com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
     Builder builder = new Builder(parent);
@@ -360,6 +363,7 @@ private static final long serialVersionUID = 0L;
       return com.google.ortools.constraintsolver.RoutingParameters.internal_static_operations_research_RoutingModelParameters_descriptor;
     }
 
+    @Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.google.ortools.constraintsolver.RoutingParameters.internal_static_operations_research_RoutingModelParameters_fieldAccessorTable
@@ -382,6 +386,7 @@ private static final long serialVersionUID = 0L;
               .alwaysUseFieldBuilders) {
       }
     }
+    @Override
     public Builder clear() {
       super.clear();
       if (solverParametersBuilder_ == null) {
@@ -397,15 +402,18 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
+    @Override
     public com.google.protobuf.Descriptors.Descriptor
         getDescriptorForType() {
       return com.google.ortools.constraintsolver.RoutingParameters.internal_static_operations_research_RoutingModelParameters_descriptor;
     }
 
+    @Override
     public com.google.ortools.constraintsolver.RoutingModelParameters getDefaultInstanceForType() {
       return com.google.ortools.constraintsolver.RoutingModelParameters.getDefaultInstance();
     }
 
+    @Override
     public com.google.ortools.constraintsolver.RoutingModelParameters build() {
       com.google.ortools.constraintsolver.RoutingModelParameters result = buildPartial();
       if (!result.isInitialized()) {
@@ -414,6 +422,7 @@ private static final long serialVersionUID = 0L;
       return result;
     }
 
+    @Override
     public com.google.ortools.constraintsolver.RoutingModelParameters buildPartial() {
       com.google.ortools.constraintsolver.RoutingModelParameters result = new com.google.ortools.constraintsolver.RoutingModelParameters(this);
       if (solverParametersBuilder_ == null) {
@@ -427,32 +436,39 @@ private static final long serialVersionUID = 0L;
       return result;
     }
 
+    @Override
     public Builder clone() {
-      return (Builder) super.clone();
+      return super.clone();
     }
+    @Override
     public Builder setField(
         com.google.protobuf.Descriptors.FieldDescriptor field,
-        java.lang.Object value) {
-      return (Builder) super.setField(field, value);
+        Object value) {
+      return super.setField(field, value);
     }
+    @Override
     public Builder clearField(
         com.google.protobuf.Descriptors.FieldDescriptor field) {
-      return (Builder) super.clearField(field);
+      return super.clearField(field);
     }
+    @Override
     public Builder clearOneof(
         com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-      return (Builder) super.clearOneof(oneof);
+      return super.clearOneof(oneof);
     }
+    @Override
     public Builder setRepeatedField(
         com.google.protobuf.Descriptors.FieldDescriptor field,
-        int index, java.lang.Object value) {
-      return (Builder) super.setRepeatedField(field, index, value);
+        int index, Object value) {
+      return super.setRepeatedField(field, index, value);
     }
+    @Override
     public Builder addRepeatedField(
         com.google.protobuf.Descriptors.FieldDescriptor field,
-        java.lang.Object value) {
-      return (Builder) super.addRepeatedField(field, value);
+        Object value) {
+      return super.addRepeatedField(field, value);
     }
+    @Override
     public Builder mergeFrom(com.google.protobuf.Message other) {
       if (other instanceof com.google.ortools.constraintsolver.RoutingModelParameters) {
         return mergeFrom((com.google.ortools.constraintsolver.RoutingModelParameters)other);
@@ -478,10 +494,12 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
+    @Override
     public final boolean isInitialized() {
       return true;
     }
 
+    @Override
     public Builder mergeFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -500,7 +518,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private com.google.ortools.constraintsolver.ConstraintSolverParameters solverParameters_ = null;
+    private com.google.ortools.constraintsolver.ConstraintSolverParameters solverParameters_;
     private com.google.protobuf.SingleFieldBuilderV3<
         com.google.ortools.constraintsolver.ConstraintSolverParameters, com.google.ortools.constraintsolver.ConstraintSolverParameters.Builder, com.google.ortools.constraintsolver.ConstraintSolverParametersOrBuilder> solverParametersBuilder_;
     /**
@@ -740,11 +758,13 @@ private static final long serialVersionUID = 0L;
       onChanged();
       return this;
     }
+    @Override
     public final Builder setUnknownFields(
         final com.google.protobuf.UnknownFieldSet unknownFields) {
-      return super.setUnknownFieldsProto3(unknownFields);
+      return super.setUnknownFields(unknownFields);
     }
 
+    @Override
     public final Builder mergeUnknownFields(
         final com.google.protobuf.UnknownFieldSet unknownFields) {
       return super.mergeUnknownFields(unknownFields);
@@ -766,6 +786,7 @@ private static final long serialVersionUID = 0L;
 
   private static final com.google.protobuf.Parser<RoutingModelParameters>
       PARSER = new com.google.protobuf.AbstractParser<RoutingModelParameters>() {
+    @Override
     public RoutingModelParameters parsePartialFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -778,11 +799,12 @@ private static final long serialVersionUID = 0L;
     return PARSER;
   }
 
-  @java.lang.Override
+  @Override
   public com.google.protobuf.Parser<RoutingModelParameters> getParserForType() {
     return PARSER;
   }
 
+  @Override
   public com.google.ortools.constraintsolver.RoutingModelParameters getDefaultInstanceForType() {
     return DEFAULT_INSTANCE;
   }

@@ -1,0 +1,489 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="de6b46e9-a8f4-4c90-b905-b9d8c195bc29" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__ch_qos_logback_logback_classic_1_2_3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__ch_qos_logback_logback_core_1_2_3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_protobuf_protobuf_java_3_6_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apiguardian_apiguardian_api_1_0_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_api_5_2_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_engine_5_2_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_commons_1_2_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_engine_1_2_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_opentest4j_opentest4j_1_1_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_slf4j_api_1_7_25.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/google-or-tools.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/AssignmentIntervalContainer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/AssignmentSequenceContainer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/CPFeasibilityFilter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/GlobalVehicleBreaksConstraint.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/IntIntToLongFunction.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/JavaDecisionBuilder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/LongTernaryOperator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/LongTernaryPredicate.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/RegularLimit.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/RoutingIndexManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/SequentialSavingsFilteredDecisionBuilder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/TypeIncompatibilityChecker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/TypeRegulationsChecker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/TypeRegulationsConstraint.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/TypeRequirementChecker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/mainConstants.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/linearsolver/MPModelExportOptions.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/util/Domain.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/util/OptionalBoolean.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/util/OptionalBooleanOuterClass.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/util/SWIGTYPE_p_std__setT_operations_research__ClosedInterval_operations_research__SortedDisjointIntervalList__IntervalComparator_t__iterator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/util/SortedDisjointIntervalList.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/util/main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/util/mainJNI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libjniortools.so" beforeDir="false" afterPath="$PROJECT_DIR$/lib/libjniortools.so" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/libortools.so" beforeDir="false" afterPath="$PROJECT_DIR$/lib/libortools.so" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/algorithms/KnapsackSolver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/algorithms/KnapsackSolver.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/algorithms/operations_research_algorithms.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/algorithms/main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/algorithms/operations_research_algorithmsJNI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/algorithms/mainJNI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/Assignment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/Assignment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/AssignmentElement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/AssignmentElement.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/AssignmentIntContainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/AssignmentIntContainer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/BaseIntExpr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/BaseIntExpr.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/BaseLns.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/BaseLns.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/BaseObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/BaseObject.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/BasePathFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/BasePathFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/BooleanVar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/BooleanVar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/CastConstraint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/CastConstraint.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/ChangeValue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/ChangeValue.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/CheapestAdditionFilteredDecisionBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/CheapestAdditionFilteredDecisionBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/CheapestInsertionFilteredDecisionBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/CheapestInsertionFilteredDecisionBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/ChristofidesFilteredDecisionBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/ChristofidesFilteredDecisionBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/ComparatorCheapestAdditionFilteredDecisionBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/ComparatorCheapestAdditionFilteredDecisionBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/Constraint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/Constraint.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/ConstraintSolverParameters.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/ConstraintSolverParameters.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/ConstraintSolverParametersOrBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/ConstraintSolverParametersOrBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/CpModelLoader.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/Decision.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/Decision.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/DecisionBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/DecisionBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/DecisionVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/DecisionVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/DefaultPhaseParameters.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/DefaultPhaseParameters.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/Demon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/Demon.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/DisjunctiveConstraint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/DisjunctiveConstraint.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/EvaluatorCheapestAdditionFilteredDecisionBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/EvaluatorCheapestAdditionFilteredDecisionBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/FirstSolutionStrategy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/FirstSolutionStrategy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/GlobalCheapestInsertionFilteredDecisionBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/GlobalCheapestInsertionFilteredDecisionBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/IntExpr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/IntExpr.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/IntIntToLong.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/IntTupleSet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/IntTupleSet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/IntVar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/IntVar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/IntVarElement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/IntVarElement.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/IntVarFilteredDecisionBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/IntVarFilteredDecisionBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/IntVarIterator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/IntVarIterator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/IntVarLocalSearchFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/IntVarLocalSearchFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/IntVarLocalSearchHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/IntVarLocalSearchHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/IntVarLocalSearchOperator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/IntVarLocalSearchOperator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/IntVarLocalSearchOperatorTemplate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/IntVarLocalSearchOperatorTemplate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/IntervalVar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/IntervalVar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/IntervalVarElement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/IntervalVarElement.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/LocalCheapestInsertionFilteredDecisionBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/LocalCheapestInsertionFilteredDecisionBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/LocalSearchFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/LocalSearchFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/LocalSearchMetaheuristic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/LocalSearchMetaheuristic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/LocalSearchMonitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/LocalSearchMonitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/LocalSearchOperator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/LocalSearchOperator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/LocalSearchPhaseParameters.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/LocalSearchPhaseParameters.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/LongLongLongToBoolean.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/LongLongLongToLong.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/LongLongToLong.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/LongToBoolean.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/LongToLong.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/LongToVoid.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/ModelCache.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/ModelCache.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/ModelVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/ModelVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/NoGood.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/NoGoodManager.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/NodeEvaluator2.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/OptimizeVar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/OptimizeVar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/Pack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/Pack.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/PathOperator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/PathOperator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/PathWithPreviousNodesOperator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/PathWithPreviousNodesOperator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/PropagationBaseObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/PropagationBaseObject.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/PropagationMonitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/PropagationMonitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/RevBool.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/RevBool.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/RevInteger.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/RevInteger.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/RevLong.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/RevLong.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/RevPartialSequence.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/RevPartialSequence.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/RoutingDimension.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/RoutingDimension.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/RoutingEnums.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/RoutingEnums.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/RoutingFilteredDecisionBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/RoutingFilteredDecisionBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/RoutingLocalSearchFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/ParallelSavingsFilteredDecisionBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/RoutingModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/RoutingModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/RoutingModelParameters.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/RoutingModelParameters.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/RoutingModelVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/RoutingModelVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/RoutingParameters.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/RoutingParameters.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/RoutingSearchParameters.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/RoutingSearchParameters.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/RoutingSearchParametersOrBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/RoutingSearchParametersOrBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/SWIGTYPE_p_ResultCallback2T_long_long_RoutingNodeIndex_RoutingNodeIndex_t.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/SWIGTYPE_p_RoutingCostClassIndex.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/SWIGTYPE_p_std__vectorT_absl__flat_hash_setT_int_t_t.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/SWIGTYPE_p_RoutingDimensionIndex.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/SWIGTYPE_p_RoutingDisjunctionIndex.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/SWIGTYPE_p_RoutingVehicleClassIndex.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/SWIGTYPE_p_int.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/SWIGTYPE_p_absl__Duration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/SWIGTYPE_p_long_long.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/SWIGTYPE_p_absl__Time.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/SWIGTYPE_p_operations_research__AssignmentContainerT_operations_research__IntervalVar_operations_research__IntervalVarElement_t.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/SWIGTYPE_p_operations_research__AssignmentContainerT_operations_research__SequenceVar_operations_research__SequenceVarElement_t.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/SWIGTYPE_p_operations_research__AssignmentProto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/SWIGTYPE_p_operations_research__AssignmentProto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/SWIGTYPE_p_operations_research__CpModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/SWIGTYPE_p_std__functionT_long_long_flong_longF_t.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/SWIGTYPE_p_operations_research__DemonProfiler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/SWIGTYPE_p_operations_research__IntVarAssignment.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/SWIGTYPE_p_operations_research__IntervalVarAssignment.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/SWIGTYPE_p_operations_research__RevIntSetT_int_t.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/SWIGTYPE_p_operations_research__Search.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/SWIGTYPE_p_operations_research__SequenceVarAssignment.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/SWIGTYPE_p_operations_research__SimpleRevFIFOT_operations_research__Demon_p_t.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/SWIGTYPE_p_std__functionT_int_flong_longF_t.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/SWIGTYPE_p_std__functionT_operations_research__Solver__DecisionModification_fF_t.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/SWIGTYPE_p_std__vectorT_RoutingDisjunctionIndex_t.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/SWIGTYPE_p_std__vectorT_int_t.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/SWIGTYPE_p_std__vectorT_int_t.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/SWIGTYPE_p_std__vectorT_long_long_t.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/SWIGTYPE_p_std__vectorT_operations_research__IntVarElement_t.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/SWIGTYPE_p_std__vectorT_operations_research__RoutingDimension_p_t.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/SWIGTYPE_p_std__vectorT_operations_research__IntVar_p_t.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/util/SWIGTYPE_p_std__vectorT_operations_research__ClosedInterval_t.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/SWIGTYPE_p_std__vectorT_operations_research__IntervalVar_p_t.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/linearsolver/SWIGTYPE_p_std__vectorT_operations_research__MPVariable_p_t.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/SWIGTYPE_p_std__vectorT_operations_research__SearchMonitor_p_t.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/SWIGTYPE_p_std__vectorT_std__pairT_RoutingNodeIndex_RoutingNodeIndex_t_t.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/SWIGTYPE_p_std__vectorT_std__pairT_int_int_t_t.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/SWIGTYPE_p_std__vectorT_std__pairT_long_long_long_long_t_t.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/SWIGTYPE_p_std__vectorT_std__string_t.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/SWIGTYPE_p_absl__flat_hash_setT_int_t.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/SWIGTYPE_p_std__vectorT_std__vectorT_RoutingNodeIndex_t_t.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/SWIGTYPE_p_std__vectorT_std__vectorT_int_t_t.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/SWIGTYPE_p_std__vectorT_unsigned_long_long_t.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/SavingsFilteredDecisionBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/SavingsFilteredDecisionBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/SearchLimit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/SearchLimit.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/SearchLimitParameters.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/RegularLimitParameters.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/SearchLimitParametersOrBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/RegularLimitParametersOrBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/SearchLimitProtobuf.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/SearchLimitProtobuf.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/SearchLog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/SearchLog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/SearchMonitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/SearchMonitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/SequenceVar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/SequenceVar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/SequenceVarElement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/SequenceVarElement.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/SequenceVarLocalSearchHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/SequenceVarLocalSearchHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/SequenceVarLocalSearchOperator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/SequenceVarLocalSearchOperator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/SequenceVarLocalSearchOperatorTemplate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/SequenceVarLocalSearchOperatorTemplate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/SolutionCollector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/SolutionCollector.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/SolutionPool.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/SolutionPool.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/Solver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/Solver.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/SolverParameters.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/SolverParameters.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/SolverToVoid.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/SymmetryBreaker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/SymmetryBreaker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/UnsortedNullableRevBitset.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/VoidToBoolean.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/VoidToString.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/VoidToVoid.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/operations_research_constraint_solver.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/operations_research_constraint_solverConstants.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/operations_research_constraint_solverJNI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/constraintsolver/mainJNI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/graph/LinearSumAssignment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/graph/LinearSumAssignment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/graph/MaxFlow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/graph/MaxFlow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/graph/MinCostFlow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/graph/MinCostFlow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/graph/MinCostFlowBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/graph/MinCostFlowBase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/graph/SWIGTYPE_p_std__vectorT_int_t.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/graph/operations_research_graph.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/graph/main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/graph/operations_research_graphJNI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/graph/mainJNI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/linearsolver/MPConstraint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/linearsolver/MPConstraint.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/linearsolver/MPObjective.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/linearsolver/MPObjective.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/linearsolver/MPSolver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/linearsolver/MPSolver.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/linearsolver/MPSolverParameters.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/linearsolver/MPSolverParameters.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/linearsolver/MPVariable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/linearsolver/MPVariable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/linearsolver/operations_research_linear_solver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/linearsolver/main_research_linear_solver.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/google/ortools/linearsolver/operations_research_linear_solverJNI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/google/ortools/linearsolver/main_research_linear_solverJNI.java" afterDir="false" />
+    </list>
+    <ignored path="$PROJECT_DIR$/classes/" />
+    <ignored path="$PROJECT_DIR$/target/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DefaultGradleProjectSettings">
+    <option name="isMigrated" value="true" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/pom.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1448">
+              <caret line="103" column="40" selection-start-line="103" selection-start-column="40" selection-end-line="103" selection-end-column="40" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/io/github/oliviercailloux/google_or_tools/TestRun.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="430">
+              <caret line="50" column="21" lean-forward="true" selection-start-line="50" selection-start-column="21" selection-end-line="50" selection-end-column="21" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
+  </component>
+  <component name="MavenProjectNavigator">
+    <treeState>
+      <expand>
+        <path>
+          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
+          <item name="Google OR-Tools for Java" type="9519ce18:MavenProjectsStructure$ProjectNode" />
+        </path>
+        <path>
+          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
+          <item name="Google OR-Tools for Java" type="9519ce18:MavenProjectsStructure$ProjectNode" />
+          <item name="Lifecycle" type="58874e2:MavenProjectsStructure$LifecycleNode" />
+        </path>
+      </expand>
+      <select />
+    </treeState>
+  </component>
+  <component name="ProjectFrameBounds" fullScreen="true">
+    <option name="width" value="1680" />
+    <option name="height" value="1050" />
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="google-or-tools" type="b2602c69:ProjectViewProjectNode" />
+              <item name="google-or-tools-java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="google-or-tools" type="b2602c69:ProjectViewProjectNode" />
+              <item name="google-or-tools-java" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="google-or-tools" type="b2602c69:ProjectViewProjectNode" />
+              <item name="google-or-tools-java" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="google-or-tools" type="b2602c69:ProjectViewProjectNode" />
+              <item name="google-or-tools-java" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="google-or-tools" type="b2602c69:ProjectViewProjectNode" />
+              <item name="google-or-tools-java" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="google-or-tools" type="b2602c69:ProjectViewProjectNode" />
+              <item name="google-or-tools-java" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="ortools" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="google-or-tools" type="b2602c69:ProjectViewProjectNode" />
+              <item name="google-or-tools-java" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="ortools" type="462c0819:PsiDirectoryNode" />
+              <item name="algorithms" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="google-or-tools" type="b2602c69:ProjectViewProjectNode" />
+              <item name="google-or-tools-java" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="google-or-tools" type="b2602c69:ProjectViewProjectNode" />
+              <item name="google-or-tools-java" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="google-or-tools" type="b2602c69:ProjectViewProjectNode" />
+              <item name="google-or-tools-java" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="google_or_tools" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="google-or-tools" type="b2602c69:ProjectViewProjectNode" />
+              <item name="google-or-tools-java" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/lib" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="Application" factoryName="Application">
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <option name="TEST_OBJECT" value="class" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="TestNG">
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="de6b46e9-a8f4-4c90-b905-b9d8c195bc29" name="Default Changelist" comment="" />
+      <created>1558998689766</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1558998689766</updated>
+      <workItem from="1558998692273" duration="662000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="662000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
+    <layout>
+      <window_info id="Designer" />
+      <window_info id="Image Layers" />
+      <window_info id="UI Designer" />
+      <window_info id="Favorites" side_tool="true" />
+      <window_info id="Capture Tool" />
+      <window_info id="Learn" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24969475" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="FindBugs-IDEA" />
+      <window_info anchor="bottom" id="Terminal" />
+      <window_info anchor="bottom" id="Event Log" side_tool="true" />
+      <window_info anchor="bottom" id="Database Changes" />
+      <window_info anchor="bottom" id="Version Control" />
+      <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32959184" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="right" id="Maven" visible="true" weight="0.32967034" />
+      <window_info anchor="right" id="Palette" />
+      <window_info anchor="right" id="Codota" />
+      <window_info anchor="right" id="Capture Analysis" />
+      <window_info anchor="right" id="Database" />
+      <window_info anchor="right" id="Palette&#9;" />
+      <window_info anchor="right" id="Theme Preview" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/test/java/io/github/oliviercailloux/google_or_tools/TestRun.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="430">
+          <caret line="50" column="21" lean-forward="true" selection-start-line="50" selection-start-column="21" selection-end-line="50" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1448">
+          <caret line="103" column="40" selection-start-line="103" selection-start-column="40" selection-end-line="103" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ProjectJDKs.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>

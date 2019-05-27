@@ -6,6 +6,10 @@ package com.google.ortools.constraintsolver;
 /**
  * <pre>
  * Parameters defining the search used to solve vehicle routing problems.
+ * If a parameter is unset (or, equivalently, set to its default value),
+ * then the routing library will pick its preferred value for that parameter
+ * automatically: this should be the case for most parameters.
+ * To see those "default" parameters, call GetDefaultRoutingSearchParameters().
  * </pre>
  *
  * Protobuf type {@code operations_research.RoutingSearchParameters}
@@ -21,22 +25,10 @@ private static final long serialVersionUID = 0L;
   }
   private RoutingSearchParameters() {
     firstSolutionStrategy_ = 0;
-    useFilteredFirstSolutionStrategy_ = false;
-    savingsNeighborsRatio_ = 0D;
-    savingsAddReverseArcs_ = false;
     localSearchMetaheuristic_ = 0;
-    guidedLocalSearchLambdaCoefficient_ = 0D;
-    useDepthFirstSearch_ = false;
-    optimizationStep_ = 0L;
-    solutionLimit_ = 0L;
-    timeLimitMs_ = 0L;
-    lnsTimeLimitMs_ = 0L;
-    useLightPropagation_ = false;
-    fingerprintArcCostEvaluators_ = false;
-    logSearch_ = false;
   }
 
-  @java.lang.Override
+  @Override
   public final com.google.protobuf.UnknownFieldSet
   getUnknownFields() {
     return this.unknownFields;
@@ -47,7 +39,7 @@ private static final long serialVersionUID = 0L;
       throws com.google.protobuf.InvalidProtocolBufferException {
     this();
     if (extensionRegistry == null) {
-      throw new java.lang.NullPointerException();
+      throw new NullPointerException();
     }
     int mutable_bitField0_ = 0;
     com.google.protobuf.UnknownFieldSet.Builder unknownFields =
@@ -60,13 +52,6 @@ private static final long serialVersionUID = 0L;
           case 0:
             done = true;
             break;
-          default: {
-            if (!parseUnknownFieldProto3(
-                input, unknownFields, extensionRegistry, tag)) {
-              done = true;
-            }
-            break;
-          }
           case 8: {
             int rawValue = input.readEnum();
 
@@ -75,7 +60,7 @@ private static final long serialVersionUID = 0L;
           }
           case 16: {
 
-            useFilteredFirstSolutionStrategy_ = input.readBool();
+            useUnfilteredFirstSolutionStrategy_ = input.readBool();
             break;
           }
           case 26: {
@@ -107,9 +92,9 @@ private static final long serialVersionUID = 0L;
             useDepthFirstSearch_ = input.readBool();
             break;
           }
-          case 56: {
+          case 57: {
 
-            optimizationStep_ = input.readInt64();
+            optimizationStep_ = input.readDouble();
             break;
           }
           case 64: {
@@ -117,24 +102,35 @@ private static final long serialVersionUID = 0L;
             solutionLimit_ = input.readInt64();
             break;
           }
-          case 72: {
+          case 74: {
+            com.google.protobuf.Duration.Builder subBuilder = null;
+            if (timeLimit_ != null) {
+              subBuilder = timeLimit_.toBuilder();
+            }
+            timeLimit_ = input.readMessage(com.google.protobuf.Duration.parser(), extensionRegistry);
+            if (subBuilder != null) {
+              subBuilder.mergeFrom(timeLimit_);
+              timeLimit_ = subBuilder.buildPartial();
+            }
 
-            timeLimitMs_ = input.readInt64();
             break;
           }
-          case 80: {
+          case 82: {
+            com.google.protobuf.Duration.Builder subBuilder = null;
+            if (lnsTimeLimit_ != null) {
+              subBuilder = lnsTimeLimit_.toBuilder();
+            }
+            lnsTimeLimit_ = input.readMessage(com.google.protobuf.Duration.parser(), extensionRegistry);
+            if (subBuilder != null) {
+              subBuilder.mergeFrom(lnsTimeLimit_);
+              lnsTimeLimit_ = subBuilder.buildPartial();
+            }
 
-            lnsTimeLimitMs_ = input.readInt64();
             break;
           }
           case 88: {
 
-            useLightPropagation_ = input.readBool();
-            break;
-          }
-          case 96: {
-
-            fingerprintArcCostEvaluators_ = input.readBool();
+            useFullPropagation_ = input.readBool();
             break;
           }
           case 104: {
@@ -150,6 +146,53 @@ private static final long serialVersionUID = 0L;
           case 120: {
 
             savingsAddReverseArcs_ = input.readBool();
+            break;
+          }
+          case 129: {
+
+            cheapestInsertionFarthestSeedsRatio_ = input.readDouble();
+            break;
+          }
+          case 136: {
+
+            numberOfSolutionsToCollect_ = input.readInt32();
+            break;
+          }
+          case 145: {
+
+            savingsArcCoefficient_ = input.readDouble();
+            break;
+          }
+          case 152: {
+
+            savingsParallelRoutes_ = input.readBool();
+            break;
+          }
+          case 160: {
+
+            relocateExpensiveChainNumArcsToConsider_ = input.readInt32();
+            break;
+          }
+          case 169: {
+
+            cheapestInsertionNeighborsRatio_ = input.readDouble();
+            break;
+          }
+          case 177: {
+
+            logCostScalingFactor_ = input.readDouble();
+            break;
+          }
+          case 185: {
+
+            savingsMaxMemoryUsageBytes_ = input.readDouble();
+            break;
+          }
+          default: {
+            if (!parseUnknownField(
+                input, unknownFields, extensionRegistry, tag)) {
+              done = true;
+            }
             break;
           }
         }
@@ -169,6 +212,7 @@ private static final long serialVersionUID = 0L;
     return com.google.ortools.constraintsolver.RoutingParameters.internal_static_operations_research_RoutingSearchParameters_descriptor;
   }
 
+  @Override
   protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internalGetFieldAccessorTable() {
     return com.google.ortools.constraintsolver.RoutingParameters.internal_static_operations_research_RoutingSearchParameters_fieldAccessorTable
@@ -193,15 +237,32 @@ private static final long serialVersionUID = 0L;
      *   1 -&gt; [4] -&gt;  2  -&gt;  3  -&gt; 5
      * </pre>
      *
-     * <code>bool use_relocate = 1;</code>
+     * <code>.operations_research.OptionalBoolean use_relocate = 1;</code>
      */
-    boolean getUseRelocate();
+    int getUseRelocateValue();
+    /**
+     * <pre>
+     * --- Inter-route operators ---
+     * Operator which moves a single node to another position.
+     * Possible neighbors for the path 1 -&gt; 2 -&gt; 3 -&gt; 4 -&gt; 5
+     * (where (1, 5) are first and last nodes of the path and can therefore not
+     * be moved):
+     *   1 -&gt;  3  -&gt; [2] -&gt;  4  -&gt; 5
+     *   1 -&gt;  3  -&gt;  4  -&gt; [2] -&gt; 5
+     *   1 -&gt;  2  -&gt;  4  -&gt; [3] -&gt; 5
+     *   1 -&gt; [4] -&gt;  2  -&gt;  3  -&gt; 5
+     * </pre>
+     *
+     * <code>.operations_research.OptionalBoolean use_relocate = 1;</code>
+     */
+    com.google.ortools.util.OptionalBoolean getUseRelocate();
 
     /**
      * <pre>
      * Operator which moves a pair of pickup and delivery nodes to another
      * position where the first node of the pair must be before the second node
-     * on the same path.
+     * on the same path. Compared to the light_relocate_pair operator, tries all
+     * possible positions of insertion of a pair (not only after another pair).
      * Possible neighbors for the path 1 -&gt; A -&gt; B -&gt; 2 -&gt; 3 (where (1, 3) are
      * first and last nodes of the path and can therefore not be moved, and
      * (A, B) is a pair of nodes):
@@ -209,9 +270,54 @@ private static final long serialVersionUID = 0L;
      *   1 -&gt;  2  -&gt; [A] -&gt; [B] -&gt; 3
      * </pre>
      *
-     * <code>bool use_relocate_pair = 2;</code>
+     * <code>.operations_research.OptionalBoolean use_relocate_pair = 2;</code>
      */
-    boolean getUseRelocatePair();
+    int getUseRelocatePairValue();
+    /**
+     * <pre>
+     * Operator which moves a pair of pickup and delivery nodes to another
+     * position where the first node of the pair must be before the second node
+     * on the same path. Compared to the light_relocate_pair operator, tries all
+     * possible positions of insertion of a pair (not only after another pair).
+     * Possible neighbors for the path 1 -&gt; A -&gt; B -&gt; 2 -&gt; 3 (where (1, 3) are
+     * first and last nodes of the path and can therefore not be moved, and
+     * (A, B) is a pair of nodes):
+     *   1 -&gt; [A] -&gt;  2  -&gt; [B] -&gt; 3
+     *   1 -&gt;  2  -&gt; [A] -&gt; [B] -&gt; 3
+     * </pre>
+     *
+     * <code>.operations_research.OptionalBoolean use_relocate_pair = 2;</code>
+     */
+    com.google.ortools.util.OptionalBoolean getUseRelocatePair();
+
+    /**
+     * <pre>
+     * Operator which moves a pair of pickup and delivery nodes after another
+     * pair.
+     * Possible neighbors for paths 1 -&gt; A -&gt; B -&gt; 2, 3 -&gt; C -&gt; D -&gt; 4 (where
+     * (1, 2) and (3, 4) are first and last nodes of paths and can therefore not
+     * be moved, and (A, B) and (C, D) are pair of nodes):
+     *   1 -&gt; 2, 3 -&gt; C -&gt; [A] -&gt; D -&gt; [B] -&gt; 4
+     *   1 -&gt; A -&gt; [C] -&gt; B -&gt; [D] -&gt; 2, 3 -&gt; 4
+     * </pre>
+     *
+     * <code>.operations_research.OptionalBoolean use_light_relocate_pair = 24;</code>
+     */
+    int getUseLightRelocatePairValue();
+    /**
+     * <pre>
+     * Operator which moves a pair of pickup and delivery nodes after another
+     * pair.
+     * Possible neighbors for paths 1 -&gt; A -&gt; B -&gt; 2, 3 -&gt; C -&gt; D -&gt; 4 (where
+     * (1, 2) and (3, 4) are first and last nodes of paths and can therefore not
+     * be moved, and (A, B) and (C, D) are pair of nodes):
+     *   1 -&gt; 2, 3 -&gt; C -&gt; [A] -&gt; D -&gt; [B] -&gt; 4
+     *   1 -&gt; A -&gt; [C] -&gt; B -&gt; [D] -&gt; 2, 3 -&gt; 4
+     * </pre>
+     *
+     * <code>.operations_research.OptionalBoolean use_light_relocate_pair = 24;</code>
+     */
+    com.google.ortools.util.OptionalBoolean getUseLightRelocatePair();
 
     /**
      * <pre>
@@ -239,9 +345,77 @@ private static final long serialVersionUID = 0L;
      * located at the same place (for instance nodes part of a same stop).
      * </pre>
      *
-     * <code>bool use_relocate_neighbors = 3;</code>
+     * <code>.operations_research.OptionalBoolean use_relocate_neighbors = 3;</code>
      */
-    boolean getUseRelocateNeighbors();
+    int getUseRelocateNeighborsValue();
+    /**
+     * <pre>
+     * Relocate neighborhood which moves chains of neighbors.
+     * The operator starts by relocating a node n after a node m, then continues
+     * moving nodes which were after n as long as the "cost" added is less than
+     * the "cost" of the arc (m, n). If the new chain doesn't respect the domain
+     * of next variables, it will try reordering the nodes until it finds a
+     * valid path.
+     * Possible neighbors for path 1 -&gt; A -&gt; B -&gt; C -&gt; D -&gt; E -&gt; 2 (where (1, 2)
+     * are first and last nodes of the path and can therefore not be moved, A
+     * must be performed before B, and A, D and E are located at the same
+     * place):
+     * 1 -&gt; A -&gt; C -&gt; [B] -&gt; D -&gt; E -&gt; 2
+     * 1 -&gt; A -&gt; C -&gt; D -&gt; [B] -&gt; E -&gt; 2
+     * 1 -&gt; A -&gt; C -&gt; D -&gt; E -&gt; [B] -&gt; 2
+     * 1 -&gt; A -&gt; B -&gt; D -&gt; [C] -&gt; E -&gt; 2
+     * 1 -&gt; A -&gt; B -&gt; D -&gt; E -&gt; [C] -&gt; 2
+     * 1 -&gt; A -&gt; [D] -&gt; [E] -&gt; B -&gt; C -&gt; 2
+     * 1 -&gt; A -&gt; B -&gt; [D] -&gt; [E] -&gt;  C -&gt; 2
+     * 1 -&gt; A -&gt; [E] -&gt; B -&gt; C -&gt; D -&gt; 2
+     * 1 -&gt; A -&gt; B -&gt; [E] -&gt; C -&gt; D -&gt; 2
+     * 1 -&gt; A -&gt; B -&gt; C -&gt; [E] -&gt; D -&gt; 2
+     * This operator is extremelly useful to move chains of nodes which are
+     * located at the same place (for instance nodes part of a same stop).
+     * </pre>
+     *
+     * <code>.operations_research.OptionalBoolean use_relocate_neighbors = 3;</code>
+     */
+    com.google.ortools.util.OptionalBoolean getUseRelocateNeighbors();
+
+    /**
+     * <pre>
+     * Relocate neighborhood that moves subpaths all pickup and delivery
+     * pairs have both pickup and delivery inside the subpath or both outside
+     * the subpath. For instance, for given paths:
+     * 0 -&gt; A -&gt; B -&gt; A' -&gt; B' -&gt; 5 -&gt; 6 -&gt; 8
+     * 7 -&gt; 9
+     * Pairs (A,A') and (B,B') are interleaved, so the expected neighbors are:
+     * 0 -&gt; 5 -&gt; A -&gt; B -&gt; A' -&gt; B' -&gt; 6 -&gt; 8
+     * 7 -&gt; 9
+     * 0 -&gt; 5 -&gt; 6 -&gt; A -&gt; B -&gt; A' -&gt; B' -&gt; 8
+     * 7 -&gt; 9
+     * 0 -&gt; 5 -&gt; 6 -&gt; 8
+     * 7 -&gt; A -&gt; B -&gt; A' -&gt; B' -&gt; 9
+     * </pre>
+     *
+     * <code>.operations_research.OptionalBoolean use_relocate_subtrip = 25;</code>
+     */
+    int getUseRelocateSubtripValue();
+    /**
+     * <pre>
+     * Relocate neighborhood that moves subpaths all pickup and delivery
+     * pairs have both pickup and delivery inside the subpath or both outside
+     * the subpath. For instance, for given paths:
+     * 0 -&gt; A -&gt; B -&gt; A' -&gt; B' -&gt; 5 -&gt; 6 -&gt; 8
+     * 7 -&gt; 9
+     * Pairs (A,A') and (B,B') are interleaved, so the expected neighbors are:
+     * 0 -&gt; 5 -&gt; A -&gt; B -&gt; A' -&gt; B' -&gt; 6 -&gt; 8
+     * 7 -&gt; 9
+     * 0 -&gt; 5 -&gt; 6 -&gt; A -&gt; B -&gt; A' -&gt; B' -&gt; 8
+     * 7 -&gt; 9
+     * 0 -&gt; 5 -&gt; 6 -&gt; 8
+     * 7 -&gt; A -&gt; B -&gt; A' -&gt; B' -&gt; 9
+     * </pre>
+     *
+     * <code>.operations_research.OptionalBoolean use_relocate_subtrip = 25;</code>
+     */
+    com.google.ortools.util.OptionalBoolean getUseRelocateSubtrip();
 
     /**
      * <pre>
@@ -254,9 +428,71 @@ private static final long serialVersionUID = 0L;
      *   1 -&gt;  2  -&gt; [4] -&gt; [3] -&gt; 5
      * </pre>
      *
-     * <code>bool use_exchange = 4;</code>
+     * <code>.operations_research.OptionalBoolean use_exchange = 4;</code>
      */
-    boolean getUseExchange();
+    int getUseExchangeValue();
+    /**
+     * <pre>
+     * Operator which exchanges the positions of two nodes.
+     * Possible neighbors for the path 1 -&gt; 2 -&gt; 3 -&gt; 4 -&gt; 5
+     * (where (1, 5) are first and last nodes of the path and can therefore not
+     * be moved):
+     *   1 -&gt; [3] -&gt; [2] -&gt;  4  -&gt; 5
+     *   1 -&gt; [4] -&gt;  3  -&gt; [2] -&gt; 5
+     *   1 -&gt;  2  -&gt; [4] -&gt; [3] -&gt; 5
+     * </pre>
+     *
+     * <code>.operations_research.OptionalBoolean use_exchange = 4;</code>
+     */
+    com.google.ortools.util.OptionalBoolean getUseExchange();
+
+    /**
+     * <pre>
+     * Operator which exchanges the positions of two pair of nodes. Pairs
+     * correspond to the pickup and delivery pairs defined in the routing model.
+     * Possible neighbor for the paths
+     * 1 -&gt; A -&gt; B -&gt; 2 -&gt; 3 and 4 -&gt; C -&gt; D -&gt; 5
+     * (where (1, 3) and (4, 5) are first and last nodes of the paths and can
+     * therefore not be moved, and (A, B) and (C,D) are pairs of nodes):
+     *   1 -&gt; [C] -&gt;  [D] -&gt; 2 -&gt; 3, 4 -&gt; [A] -&gt; [B] -&gt; 5
+     * </pre>
+     *
+     * <code>.operations_research.OptionalBoolean use_exchange_pair = 22;</code>
+     */
+    int getUseExchangePairValue();
+    /**
+     * <pre>
+     * Operator which exchanges the positions of two pair of nodes. Pairs
+     * correspond to the pickup and delivery pairs defined in the routing model.
+     * Possible neighbor for the paths
+     * 1 -&gt; A -&gt; B -&gt; 2 -&gt; 3 and 4 -&gt; C -&gt; D -&gt; 5
+     * (where (1, 3) and (4, 5) are first and last nodes of the paths and can
+     * therefore not be moved, and (A, B) and (C,D) are pairs of nodes):
+     *   1 -&gt; [C] -&gt;  [D] -&gt; 2 -&gt; 3, 4 -&gt; [A] -&gt; [B] -&gt; 5
+     * </pre>
+     *
+     * <code>.operations_research.OptionalBoolean use_exchange_pair = 22;</code>
+     */
+    com.google.ortools.util.OptionalBoolean getUseExchangePair();
+
+    /**
+     * <pre>
+     * Operator which exchanges subtrips associated to two pairs of nodes,
+     * see use_relocate_subtrip for a definition of subtrips.
+     * </pre>
+     *
+     * <code>.operations_research.OptionalBoolean use_exchange_subtrip = 26;</code>
+     */
+    int getUseExchangeSubtripValue();
+    /**
+     * <pre>
+     * Operator which exchanges subtrips associated to two pairs of nodes,
+     * see use_relocate_subtrip for a definition of subtrips.
+     * </pre>
+     *
+     * <code>.operations_research.OptionalBoolean use_exchange_subtrip = 26;</code>
+     */
+    com.google.ortools.util.OptionalBoolean getUseExchangeSubtrip();
 
     /**
      * <pre>
@@ -271,18 +507,77 @@ private static final long serialVersionUID = 0L;
      *   1 -&gt; [7] -&gt; 5            6 -&gt; [2 -&gt; 3 -&gt; 4] -&gt; 8
      * </pre>
      *
-     * <code>bool use_cross = 5;</code>
+     * <code>.operations_research.OptionalBoolean use_cross = 5;</code>
      */
-    boolean getUseCross();
+    int getUseCrossValue();
+    /**
+     * <pre>
+     * Operator which cross exchanges the starting chains of 2 paths, including
+     * exchanging the whole paths.
+     * First and last nodes are not moved.
+     * Possible neighbors for the paths 1 -&gt; 2 -&gt; 3 -&gt; 4 -&gt; 5 and 6 -&gt; 7 -&gt; 8
+     * (where (1, 5) and (6, 8) are first and last nodes of the paths and can
+     * therefore not be moved):
+     *   1 -&gt; [7] -&gt; 3 -&gt; 4 -&gt; 5  6 -&gt; [2] -&gt; 8
+     *   1 -&gt; [7] -&gt; 4 -&gt; 5       6 -&gt; [2 -&gt; 3] -&gt; 8
+     *   1 -&gt; [7] -&gt; 5            6 -&gt; [2 -&gt; 3 -&gt; 4] -&gt; 8
+     * </pre>
+     *
+     * <code>.operations_research.OptionalBoolean use_cross = 5;</code>
+     */
+    com.google.ortools.util.OptionalBoolean getUseCross();
 
     /**
      * <pre>
-     * Not implemented as of 10/2015.
+     * Not implemented yet. TODO(b/68128619): Implement.
      * </pre>
      *
-     * <code>bool use_cross_exchange = 6;</code>
+     * <code>.operations_research.OptionalBoolean use_cross_exchange = 6;</code>
      */
-    boolean getUseCrossExchange();
+    int getUseCrossExchangeValue();
+    /**
+     * <pre>
+     * Not implemented yet. TODO(b/68128619): Implement.
+     * </pre>
+     *
+     * <code>.operations_research.OptionalBoolean use_cross_exchange = 6;</code>
+     */
+    com.google.ortools.util.OptionalBoolean getUseCrossExchange();
+
+    /**
+     * <pre>
+     * Operator which detects the relocate_expensive_chain_num_arcs_to_consider
+     * most expensive arcs on a path, and moves the chain resulting from cutting
+     * pairs of arcs among these to another position.
+     * Possible neighbors for paths 1 -&gt; 2 (empty) and
+     * 3 -&gt; A ------&gt; B --&gt; C -----&gt; D -&gt; 4 (where A -&gt; B and C -&gt; D are the 2
+     * most expensive arcs, and the chain resulting from breaking them is
+     * B -&gt; C):
+     *   1 -&gt; [B -&gt; C] -&gt; 2     3 -&gt; A -&gt; D -&gt; 4
+     *   1 -&gt; 2      3 -&gt; [B -&gt; C] -&gt; A -&gt; D -&gt; 4
+     *   1 -&gt; 2      3 -&gt; A -&gt; D -&gt; [B -&gt; C] -&gt; 4
+     * </pre>
+     *
+     * <code>.operations_research.OptionalBoolean use_relocate_expensive_chain = 23;</code>
+     */
+    int getUseRelocateExpensiveChainValue();
+    /**
+     * <pre>
+     * Operator which detects the relocate_expensive_chain_num_arcs_to_consider
+     * most expensive arcs on a path, and moves the chain resulting from cutting
+     * pairs of arcs among these to another position.
+     * Possible neighbors for paths 1 -&gt; 2 (empty) and
+     * 3 -&gt; A ------&gt; B --&gt; C -----&gt; D -&gt; 4 (where A -&gt; B and C -&gt; D are the 2
+     * most expensive arcs, and the chain resulting from breaking them is
+     * B -&gt; C):
+     *   1 -&gt; [B -&gt; C] -&gt; 2     3 -&gt; A -&gt; D -&gt; 4
+     *   1 -&gt; 2      3 -&gt; [B -&gt; C] -&gt; A -&gt; D -&gt; 4
+     *   1 -&gt; 2      3 -&gt; A -&gt; D -&gt; [B -&gt; C] -&gt; 4
+     * </pre>
+     *
+     * <code>.operations_research.OptionalBoolean use_relocate_expensive_chain = 23;</code>
+     */
+    com.google.ortools.util.OptionalBoolean getUseRelocateExpensiveChain();
 
     /**
      * <pre>
@@ -298,9 +593,26 @@ private static final long serialVersionUID = 0L;
      *   1 -&gt;  2 -&gt; [4 -&gt; 3] -&gt; 5
      * </pre>
      *
-     * <code>bool use_two_opt = 7;</code>
+     * <code>.operations_research.OptionalBoolean use_two_opt = 7;</code>
      */
-    boolean getUseTwoOpt();
+    int getUseTwoOptValue();
+    /**
+     * <pre>
+     * --- Intra-route operators ---
+     * Operator which reverves a sub-chain of a path. It is called TwoOpt
+     * because it breaks two arcs on the path; resulting paths are called
+     * two-optimal.
+     * Possible neighbors for the path 1 -&gt; 2 -&gt; 3 -&gt; 4 -&gt; 5
+     * (where (1, 5) are first and last nodes of the path and can therefore not
+     * be moved):
+     *   1 -&gt; [3 -&gt; 2] -&gt; 4  -&gt; 5
+     *   1 -&gt; [4 -&gt; 3  -&gt; 2] -&gt; 5
+     *   1 -&gt;  2 -&gt; [4 -&gt; 3] -&gt; 5
+     * </pre>
+     *
+     * <code>.operations_research.OptionalBoolean use_two_opt = 7;</code>
+     */
+    com.google.ortools.util.OptionalBoolean getUseTwoOpt();
 
     /**
      * <pre>
@@ -317,9 +629,27 @@ private static final long serialVersionUID = 0L;
      * path).
      * </pre>
      *
-     * <code>bool use_or_opt = 8;</code>
+     * <code>.operations_research.OptionalBoolean use_or_opt = 8;</code>
      */
-    boolean getUseOrOpt();
+    int getUseOrOptValue();
+    /**
+     * <pre>
+     * Operator which moves sub-chains of a path of length 1, 2 and 3 to another
+     * position in the same path.
+     * When the length of the sub-chain is 1, the operator simply moves a node
+     * to another position.
+     * Possible neighbors for the path 1 -&gt; 2 -&gt; 3 -&gt; 4 -&gt; 5, for a sub-chain
+     * length of 2 (where (1, 5) are first and last nodes of the path and can
+     * therefore not be moved):
+     *   1 -&gt;  4 -&gt; [2 -&gt; 3] -&gt; 5
+     *   1 -&gt; [3 -&gt; 4] -&gt; 2  -&gt; 5
+     * The OR_OPT operator is a limited version of 3-Opt (breaks 3 arcs on a
+     * path).
+     * </pre>
+     *
+     * <code>.operations_research.OptionalBoolean use_or_opt = 8;</code>
+     */
+    com.google.ortools.util.OptionalBoolean getUseOrOpt();
 
     /**
      * <pre>
@@ -329,9 +659,20 @@ private static final long serialVersionUID = 0L;
      * the global gain is positive.
      * </pre>
      *
-     * <code>bool use_lin_kernighan = 9;</code>
+     * <code>.operations_research.OptionalBoolean use_lin_kernighan = 9;</code>
      */
-    boolean getUseLinKernighan();
+    int getUseLinKernighanValue();
+    /**
+     * <pre>
+     * Lin-Kernighan operator.
+     * While the accumulated local gain is positive, performs a 2-OPT or a 3-OPT
+     * move followed by a series of 2-OPT moves. Returns a neighbor for which
+     * the global gain is positive.
+     * </pre>
+     *
+     * <code>.operations_research.OptionalBoolean use_lin_kernighan = 9;</code>
+     */
+    com.google.ortools.util.OptionalBoolean getUseLinKernighan();
 
     /**
      * <pre>
@@ -343,9 +684,22 @@ private static final long serialVersionUID = 0L;
      * cost(A,i) = cost(1,i) and cost(i,A) = cost(i,6).
      * </pre>
      *
-     * <code>bool use_tsp_opt = 10;</code>
+     * <code>.operations_research.OptionalBoolean use_tsp_opt = 10;</code>
      */
-    boolean getUseTspOpt();
+    int getUseTspOptValue();
+    /**
+     * <pre>
+     * Sliding TSP operator.
+     * Uses an exact dynamic programming algorithm to solve the TSP
+     * corresponding to path sub-chains.
+     * For a subchain 1 -&gt; 2 -&gt; 3 -&gt; 4 -&gt; 5 -&gt; 6, solves the TSP on
+     * nodes A, 2, 3, 4, 5, where A is a merger of nodes 1 and 6 such that
+     * cost(A,i) = cost(1,i) and cost(i,A) = cost(i,6).
+     * </pre>
+     *
+     * <code>.operations_research.OptionalBoolean use_tsp_opt = 10;</code>
+     */
+    com.google.ortools.util.OptionalBoolean getUseTspOpt();
 
     /**
      * <pre>
@@ -358,9 +712,23 @@ private static final long serialVersionUID = 0L;
      *   1 -&gt;  2  -&gt;  3  -&gt; [5] -&gt; 4
      * </pre>
      *
-     * <code>bool use_make_active = 11;</code>
+     * <code>.operations_research.OptionalBoolean use_make_active = 11;</code>
      */
-    boolean getUseMakeActive();
+    int getUseMakeActiveValue();
+    /**
+     * <pre>
+     * --- Operators on inactive nodes ---
+     * Operator which inserts an inactive node into a path.
+     * Possible neighbors for the path 1 -&gt; 2 -&gt; 3 -&gt; 4 with 5 inactive
+     * (where 1 and 4 are first and last nodes of the path) are:
+     *   1 -&gt; [5] -&gt;  2  -&gt;  3  -&gt; 4
+     *   1 -&gt;  2  -&gt; [5] -&gt;  3  -&gt; 4
+     *   1 -&gt;  2  -&gt;  3  -&gt; [5] -&gt; 4
+     * </pre>
+     *
+     * <code>.operations_research.OptionalBoolean use_make_active = 11;</code>
+     */
+    com.google.ortools.util.OptionalBoolean getUseMakeActive();
 
     /**
      * <pre>
@@ -376,9 +744,26 @@ private static final long serialVersionUID = 0L;
      *   1 -&gt; 4 -&gt; 3 -&gt; 5, 2 -&gt; 6.
      * </pre>
      *
-     * <code>bool use_relocate_and_make_active = 21;</code>
+     * <code>.operations_research.OptionalBoolean use_relocate_and_make_active = 21;</code>
      */
-    boolean getUseRelocateAndMakeActive();
+    int getUseRelocateAndMakeActiveValue();
+    /**
+     * <pre>
+     * Operator which relocates a node while making an inactive one active.
+     * As of 3/2017, the operator is limited to two kinds of moves:
+     * - Relocating a node and replacing it by an inactive node.
+     *   Possible neighbor for path 1 -&gt; 5, 2 -&gt; 3 -&gt; 6 and 4 inactive
+     *   (where 1,2 and 5,6 are first and last nodes of paths) is:
+     *   1 -&gt; 3 -&gt; 5, 2 -&gt; 4 -&gt; 6.
+     * - Relocating a node and inserting an inactive node next to it.
+     *   Possible neighbor for path 1 -&gt; 5, 2 -&gt; 3 -&gt; 6 and 4 inactive
+     *   (where 1,2 and 5,6 are first and last nodes of paths) is:
+     *   1 -&gt; 4 -&gt; 3 -&gt; 5, 2 -&gt; 6.
+     * </pre>
+     *
+     * <code>.operations_research.OptionalBoolean use_relocate_and_make_active = 21;</code>
+     */
+    com.google.ortools.util.OptionalBoolean getUseRelocateAndMakeActive();
 
     /**
      * <pre>
@@ -389,9 +774,21 @@ private static final long serialVersionUID = 0L;
      *   1 -&gt; 2 -&gt; 4 with 3 inactive
      * </pre>
      *
-     * <code>bool use_make_inactive = 12;</code>
+     * <code>.operations_research.OptionalBoolean use_make_inactive = 12;</code>
      */
-    boolean getUseMakeInactive();
+    int getUseMakeInactiveValue();
+    /**
+     * <pre>
+     * Operator which makes path nodes inactive.
+     * Possible neighbors for the path 1 -&gt; 2 -&gt; 3 -&gt; 4 (where 1 and 4 are first
+     * and last nodes of the path) are:
+     *   1 -&gt; 3 -&gt; 4 with 2 inactive
+     *   1 -&gt; 2 -&gt; 4 with 3 inactive
+     * </pre>
+     *
+     * <code>.operations_research.OptionalBoolean use_make_inactive = 12;</code>
+     */
+    com.google.ortools.util.OptionalBoolean getUseMakeInactive();
 
     /**
      * <pre>
@@ -403,9 +800,22 @@ private static final long serialVersionUID = 0L;
      *   1 -&gt; 4 with 2 and 3 inactive
      * </pre>
      *
-     * <code>bool use_make_chain_inactive = 13;</code>
+     * <code>.operations_research.OptionalBoolean use_make_chain_inactive = 13;</code>
      */
-    boolean getUseMakeChainInactive();
+    int getUseMakeChainInactiveValue();
+    /**
+     * <pre>
+     * Operator which makes a "chain" of path nodes inactive.
+     * Possible neighbors for the path 1 -&gt; 2 -&gt; 3 -&gt; 4 (where 1 and 4 are first
+     * and last nodes of the path) are:
+     *   1 -&gt; 3 -&gt; 4 with 2 inactive
+     *   1 -&gt; 2 -&gt; 4 with 3 inactive
+     *   1 -&gt; 4 with 2 and 3 inactive
+     * </pre>
+     *
+     * <code>.operations_research.OptionalBoolean use_make_chain_inactive = 13;</code>
+     */
+    com.google.ortools.util.OptionalBoolean getUseMakeChainInactive();
 
     /**
      * <pre>
@@ -416,9 +826,21 @@ private static final long serialVersionUID = 0L;
      *   1 -&gt;  2  -&gt; [5] -&gt; 4 with 3 inactive
      * </pre>
      *
-     * <code>bool use_swap_active = 14;</code>
+     * <code>.operations_research.OptionalBoolean use_swap_active = 14;</code>
      */
-    boolean getUseSwapActive();
+    int getUseSwapActiveValue();
+    /**
+     * <pre>
+     * Operator which replaces an active node by an inactive one.
+     * Possible neighbors for the path 1 -&gt; 2 -&gt; 3 -&gt; 4 with 5 inactive
+     * (where 1 and 4 are first and last nodes of the path) are:
+     *   1 -&gt; [5] -&gt;  3  -&gt; 4 with 2 inactive
+     *   1 -&gt;  2  -&gt; [5] -&gt; 4 with 3 inactive
+     * </pre>
+     *
+     * <code>.operations_research.OptionalBoolean use_swap_active = 14;</code>
+     */
+    com.google.ortools.util.OptionalBoolean getUseSwapActive();
 
     /**
      * <pre>
@@ -434,9 +856,26 @@ private static final long serialVersionUID = 0L;
      *   1 -&gt;  2  -&gt; [5] -&gt; 4 with 3 inactive
      * </pre>
      *
-     * <code>bool use_extended_swap_active = 15;</code>
+     * <code>.operations_research.OptionalBoolean use_extended_swap_active = 15;</code>
      */
-    boolean getUseExtendedSwapActive();
+    int getUseExtendedSwapActiveValue();
+    /**
+     * <pre>
+     * Operator which makes an inactive node active and an active one inactive.
+     * It is similar to SwapActiveOperator excepts that it tries to insert the
+     * inactive node in all possible positions instead of just the position of
+     * the node made inactive.
+     * Possible neighbors for the path 1 -&gt; 2 -&gt; 3 -&gt; 4 with 5 inactive
+     * (where 1 and 4 are first and last nodes of the path) are:
+     *   1 -&gt; [5] -&gt;  3  -&gt; 4 with 2 inactive
+     *   1 -&gt;  3  -&gt; [5] -&gt; 4 with 2 inactive
+     *   1 -&gt; [5] -&gt;  2  -&gt; 4 with 3 inactive
+     *   1 -&gt;  2  -&gt; [5] -&gt; 4 with 3 inactive
+     * </pre>
+     *
+     * <code>.operations_research.OptionalBoolean use_extended_swap_active = 15;</code>
+     */
+    com.google.ortools.util.OptionalBoolean getUseExtendedSwapActive();
 
     /**
      * <pre>
@@ -453,9 +892,27 @@ private static final long serialVersionUID = 0L;
      *   1 -&gt; [4] -&gt; [5] -&gt; 3 with 2 inactive
      * </pre>
      *
-     * <code>bool use_node_pair_swap_active = 20;</code>
+     * <code>.operations_research.OptionalBoolean use_node_pair_swap_active = 20;</code>
      */
-    boolean getUseNodePairSwapActive();
+    int getUseNodePairSwapActiveValue();
+    /**
+     * <pre>
+     * Operator which makes an inactive node active and an active pair of nodes
+     * inactive OR makes an inactive pair of nodes active and an active node
+     * inactive.
+     * Possible neighbors for the path 1 -&gt; 2 -&gt; 3 -&gt; 4 with 5 inactive
+     * (where 1 and 4 are first and last nodes of the path and (2,3) is a pair
+     * of nodes) are:
+     *   1 -&gt; [5] -&gt; 4 with (2,3) inactive
+     * Possible neighbors for the path 1 -&gt; 2 -&gt; 3 with (4,5) inactive
+     * (where 1 and 3 are first and last nodes of the path and (4,5) is a pair
+     * of nodes) are:
+     *   1 -&gt; [4] -&gt; [5] -&gt; 3 with 2 inactive
+     * </pre>
+     *
+     * <code>.operations_research.OptionalBoolean use_node_pair_swap_active = 20;</code>
+     */
+    com.google.ortools.util.OptionalBoolean getUseNodePairSwapActive();
 
     /**
      * <pre>
@@ -469,18 +926,41 @@ private static final long serialVersionUID = 0L;
      * overlap.
      * </pre>
      *
-     * <code>bool use_path_lns = 16;</code>
+     * <code>.operations_research.OptionalBoolean use_path_lns = 16;</code>
      */
-    boolean getUsePathLns();
+    int getUsePathLnsValue();
+    /**
+     * <pre>
+     * --- Large neighborhood search operators ---
+     * Operator which relaxes two sub-chains of three consecutive arcs each.
+     * Each sub-chain is defined by a start node and the next three arcs. Those
+     * six arcs are relaxed to build a new neighbor.
+     * PATH_LNS explores all possible pairs of starting nodes and so defines
+     * n^2 neighbors, n being the number of nodes.
+     * Note that the two sub-chains can be part of the same path; they even may
+     * overlap.
+     * </pre>
+     *
+     * <code>.operations_research.OptionalBoolean use_path_lns = 16;</code>
+     */
+    com.google.ortools.util.OptionalBoolean getUsePathLns();
 
     /**
      * <pre>
      * Operator which relaxes one entire path and all unactive nodes.
      * </pre>
      *
-     * <code>bool use_full_path_lns = 17;</code>
+     * <code>.operations_research.OptionalBoolean use_full_path_lns = 17;</code>
      */
-    boolean getUseFullPathLns();
+    int getUseFullPathLnsValue();
+    /**
+     * <pre>
+     * Operator which relaxes one entire path and all unactive nodes.
+     * </pre>
+     *
+     * <code>.operations_research.OptionalBoolean use_full_path_lns = 17;</code>
+     */
+    com.google.ortools.util.OptionalBoolean getUseFullPathLns();
 
     /**
      * <pre>
@@ -492,9 +972,22 @@ private static final long serialVersionUID = 0L;
      * node to serve as base of a meta-node.
      * </pre>
      *
-     * <code>bool use_tsp_lns = 18;</code>
+     * <code>.operations_research.OptionalBoolean use_tsp_lns = 18;</code>
      */
-    boolean getUseTspLns();
+    int getUseTspLnsValue();
+    /**
+     * <pre>
+     * TSP-base LNS.
+     * Randomly merges consecutive nodes until n "meta"-nodes remain and solves
+     * the corresponding TSP.
+     * This defines an "unlimited" neighborhood which must be stopped by search
+     * limits. To force diversification, the operator iteratively forces each
+     * node to serve as base of a meta-node.
+     * </pre>
+     *
+     * <code>.operations_research.OptionalBoolean use_tsp_lns = 18;</code>
+     */
+    com.google.ortools.util.OptionalBoolean getUseTspLns();
 
     /**
      * <pre>
@@ -503,13 +996,24 @@ private static final long serialVersionUID = 0L;
      * nodes or swaping arcs.
      * </pre>
      *
-     * <code>bool use_inactive_lns = 19;</code>
+     * <code>.operations_research.OptionalBoolean use_inactive_lns = 19;</code>
      */
-    boolean getUseInactiveLns();
+    int getUseInactiveLnsValue();
+    /**
+     * <pre>
+     * Operator which relaxes all inactive nodes and one sub-chain of six
+     * consecutive arcs. That way the path can be improved by inserting inactive
+     * nodes or swaping arcs.
+     * </pre>
+     *
+     * <code>.operations_research.OptionalBoolean use_inactive_lns = 19;</code>
+     */
+    com.google.ortools.util.OptionalBoolean getUseInactiveLns();
   }
   /**
    * <pre>
    * Local search neighborhood operators used to build a solutions neighborhood.
+   * Next ID: 27
    * </pre>
    *
    * Protobuf type {@code operations_research.RoutingSearchParameters.LocalSearchNeighborhoodOperators}
@@ -524,30 +1028,35 @@ private static final long serialVersionUID = 0L;
       super(builder);
     }
     private LocalSearchNeighborhoodOperators() {
-      useRelocate_ = false;
-      useRelocatePair_ = false;
-      useRelocateNeighbors_ = false;
-      useExchange_ = false;
-      useCross_ = false;
-      useCrossExchange_ = false;
-      useTwoOpt_ = false;
-      useOrOpt_ = false;
-      useLinKernighan_ = false;
-      useTspOpt_ = false;
-      useMakeActive_ = false;
-      useRelocateAndMakeActive_ = false;
-      useMakeInactive_ = false;
-      useMakeChainInactive_ = false;
-      useSwapActive_ = false;
-      useExtendedSwapActive_ = false;
-      useNodePairSwapActive_ = false;
-      usePathLns_ = false;
-      useFullPathLns_ = false;
-      useTspLns_ = false;
-      useInactiveLns_ = false;
+      useRelocate_ = 0;
+      useRelocatePair_ = 0;
+      useLightRelocatePair_ = 0;
+      useRelocateNeighbors_ = 0;
+      useRelocateSubtrip_ = 0;
+      useExchange_ = 0;
+      useExchangePair_ = 0;
+      useExchangeSubtrip_ = 0;
+      useCross_ = 0;
+      useCrossExchange_ = 0;
+      useRelocateExpensiveChain_ = 0;
+      useTwoOpt_ = 0;
+      useOrOpt_ = 0;
+      useLinKernighan_ = 0;
+      useTspOpt_ = 0;
+      useMakeActive_ = 0;
+      useRelocateAndMakeActive_ = 0;
+      useMakeInactive_ = 0;
+      useMakeChainInactive_ = 0;
+      useSwapActive_ = 0;
+      useExtendedSwapActive_ = 0;
+      useNodePairSwapActive_ = 0;
+      usePathLns_ = 0;
+      useFullPathLns_ = 0;
+      useTspLns_ = 0;
+      useInactiveLns_ = 0;
     }
 
-    @java.lang.Override
+    @Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
       return this.unknownFields;
@@ -558,7 +1067,7 @@ private static final long serialVersionUID = 0L;
         throws com.google.protobuf.InvalidProtocolBufferException {
       this();
       if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
+        throw new NullPointerException();
       }
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
@@ -571,116 +1080,167 @@ private static final long serialVersionUID = 0L;
             case 0:
               done = true;
               break;
-            default: {
-              if (!parseUnknownFieldProto3(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
             case 8: {
+              int rawValue = input.readEnum();
 
-              useRelocate_ = input.readBool();
+              useRelocate_ = rawValue;
               break;
             }
             case 16: {
+              int rawValue = input.readEnum();
 
-              useRelocatePair_ = input.readBool();
+              useRelocatePair_ = rawValue;
               break;
             }
             case 24: {
+              int rawValue = input.readEnum();
 
-              useRelocateNeighbors_ = input.readBool();
+              useRelocateNeighbors_ = rawValue;
               break;
             }
             case 32: {
+              int rawValue = input.readEnum();
 
-              useExchange_ = input.readBool();
+              useExchange_ = rawValue;
               break;
             }
             case 40: {
+              int rawValue = input.readEnum();
 
-              useCross_ = input.readBool();
+              useCross_ = rawValue;
               break;
             }
             case 48: {
+              int rawValue = input.readEnum();
 
-              useCrossExchange_ = input.readBool();
+              useCrossExchange_ = rawValue;
               break;
             }
             case 56: {
+              int rawValue = input.readEnum();
 
-              useTwoOpt_ = input.readBool();
+              useTwoOpt_ = rawValue;
               break;
             }
             case 64: {
+              int rawValue = input.readEnum();
 
-              useOrOpt_ = input.readBool();
+              useOrOpt_ = rawValue;
               break;
             }
             case 72: {
+              int rawValue = input.readEnum();
 
-              useLinKernighan_ = input.readBool();
+              useLinKernighan_ = rawValue;
               break;
             }
             case 80: {
+              int rawValue = input.readEnum();
 
-              useTspOpt_ = input.readBool();
+              useTspOpt_ = rawValue;
               break;
             }
             case 88: {
+              int rawValue = input.readEnum();
 
-              useMakeActive_ = input.readBool();
+              useMakeActive_ = rawValue;
               break;
             }
             case 96: {
+              int rawValue = input.readEnum();
 
-              useMakeInactive_ = input.readBool();
+              useMakeInactive_ = rawValue;
               break;
             }
             case 104: {
+              int rawValue = input.readEnum();
 
-              useMakeChainInactive_ = input.readBool();
+              useMakeChainInactive_ = rawValue;
               break;
             }
             case 112: {
+              int rawValue = input.readEnum();
 
-              useSwapActive_ = input.readBool();
+              useSwapActive_ = rawValue;
               break;
             }
             case 120: {
+              int rawValue = input.readEnum();
 
-              useExtendedSwapActive_ = input.readBool();
+              useExtendedSwapActive_ = rawValue;
               break;
             }
             case 128: {
+              int rawValue = input.readEnum();
 
-              usePathLns_ = input.readBool();
+              usePathLns_ = rawValue;
               break;
             }
             case 136: {
+              int rawValue = input.readEnum();
 
-              useFullPathLns_ = input.readBool();
+              useFullPathLns_ = rawValue;
               break;
             }
             case 144: {
+              int rawValue = input.readEnum();
 
-              useTspLns_ = input.readBool();
+              useTspLns_ = rawValue;
               break;
             }
             case 152: {
+              int rawValue = input.readEnum();
 
-              useInactiveLns_ = input.readBool();
+              useInactiveLns_ = rawValue;
               break;
             }
             case 160: {
+              int rawValue = input.readEnum();
 
-              useNodePairSwapActive_ = input.readBool();
+              useNodePairSwapActive_ = rawValue;
               break;
             }
             case 168: {
+              int rawValue = input.readEnum();
 
-              useRelocateAndMakeActive_ = input.readBool();
+              useRelocateAndMakeActive_ = rawValue;
+              break;
+            }
+            case 176: {
+              int rawValue = input.readEnum();
+
+              useExchangePair_ = rawValue;
+              break;
+            }
+            case 184: {
+              int rawValue = input.readEnum();
+
+              useRelocateExpensiveChain_ = rawValue;
+              break;
+            }
+            case 192: {
+              int rawValue = input.readEnum();
+
+              useLightRelocatePair_ = rawValue;
+              break;
+            }
+            case 200: {
+              int rawValue = input.readEnum();
+
+              useRelocateSubtrip_ = rawValue;
+              break;
+            }
+            case 208: {
+              int rawValue = input.readEnum();
+
+              useExchangeSubtrip_ = rawValue;
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
               break;
             }
           }
@@ -700,6 +1260,7 @@ private static final long serialVersionUID = 0L;
       return com.google.ortools.constraintsolver.RoutingParameters.internal_static_operations_research_RoutingSearchParameters_LocalSearchNeighborhoodOperators_descriptor;
     }
 
+    @Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.google.ortools.constraintsolver.RoutingParameters.internal_static_operations_research_RoutingSearchParameters_LocalSearchNeighborhoodOperators_fieldAccessorTable
@@ -708,7 +1269,7 @@ private static final long serialVersionUID = 0L;
     }
 
     public static final int USE_RELOCATE_FIELD_NUMBER = 1;
-    private boolean useRelocate_;
+    private int useRelocate_;
     /**
      * <pre>
      * --- Inter-route operators ---
@@ -722,19 +1283,40 @@ private static final long serialVersionUID = 0L;
      *   1 -&gt; [4] -&gt;  2  -&gt;  3  -&gt; 5
      * </pre>
      *
-     * <code>bool use_relocate = 1;</code>
+     * <code>.operations_research.OptionalBoolean use_relocate = 1;</code>
      */
-    public boolean getUseRelocate() {
+    public int getUseRelocateValue() {
       return useRelocate_;
+    }
+    /**
+     * <pre>
+     * --- Inter-route operators ---
+     * Operator which moves a single node to another position.
+     * Possible neighbors for the path 1 -&gt; 2 -&gt; 3 -&gt; 4 -&gt; 5
+     * (where (1, 5) are first and last nodes of the path and can therefore not
+     * be moved):
+     *   1 -&gt;  3  -&gt; [2] -&gt;  4  -&gt; 5
+     *   1 -&gt;  3  -&gt;  4  -&gt; [2] -&gt; 5
+     *   1 -&gt;  2  -&gt;  4  -&gt; [3] -&gt; 5
+     *   1 -&gt; [4] -&gt;  2  -&gt;  3  -&gt; 5
+     * </pre>
+     *
+     * <code>.operations_research.OptionalBoolean use_relocate = 1;</code>
+     */
+    public com.google.ortools.util.OptionalBoolean getUseRelocate() {
+      @SuppressWarnings("deprecation")
+      com.google.ortools.util.OptionalBoolean result = com.google.ortools.util.OptionalBoolean.valueOf(useRelocate_);
+      return result == null ? com.google.ortools.util.OptionalBoolean.UNRECOGNIZED : result;
     }
 
     public static final int USE_RELOCATE_PAIR_FIELD_NUMBER = 2;
-    private boolean useRelocatePair_;
+    private int useRelocatePair_;
     /**
      * <pre>
      * Operator which moves a pair of pickup and delivery nodes to another
      * position where the first node of the pair must be before the second node
-     * on the same path.
+     * on the same path. Compared to the light_relocate_pair operator, tries all
+     * possible positions of insertion of a pair (not only after another pair).
      * Possible neighbors for the path 1 -&gt; A -&gt; B -&gt; 2 -&gt; 3 (where (1, 3) are
      * first and last nodes of the path and can therefore not be moved, and
      * (A, B) is a pair of nodes):
@@ -742,14 +1324,71 @@ private static final long serialVersionUID = 0L;
      *   1 -&gt;  2  -&gt; [A] -&gt; [B] -&gt; 3
      * </pre>
      *
-     * <code>bool use_relocate_pair = 2;</code>
+     * <code>.operations_research.OptionalBoolean use_relocate_pair = 2;</code>
      */
-    public boolean getUseRelocatePair() {
+    public int getUseRelocatePairValue() {
       return useRelocatePair_;
+    }
+    /**
+     * <pre>
+     * Operator which moves a pair of pickup and delivery nodes to another
+     * position where the first node of the pair must be before the second node
+     * on the same path. Compared to the light_relocate_pair operator, tries all
+     * possible positions of insertion of a pair (not only after another pair).
+     * Possible neighbors for the path 1 -&gt; A -&gt; B -&gt; 2 -&gt; 3 (where (1, 3) are
+     * first and last nodes of the path and can therefore not be moved, and
+     * (A, B) is a pair of nodes):
+     *   1 -&gt; [A] -&gt;  2  -&gt; [B] -&gt; 3
+     *   1 -&gt;  2  -&gt; [A] -&gt; [B] -&gt; 3
+     * </pre>
+     *
+     * <code>.operations_research.OptionalBoolean use_relocate_pair = 2;</code>
+     */
+    public com.google.ortools.util.OptionalBoolean getUseRelocatePair() {
+      @SuppressWarnings("deprecation")
+      com.google.ortools.util.OptionalBoolean result = com.google.ortools.util.OptionalBoolean.valueOf(useRelocatePair_);
+      return result == null ? com.google.ortools.util.OptionalBoolean.UNRECOGNIZED : result;
+    }
+
+    public static final int USE_LIGHT_RELOCATE_PAIR_FIELD_NUMBER = 24;
+    private int useLightRelocatePair_;
+    /**
+     * <pre>
+     * Operator which moves a pair of pickup and delivery nodes after another
+     * pair.
+     * Possible neighbors for paths 1 -&gt; A -&gt; B -&gt; 2, 3 -&gt; C -&gt; D -&gt; 4 (where
+     * (1, 2) and (3, 4) are first and last nodes of paths and can therefore not
+     * be moved, and (A, B) and (C, D) are pair of nodes):
+     *   1 -&gt; 2, 3 -&gt; C -&gt; [A] -&gt; D -&gt; [B] -&gt; 4
+     *   1 -&gt; A -&gt; [C] -&gt; B -&gt; [D] -&gt; 2, 3 -&gt; 4
+     * </pre>
+     *
+     * <code>.operations_research.OptionalBoolean use_light_relocate_pair = 24;</code>
+     */
+    public int getUseLightRelocatePairValue() {
+      return useLightRelocatePair_;
+    }
+    /**
+     * <pre>
+     * Operator which moves a pair of pickup and delivery nodes after another
+     * pair.
+     * Possible neighbors for paths 1 -&gt; A -&gt; B -&gt; 2, 3 -&gt; C -&gt; D -&gt; 4 (where
+     * (1, 2) and (3, 4) are first and last nodes of paths and can therefore not
+     * be moved, and (A, B) and (C, D) are pair of nodes):
+     *   1 -&gt; 2, 3 -&gt; C -&gt; [A] -&gt; D -&gt; [B] -&gt; 4
+     *   1 -&gt; A -&gt; [C] -&gt; B -&gt; [D] -&gt; 2, 3 -&gt; 4
+     * </pre>
+     *
+     * <code>.operations_research.OptionalBoolean use_light_relocate_pair = 24;</code>
+     */
+    public com.google.ortools.util.OptionalBoolean getUseLightRelocatePair() {
+      @SuppressWarnings("deprecation")
+      com.google.ortools.util.OptionalBoolean result = com.google.ortools.util.OptionalBoolean.valueOf(useLightRelocatePair_);
+      return result == null ? com.google.ortools.util.OptionalBoolean.UNRECOGNIZED : result;
     }
 
     public static final int USE_RELOCATE_NEIGHBORS_FIELD_NUMBER = 3;
-    private boolean useRelocateNeighbors_;
+    private int useRelocateNeighbors_;
     /**
      * <pre>
      * Relocate neighborhood which moves chains of neighbors.
@@ -776,14 +1415,94 @@ private static final long serialVersionUID = 0L;
      * located at the same place (for instance nodes part of a same stop).
      * </pre>
      *
-     * <code>bool use_relocate_neighbors = 3;</code>
+     * <code>.operations_research.OptionalBoolean use_relocate_neighbors = 3;</code>
      */
-    public boolean getUseRelocateNeighbors() {
+    public int getUseRelocateNeighborsValue() {
       return useRelocateNeighbors_;
+    }
+    /**
+     * <pre>
+     * Relocate neighborhood which moves chains of neighbors.
+     * The operator starts by relocating a node n after a node m, then continues
+     * moving nodes which were after n as long as the "cost" added is less than
+     * the "cost" of the arc (m, n). If the new chain doesn't respect the domain
+     * of next variables, it will try reordering the nodes until it finds a
+     * valid path.
+     * Possible neighbors for path 1 -&gt; A -&gt; B -&gt; C -&gt; D -&gt; E -&gt; 2 (where (1, 2)
+     * are first and last nodes of the path and can therefore not be moved, A
+     * must be performed before B, and A, D and E are located at the same
+     * place):
+     * 1 -&gt; A -&gt; C -&gt; [B] -&gt; D -&gt; E -&gt; 2
+     * 1 -&gt; A -&gt; C -&gt; D -&gt; [B] -&gt; E -&gt; 2
+     * 1 -&gt; A -&gt; C -&gt; D -&gt; E -&gt; [B] -&gt; 2
+     * 1 -&gt; A -&gt; B -&gt; D -&gt; [C] -&gt; E -&gt; 2
+     * 1 -&gt; A -&gt; B -&gt; D -&gt; E -&gt; [C] -&gt; 2
+     * 1 -&gt; A -&gt; [D] -&gt; [E] -&gt; B -&gt; C -&gt; 2
+     * 1 -&gt; A -&gt; B -&gt; [D] -&gt; [E] -&gt;  C -&gt; 2
+     * 1 -&gt; A -&gt; [E] -&gt; B -&gt; C -&gt; D -&gt; 2
+     * 1 -&gt; A -&gt; B -&gt; [E] -&gt; C -&gt; D -&gt; 2
+     * 1 -&gt; A -&gt; B -&gt; C -&gt; [E] -&gt; D -&gt; 2
+     * This operator is extremelly useful to move chains of nodes which are
+     * located at the same place (for instance nodes part of a same stop).
+     * </pre>
+     *
+     * <code>.operations_research.OptionalBoolean use_relocate_neighbors = 3;</code>
+     */
+    public com.google.ortools.util.OptionalBoolean getUseRelocateNeighbors() {
+      @SuppressWarnings("deprecation")
+      com.google.ortools.util.OptionalBoolean result = com.google.ortools.util.OptionalBoolean.valueOf(useRelocateNeighbors_);
+      return result == null ? com.google.ortools.util.OptionalBoolean.UNRECOGNIZED : result;
+    }
+
+    public static final int USE_RELOCATE_SUBTRIP_FIELD_NUMBER = 25;
+    private int useRelocateSubtrip_;
+    /**
+     * <pre>
+     * Relocate neighborhood that moves subpaths all pickup and delivery
+     * pairs have both pickup and delivery inside the subpath or both outside
+     * the subpath. For instance, for given paths:
+     * 0 -&gt; A -&gt; B -&gt; A' -&gt; B' -&gt; 5 -&gt; 6 -&gt; 8
+     * 7 -&gt; 9
+     * Pairs (A,A') and (B,B') are interleaved, so the expected neighbors are:
+     * 0 -&gt; 5 -&gt; A -&gt; B -&gt; A' -&gt; B' -&gt; 6 -&gt; 8
+     * 7 -&gt; 9
+     * 0 -&gt; 5 -&gt; 6 -&gt; A -&gt; B -&gt; A' -&gt; B' -&gt; 8
+     * 7 -&gt; 9
+     * 0 -&gt; 5 -&gt; 6 -&gt; 8
+     * 7 -&gt; A -&gt; B -&gt; A' -&gt; B' -&gt; 9
+     * </pre>
+     *
+     * <code>.operations_research.OptionalBoolean use_relocate_subtrip = 25;</code>
+     */
+    public int getUseRelocateSubtripValue() {
+      return useRelocateSubtrip_;
+    }
+    /**
+     * <pre>
+     * Relocate neighborhood that moves subpaths all pickup and delivery
+     * pairs have both pickup and delivery inside the subpath or both outside
+     * the subpath. For instance, for given paths:
+     * 0 -&gt; A -&gt; B -&gt; A' -&gt; B' -&gt; 5 -&gt; 6 -&gt; 8
+     * 7 -&gt; 9
+     * Pairs (A,A') and (B,B') are interleaved, so the expected neighbors are:
+     * 0 -&gt; 5 -&gt; A -&gt; B -&gt; A' -&gt; B' -&gt; 6 -&gt; 8
+     * 7 -&gt; 9
+     * 0 -&gt; 5 -&gt; 6 -&gt; A -&gt; B -&gt; A' -&gt; B' -&gt; 8
+     * 7 -&gt; 9
+     * 0 -&gt; 5 -&gt; 6 -&gt; 8
+     * 7 -&gt; A -&gt; B -&gt; A' -&gt; B' -&gt; 9
+     * </pre>
+     *
+     * <code>.operations_research.OptionalBoolean use_relocate_subtrip = 25;</code>
+     */
+    public com.google.ortools.util.OptionalBoolean getUseRelocateSubtrip() {
+      @SuppressWarnings("deprecation")
+      com.google.ortools.util.OptionalBoolean result = com.google.ortools.util.OptionalBoolean.valueOf(useRelocateSubtrip_);
+      return result == null ? com.google.ortools.util.OptionalBoolean.UNRECOGNIZED : result;
     }
 
     public static final int USE_EXCHANGE_FIELD_NUMBER = 4;
-    private boolean useExchange_;
+    private int useExchange_;
     /**
      * <pre>
      * Operator which exchanges the positions of two nodes.
@@ -795,14 +1514,96 @@ private static final long serialVersionUID = 0L;
      *   1 -&gt;  2  -&gt; [4] -&gt; [3] -&gt; 5
      * </pre>
      *
-     * <code>bool use_exchange = 4;</code>
+     * <code>.operations_research.OptionalBoolean use_exchange = 4;</code>
      */
-    public boolean getUseExchange() {
+    public int getUseExchangeValue() {
       return useExchange_;
+    }
+    /**
+     * <pre>
+     * Operator which exchanges the positions of two nodes.
+     * Possible neighbors for the path 1 -&gt; 2 -&gt; 3 -&gt; 4 -&gt; 5
+     * (where (1, 5) are first and last nodes of the path and can therefore not
+     * be moved):
+     *   1 -&gt; [3] -&gt; [2] -&gt;  4  -&gt; 5
+     *   1 -&gt; [4] -&gt;  3  -&gt; [2] -&gt; 5
+     *   1 -&gt;  2  -&gt; [4] -&gt; [3] -&gt; 5
+     * </pre>
+     *
+     * <code>.operations_research.OptionalBoolean use_exchange = 4;</code>
+     */
+    public com.google.ortools.util.OptionalBoolean getUseExchange() {
+      @SuppressWarnings("deprecation")
+      com.google.ortools.util.OptionalBoolean result = com.google.ortools.util.OptionalBoolean.valueOf(useExchange_);
+      return result == null ? com.google.ortools.util.OptionalBoolean.UNRECOGNIZED : result;
+    }
+
+    public static final int USE_EXCHANGE_PAIR_FIELD_NUMBER = 22;
+    private int useExchangePair_;
+    /**
+     * <pre>
+     * Operator which exchanges the positions of two pair of nodes. Pairs
+     * correspond to the pickup and delivery pairs defined in the routing model.
+     * Possible neighbor for the paths
+     * 1 -&gt; A -&gt; B -&gt; 2 -&gt; 3 and 4 -&gt; C -&gt; D -&gt; 5
+     * (where (1, 3) and (4, 5) are first and last nodes of the paths and can
+     * therefore not be moved, and (A, B) and (C,D) are pairs of nodes):
+     *   1 -&gt; [C] -&gt;  [D] -&gt; 2 -&gt; 3, 4 -&gt; [A] -&gt; [B] -&gt; 5
+     * </pre>
+     *
+     * <code>.operations_research.OptionalBoolean use_exchange_pair = 22;</code>
+     */
+    public int getUseExchangePairValue() {
+      return useExchangePair_;
+    }
+    /**
+     * <pre>
+     * Operator which exchanges the positions of two pair of nodes. Pairs
+     * correspond to the pickup and delivery pairs defined in the routing model.
+     * Possible neighbor for the paths
+     * 1 -&gt; A -&gt; B -&gt; 2 -&gt; 3 and 4 -&gt; C -&gt; D -&gt; 5
+     * (where (1, 3) and (4, 5) are first and last nodes of the paths and can
+     * therefore not be moved, and (A, B) and (C,D) are pairs of nodes):
+     *   1 -&gt; [C] -&gt;  [D] -&gt; 2 -&gt; 3, 4 -&gt; [A] -&gt; [B] -&gt; 5
+     * </pre>
+     *
+     * <code>.operations_research.OptionalBoolean use_exchange_pair = 22;</code>
+     */
+    public com.google.ortools.util.OptionalBoolean getUseExchangePair() {
+      @SuppressWarnings("deprecation")
+      com.google.ortools.util.OptionalBoolean result = com.google.ortools.util.OptionalBoolean.valueOf(useExchangePair_);
+      return result == null ? com.google.ortools.util.OptionalBoolean.UNRECOGNIZED : result;
+    }
+
+    public static final int USE_EXCHANGE_SUBTRIP_FIELD_NUMBER = 26;
+    private int useExchangeSubtrip_;
+    /**
+     * <pre>
+     * Operator which exchanges subtrips associated to two pairs of nodes,
+     * see use_relocate_subtrip for a definition of subtrips.
+     * </pre>
+     *
+     * <code>.operations_research.OptionalBoolean use_exchange_subtrip = 26;</code>
+     */
+    public int getUseExchangeSubtripValue() {
+      return useExchangeSubtrip_;
+    }
+    /**
+     * <pre>
+     * Operator which exchanges subtrips associated to two pairs of nodes,
+     * see use_relocate_subtrip for a definition of subtrips.
+     * </pre>
+     *
+     * <code>.operations_research.OptionalBoolean use_exchange_subtrip = 26;</code>
+     */
+    public com.google.ortools.util.OptionalBoolean getUseExchangeSubtrip() {
+      @SuppressWarnings("deprecation")
+      com.google.ortools.util.OptionalBoolean result = com.google.ortools.util.OptionalBoolean.valueOf(useExchangeSubtrip_);
+      return result == null ? com.google.ortools.util.OptionalBoolean.UNRECOGNIZED : result;
     }
 
     public static final int USE_CROSS_FIELD_NUMBER = 5;
-    private boolean useCross_;
+    private int useCross_;
     /**
      * <pre>
      * Operator which cross exchanges the starting chains of 2 paths, including
@@ -816,27 +1617,102 @@ private static final long serialVersionUID = 0L;
      *   1 -&gt; [7] -&gt; 5            6 -&gt; [2 -&gt; 3 -&gt; 4] -&gt; 8
      * </pre>
      *
-     * <code>bool use_cross = 5;</code>
+     * <code>.operations_research.OptionalBoolean use_cross = 5;</code>
      */
-    public boolean getUseCross() {
+    public int getUseCrossValue() {
       return useCross_;
+    }
+    /**
+     * <pre>
+     * Operator which cross exchanges the starting chains of 2 paths, including
+     * exchanging the whole paths.
+     * First and last nodes are not moved.
+     * Possible neighbors for the paths 1 -&gt; 2 -&gt; 3 -&gt; 4 -&gt; 5 and 6 -&gt; 7 -&gt; 8
+     * (where (1, 5) and (6, 8) are first and last nodes of the paths and can
+     * therefore not be moved):
+     *   1 -&gt; [7] -&gt; 3 -&gt; 4 -&gt; 5  6 -&gt; [2] -&gt; 8
+     *   1 -&gt; [7] -&gt; 4 -&gt; 5       6 -&gt; [2 -&gt; 3] -&gt; 8
+     *   1 -&gt; [7] -&gt; 5            6 -&gt; [2 -&gt; 3 -&gt; 4] -&gt; 8
+     * </pre>
+     *
+     * <code>.operations_research.OptionalBoolean use_cross = 5;</code>
+     */
+    public com.google.ortools.util.OptionalBoolean getUseCross() {
+      @SuppressWarnings("deprecation")
+      com.google.ortools.util.OptionalBoolean result = com.google.ortools.util.OptionalBoolean.valueOf(useCross_);
+      return result == null ? com.google.ortools.util.OptionalBoolean.UNRECOGNIZED : result;
     }
 
     public static final int USE_CROSS_EXCHANGE_FIELD_NUMBER = 6;
-    private boolean useCrossExchange_;
+    private int useCrossExchange_;
     /**
      * <pre>
-     * Not implemented as of 10/2015.
+     * Not implemented yet. TODO(b/68128619): Implement.
      * </pre>
      *
-     * <code>bool use_cross_exchange = 6;</code>
+     * <code>.operations_research.OptionalBoolean use_cross_exchange = 6;</code>
      */
-    public boolean getUseCrossExchange() {
+    public int getUseCrossExchangeValue() {
       return useCrossExchange_;
+    }
+    /**
+     * <pre>
+     * Not implemented yet. TODO(b/68128619): Implement.
+     * </pre>
+     *
+     * <code>.operations_research.OptionalBoolean use_cross_exchange = 6;</code>
+     */
+    public com.google.ortools.util.OptionalBoolean getUseCrossExchange() {
+      @SuppressWarnings("deprecation")
+      com.google.ortools.util.OptionalBoolean result = com.google.ortools.util.OptionalBoolean.valueOf(useCrossExchange_);
+      return result == null ? com.google.ortools.util.OptionalBoolean.UNRECOGNIZED : result;
+    }
+
+    public static final int USE_RELOCATE_EXPENSIVE_CHAIN_FIELD_NUMBER = 23;
+    private int useRelocateExpensiveChain_;
+    /**
+     * <pre>
+     * Operator which detects the relocate_expensive_chain_num_arcs_to_consider
+     * most expensive arcs on a path, and moves the chain resulting from cutting
+     * pairs of arcs among these to another position.
+     * Possible neighbors for paths 1 -&gt; 2 (empty) and
+     * 3 -&gt; A ------&gt; B --&gt; C -----&gt; D -&gt; 4 (where A -&gt; B and C -&gt; D are the 2
+     * most expensive arcs, and the chain resulting from breaking them is
+     * B -&gt; C):
+     *   1 -&gt; [B -&gt; C] -&gt; 2     3 -&gt; A -&gt; D -&gt; 4
+     *   1 -&gt; 2      3 -&gt; [B -&gt; C] -&gt; A -&gt; D -&gt; 4
+     *   1 -&gt; 2      3 -&gt; A -&gt; D -&gt; [B -&gt; C] -&gt; 4
+     * </pre>
+     *
+     * <code>.operations_research.OptionalBoolean use_relocate_expensive_chain = 23;</code>
+     */
+    public int getUseRelocateExpensiveChainValue() {
+      return useRelocateExpensiveChain_;
+    }
+    /**
+     * <pre>
+     * Operator which detects the relocate_expensive_chain_num_arcs_to_consider
+     * most expensive arcs on a path, and moves the chain resulting from cutting
+     * pairs of arcs among these to another position.
+     * Possible neighbors for paths 1 -&gt; 2 (empty) and
+     * 3 -&gt; A ------&gt; B --&gt; C -----&gt; D -&gt; 4 (where A -&gt; B and C -&gt; D are the 2
+     * most expensive arcs, and the chain resulting from breaking them is
+     * B -&gt; C):
+     *   1 -&gt; [B -&gt; C] -&gt; 2     3 -&gt; A -&gt; D -&gt; 4
+     *   1 -&gt; 2      3 -&gt; [B -&gt; C] -&gt; A -&gt; D -&gt; 4
+     *   1 -&gt; 2      3 -&gt; A -&gt; D -&gt; [B -&gt; C] -&gt; 4
+     * </pre>
+     *
+     * <code>.operations_research.OptionalBoolean use_relocate_expensive_chain = 23;</code>
+     */
+    public com.google.ortools.util.OptionalBoolean getUseRelocateExpensiveChain() {
+      @SuppressWarnings("deprecation")
+      com.google.ortools.util.OptionalBoolean result = com.google.ortools.util.OptionalBoolean.valueOf(useRelocateExpensiveChain_);
+      return result == null ? com.google.ortools.util.OptionalBoolean.UNRECOGNIZED : result;
     }
 
     public static final int USE_TWO_OPT_FIELD_NUMBER = 7;
-    private boolean useTwoOpt_;
+    private int useTwoOpt_;
     /**
      * <pre>
      * --- Intra-route operators ---
@@ -851,14 +1727,35 @@ private static final long serialVersionUID = 0L;
      *   1 -&gt;  2 -&gt; [4 -&gt; 3] -&gt; 5
      * </pre>
      *
-     * <code>bool use_two_opt = 7;</code>
+     * <code>.operations_research.OptionalBoolean use_two_opt = 7;</code>
      */
-    public boolean getUseTwoOpt() {
+    public int getUseTwoOptValue() {
       return useTwoOpt_;
+    }
+    /**
+     * <pre>
+     * --- Intra-route operators ---
+     * Operator which reverves a sub-chain of a path. It is called TwoOpt
+     * because it breaks two arcs on the path; resulting paths are called
+     * two-optimal.
+     * Possible neighbors for the path 1 -&gt; 2 -&gt; 3 -&gt; 4 -&gt; 5
+     * (where (1, 5) are first and last nodes of the path and can therefore not
+     * be moved):
+     *   1 -&gt; [3 -&gt; 2] -&gt; 4  -&gt; 5
+     *   1 -&gt; [4 -&gt; 3  -&gt; 2] -&gt; 5
+     *   1 -&gt;  2 -&gt; [4 -&gt; 3] -&gt; 5
+     * </pre>
+     *
+     * <code>.operations_research.OptionalBoolean use_two_opt = 7;</code>
+     */
+    public com.google.ortools.util.OptionalBoolean getUseTwoOpt() {
+      @SuppressWarnings("deprecation")
+      com.google.ortools.util.OptionalBoolean result = com.google.ortools.util.OptionalBoolean.valueOf(useTwoOpt_);
+      return result == null ? com.google.ortools.util.OptionalBoolean.UNRECOGNIZED : result;
     }
 
     public static final int USE_OR_OPT_FIELD_NUMBER = 8;
-    private boolean useOrOpt_;
+    private int useOrOpt_;
     /**
      * <pre>
      * Operator which moves sub-chains of a path of length 1, 2 and 3 to another
@@ -874,14 +1771,36 @@ private static final long serialVersionUID = 0L;
      * path).
      * </pre>
      *
-     * <code>bool use_or_opt = 8;</code>
+     * <code>.operations_research.OptionalBoolean use_or_opt = 8;</code>
      */
-    public boolean getUseOrOpt() {
+    public int getUseOrOptValue() {
       return useOrOpt_;
+    }
+    /**
+     * <pre>
+     * Operator which moves sub-chains of a path of length 1, 2 and 3 to another
+     * position in the same path.
+     * When the length of the sub-chain is 1, the operator simply moves a node
+     * to another position.
+     * Possible neighbors for the path 1 -&gt; 2 -&gt; 3 -&gt; 4 -&gt; 5, for a sub-chain
+     * length of 2 (where (1, 5) are first and last nodes of the path and can
+     * therefore not be moved):
+     *   1 -&gt;  4 -&gt; [2 -&gt; 3] -&gt; 5
+     *   1 -&gt; [3 -&gt; 4] -&gt; 2  -&gt; 5
+     * The OR_OPT operator is a limited version of 3-Opt (breaks 3 arcs on a
+     * path).
+     * </pre>
+     *
+     * <code>.operations_research.OptionalBoolean use_or_opt = 8;</code>
+     */
+    public com.google.ortools.util.OptionalBoolean getUseOrOpt() {
+      @SuppressWarnings("deprecation")
+      com.google.ortools.util.OptionalBoolean result = com.google.ortools.util.OptionalBoolean.valueOf(useOrOpt_);
+      return result == null ? com.google.ortools.util.OptionalBoolean.UNRECOGNIZED : result;
     }
 
     public static final int USE_LIN_KERNIGHAN_FIELD_NUMBER = 9;
-    private boolean useLinKernighan_;
+    private int useLinKernighan_;
     /**
      * <pre>
      * Lin-Kernighan operator.
@@ -890,14 +1809,29 @@ private static final long serialVersionUID = 0L;
      * the global gain is positive.
      * </pre>
      *
-     * <code>bool use_lin_kernighan = 9;</code>
+     * <code>.operations_research.OptionalBoolean use_lin_kernighan = 9;</code>
      */
-    public boolean getUseLinKernighan() {
+    public int getUseLinKernighanValue() {
       return useLinKernighan_;
+    }
+    /**
+     * <pre>
+     * Lin-Kernighan operator.
+     * While the accumulated local gain is positive, performs a 2-OPT or a 3-OPT
+     * move followed by a series of 2-OPT moves. Returns a neighbor for which
+     * the global gain is positive.
+     * </pre>
+     *
+     * <code>.operations_research.OptionalBoolean use_lin_kernighan = 9;</code>
+     */
+    public com.google.ortools.util.OptionalBoolean getUseLinKernighan() {
+      @SuppressWarnings("deprecation")
+      com.google.ortools.util.OptionalBoolean result = com.google.ortools.util.OptionalBoolean.valueOf(useLinKernighan_);
+      return result == null ? com.google.ortools.util.OptionalBoolean.UNRECOGNIZED : result;
     }
 
     public static final int USE_TSP_OPT_FIELD_NUMBER = 10;
-    private boolean useTspOpt_;
+    private int useTspOpt_;
     /**
      * <pre>
      * Sliding TSP operator.
@@ -908,14 +1842,31 @@ private static final long serialVersionUID = 0L;
      * cost(A,i) = cost(1,i) and cost(i,A) = cost(i,6).
      * </pre>
      *
-     * <code>bool use_tsp_opt = 10;</code>
+     * <code>.operations_research.OptionalBoolean use_tsp_opt = 10;</code>
      */
-    public boolean getUseTspOpt() {
+    public int getUseTspOptValue() {
       return useTspOpt_;
+    }
+    /**
+     * <pre>
+     * Sliding TSP operator.
+     * Uses an exact dynamic programming algorithm to solve the TSP
+     * corresponding to path sub-chains.
+     * For a subchain 1 -&gt; 2 -&gt; 3 -&gt; 4 -&gt; 5 -&gt; 6, solves the TSP on
+     * nodes A, 2, 3, 4, 5, where A is a merger of nodes 1 and 6 such that
+     * cost(A,i) = cost(1,i) and cost(i,A) = cost(i,6).
+     * </pre>
+     *
+     * <code>.operations_research.OptionalBoolean use_tsp_opt = 10;</code>
+     */
+    public com.google.ortools.util.OptionalBoolean getUseTspOpt() {
+      @SuppressWarnings("deprecation")
+      com.google.ortools.util.OptionalBoolean result = com.google.ortools.util.OptionalBoolean.valueOf(useTspOpt_);
+      return result == null ? com.google.ortools.util.OptionalBoolean.UNRECOGNIZED : result;
     }
 
     public static final int USE_MAKE_ACTIVE_FIELD_NUMBER = 11;
-    private boolean useMakeActive_;
+    private int useMakeActive_;
     /**
      * <pre>
      * --- Operators on inactive nodes ---
@@ -927,14 +1878,32 @@ private static final long serialVersionUID = 0L;
      *   1 -&gt;  2  -&gt;  3  -&gt; [5] -&gt; 4
      * </pre>
      *
-     * <code>bool use_make_active = 11;</code>
+     * <code>.operations_research.OptionalBoolean use_make_active = 11;</code>
      */
-    public boolean getUseMakeActive() {
+    public int getUseMakeActiveValue() {
       return useMakeActive_;
+    }
+    /**
+     * <pre>
+     * --- Operators on inactive nodes ---
+     * Operator which inserts an inactive node into a path.
+     * Possible neighbors for the path 1 -&gt; 2 -&gt; 3 -&gt; 4 with 5 inactive
+     * (where 1 and 4 are first and last nodes of the path) are:
+     *   1 -&gt; [5] -&gt;  2  -&gt;  3  -&gt; 4
+     *   1 -&gt;  2  -&gt; [5] -&gt;  3  -&gt; 4
+     *   1 -&gt;  2  -&gt;  3  -&gt; [5] -&gt; 4
+     * </pre>
+     *
+     * <code>.operations_research.OptionalBoolean use_make_active = 11;</code>
+     */
+    public com.google.ortools.util.OptionalBoolean getUseMakeActive() {
+      @SuppressWarnings("deprecation")
+      com.google.ortools.util.OptionalBoolean result = com.google.ortools.util.OptionalBoolean.valueOf(useMakeActive_);
+      return result == null ? com.google.ortools.util.OptionalBoolean.UNRECOGNIZED : result;
     }
 
     public static final int USE_RELOCATE_AND_MAKE_ACTIVE_FIELD_NUMBER = 21;
-    private boolean useRelocateAndMakeActive_;
+    private int useRelocateAndMakeActive_;
     /**
      * <pre>
      * Operator which relocates a node while making an inactive one active.
@@ -949,14 +1918,35 @@ private static final long serialVersionUID = 0L;
      *   1 -&gt; 4 -&gt; 3 -&gt; 5, 2 -&gt; 6.
      * </pre>
      *
-     * <code>bool use_relocate_and_make_active = 21;</code>
+     * <code>.operations_research.OptionalBoolean use_relocate_and_make_active = 21;</code>
      */
-    public boolean getUseRelocateAndMakeActive() {
+    public int getUseRelocateAndMakeActiveValue() {
       return useRelocateAndMakeActive_;
+    }
+    /**
+     * <pre>
+     * Operator which relocates a node while making an inactive one active.
+     * As of 3/2017, the operator is limited to two kinds of moves:
+     * - Relocating a node and replacing it by an inactive node.
+     *   Possible neighbor for path 1 -&gt; 5, 2 -&gt; 3 -&gt; 6 and 4 inactive
+     *   (where 1,2 and 5,6 are first and last nodes of paths) is:
+     *   1 -&gt; 3 -&gt; 5, 2 -&gt; 4 -&gt; 6.
+     * - Relocating a node and inserting an inactive node next to it.
+     *   Possible neighbor for path 1 -&gt; 5, 2 -&gt; 3 -&gt; 6 and 4 inactive
+     *   (where 1,2 and 5,6 are first and last nodes of paths) is:
+     *   1 -&gt; 4 -&gt; 3 -&gt; 5, 2 -&gt; 6.
+     * </pre>
+     *
+     * <code>.operations_research.OptionalBoolean use_relocate_and_make_active = 21;</code>
+     */
+    public com.google.ortools.util.OptionalBoolean getUseRelocateAndMakeActive() {
+      @SuppressWarnings("deprecation")
+      com.google.ortools.util.OptionalBoolean result = com.google.ortools.util.OptionalBoolean.valueOf(useRelocateAndMakeActive_);
+      return result == null ? com.google.ortools.util.OptionalBoolean.UNRECOGNIZED : result;
     }
 
     public static final int USE_MAKE_INACTIVE_FIELD_NUMBER = 12;
-    private boolean useMakeInactive_;
+    private int useMakeInactive_;
     /**
      * <pre>
      * Operator which makes path nodes inactive.
@@ -966,14 +1956,30 @@ private static final long serialVersionUID = 0L;
      *   1 -&gt; 2 -&gt; 4 with 3 inactive
      * </pre>
      *
-     * <code>bool use_make_inactive = 12;</code>
+     * <code>.operations_research.OptionalBoolean use_make_inactive = 12;</code>
      */
-    public boolean getUseMakeInactive() {
+    public int getUseMakeInactiveValue() {
       return useMakeInactive_;
+    }
+    /**
+     * <pre>
+     * Operator which makes path nodes inactive.
+     * Possible neighbors for the path 1 -&gt; 2 -&gt; 3 -&gt; 4 (where 1 and 4 are first
+     * and last nodes of the path) are:
+     *   1 -&gt; 3 -&gt; 4 with 2 inactive
+     *   1 -&gt; 2 -&gt; 4 with 3 inactive
+     * </pre>
+     *
+     * <code>.operations_research.OptionalBoolean use_make_inactive = 12;</code>
+     */
+    public com.google.ortools.util.OptionalBoolean getUseMakeInactive() {
+      @SuppressWarnings("deprecation")
+      com.google.ortools.util.OptionalBoolean result = com.google.ortools.util.OptionalBoolean.valueOf(useMakeInactive_);
+      return result == null ? com.google.ortools.util.OptionalBoolean.UNRECOGNIZED : result;
     }
 
     public static final int USE_MAKE_CHAIN_INACTIVE_FIELD_NUMBER = 13;
-    private boolean useMakeChainInactive_;
+    private int useMakeChainInactive_;
     /**
      * <pre>
      * Operator which makes a "chain" of path nodes inactive.
@@ -984,14 +1990,31 @@ private static final long serialVersionUID = 0L;
      *   1 -&gt; 4 with 2 and 3 inactive
      * </pre>
      *
-     * <code>bool use_make_chain_inactive = 13;</code>
+     * <code>.operations_research.OptionalBoolean use_make_chain_inactive = 13;</code>
      */
-    public boolean getUseMakeChainInactive() {
+    public int getUseMakeChainInactiveValue() {
       return useMakeChainInactive_;
+    }
+    /**
+     * <pre>
+     * Operator which makes a "chain" of path nodes inactive.
+     * Possible neighbors for the path 1 -&gt; 2 -&gt; 3 -&gt; 4 (where 1 and 4 are first
+     * and last nodes of the path) are:
+     *   1 -&gt; 3 -&gt; 4 with 2 inactive
+     *   1 -&gt; 2 -&gt; 4 with 3 inactive
+     *   1 -&gt; 4 with 2 and 3 inactive
+     * </pre>
+     *
+     * <code>.operations_research.OptionalBoolean use_make_chain_inactive = 13;</code>
+     */
+    public com.google.ortools.util.OptionalBoolean getUseMakeChainInactive() {
+      @SuppressWarnings("deprecation")
+      com.google.ortools.util.OptionalBoolean result = com.google.ortools.util.OptionalBoolean.valueOf(useMakeChainInactive_);
+      return result == null ? com.google.ortools.util.OptionalBoolean.UNRECOGNIZED : result;
     }
 
     public static final int USE_SWAP_ACTIVE_FIELD_NUMBER = 14;
-    private boolean useSwapActive_;
+    private int useSwapActive_;
     /**
      * <pre>
      * Operator which replaces an active node by an inactive one.
@@ -1001,14 +2024,30 @@ private static final long serialVersionUID = 0L;
      *   1 -&gt;  2  -&gt; [5] -&gt; 4 with 3 inactive
      * </pre>
      *
-     * <code>bool use_swap_active = 14;</code>
+     * <code>.operations_research.OptionalBoolean use_swap_active = 14;</code>
      */
-    public boolean getUseSwapActive() {
+    public int getUseSwapActiveValue() {
       return useSwapActive_;
+    }
+    /**
+     * <pre>
+     * Operator which replaces an active node by an inactive one.
+     * Possible neighbors for the path 1 -&gt; 2 -&gt; 3 -&gt; 4 with 5 inactive
+     * (where 1 and 4 are first and last nodes of the path) are:
+     *   1 -&gt; [5] -&gt;  3  -&gt; 4 with 2 inactive
+     *   1 -&gt;  2  -&gt; [5] -&gt; 4 with 3 inactive
+     * </pre>
+     *
+     * <code>.operations_research.OptionalBoolean use_swap_active = 14;</code>
+     */
+    public com.google.ortools.util.OptionalBoolean getUseSwapActive() {
+      @SuppressWarnings("deprecation")
+      com.google.ortools.util.OptionalBoolean result = com.google.ortools.util.OptionalBoolean.valueOf(useSwapActive_);
+      return result == null ? com.google.ortools.util.OptionalBoolean.UNRECOGNIZED : result;
     }
 
     public static final int USE_EXTENDED_SWAP_ACTIVE_FIELD_NUMBER = 15;
-    private boolean useExtendedSwapActive_;
+    private int useExtendedSwapActive_;
     /**
      * <pre>
      * Operator which makes an inactive node active and an active one inactive.
@@ -1023,14 +2062,35 @@ private static final long serialVersionUID = 0L;
      *   1 -&gt;  2  -&gt; [5] -&gt; 4 with 3 inactive
      * </pre>
      *
-     * <code>bool use_extended_swap_active = 15;</code>
+     * <code>.operations_research.OptionalBoolean use_extended_swap_active = 15;</code>
      */
-    public boolean getUseExtendedSwapActive() {
+    public int getUseExtendedSwapActiveValue() {
       return useExtendedSwapActive_;
+    }
+    /**
+     * <pre>
+     * Operator which makes an inactive node active and an active one inactive.
+     * It is similar to SwapActiveOperator excepts that it tries to insert the
+     * inactive node in all possible positions instead of just the position of
+     * the node made inactive.
+     * Possible neighbors for the path 1 -&gt; 2 -&gt; 3 -&gt; 4 with 5 inactive
+     * (where 1 and 4 are first and last nodes of the path) are:
+     *   1 -&gt; [5] -&gt;  3  -&gt; 4 with 2 inactive
+     *   1 -&gt;  3  -&gt; [5] -&gt; 4 with 2 inactive
+     *   1 -&gt; [5] -&gt;  2  -&gt; 4 with 3 inactive
+     *   1 -&gt;  2  -&gt; [5] -&gt; 4 with 3 inactive
+     * </pre>
+     *
+     * <code>.operations_research.OptionalBoolean use_extended_swap_active = 15;</code>
+     */
+    public com.google.ortools.util.OptionalBoolean getUseExtendedSwapActive() {
+      @SuppressWarnings("deprecation")
+      com.google.ortools.util.OptionalBoolean result = com.google.ortools.util.OptionalBoolean.valueOf(useExtendedSwapActive_);
+      return result == null ? com.google.ortools.util.OptionalBoolean.UNRECOGNIZED : result;
     }
 
     public static final int USE_NODE_PAIR_SWAP_ACTIVE_FIELD_NUMBER = 20;
-    private boolean useNodePairSwapActive_;
+    private int useNodePairSwapActive_;
     /**
      * <pre>
      * Operator which makes an inactive node active and an active pair of nodes
@@ -1046,14 +2106,36 @@ private static final long serialVersionUID = 0L;
      *   1 -&gt; [4] -&gt; [5] -&gt; 3 with 2 inactive
      * </pre>
      *
-     * <code>bool use_node_pair_swap_active = 20;</code>
+     * <code>.operations_research.OptionalBoolean use_node_pair_swap_active = 20;</code>
      */
-    public boolean getUseNodePairSwapActive() {
+    public int getUseNodePairSwapActiveValue() {
       return useNodePairSwapActive_;
+    }
+    /**
+     * <pre>
+     * Operator which makes an inactive node active and an active pair of nodes
+     * inactive OR makes an inactive pair of nodes active and an active node
+     * inactive.
+     * Possible neighbors for the path 1 -&gt; 2 -&gt; 3 -&gt; 4 with 5 inactive
+     * (where 1 and 4 are first and last nodes of the path and (2,3) is a pair
+     * of nodes) are:
+     *   1 -&gt; [5] -&gt; 4 with (2,3) inactive
+     * Possible neighbors for the path 1 -&gt; 2 -&gt; 3 with (4,5) inactive
+     * (where 1 and 3 are first and last nodes of the path and (4,5) is a pair
+     * of nodes) are:
+     *   1 -&gt; [4] -&gt; [5] -&gt; 3 with 2 inactive
+     * </pre>
+     *
+     * <code>.operations_research.OptionalBoolean use_node_pair_swap_active = 20;</code>
+     */
+    public com.google.ortools.util.OptionalBoolean getUseNodePairSwapActive() {
+      @SuppressWarnings("deprecation")
+      com.google.ortools.util.OptionalBoolean result = com.google.ortools.util.OptionalBoolean.valueOf(useNodePairSwapActive_);
+      return result == null ? com.google.ortools.util.OptionalBoolean.UNRECOGNIZED : result;
     }
 
     public static final int USE_PATH_LNS_FIELD_NUMBER = 16;
-    private boolean usePathLns_;
+    private int usePathLns_;
     /**
      * <pre>
      * --- Large neighborhood search operators ---
@@ -1066,27 +2148,58 @@ private static final long serialVersionUID = 0L;
      * overlap.
      * </pre>
      *
-     * <code>bool use_path_lns = 16;</code>
+     * <code>.operations_research.OptionalBoolean use_path_lns = 16;</code>
      */
-    public boolean getUsePathLns() {
+    public int getUsePathLnsValue() {
       return usePathLns_;
+    }
+    /**
+     * <pre>
+     * --- Large neighborhood search operators ---
+     * Operator which relaxes two sub-chains of three consecutive arcs each.
+     * Each sub-chain is defined by a start node and the next three arcs. Those
+     * six arcs are relaxed to build a new neighbor.
+     * PATH_LNS explores all possible pairs of starting nodes and so defines
+     * n^2 neighbors, n being the number of nodes.
+     * Note that the two sub-chains can be part of the same path; they even may
+     * overlap.
+     * </pre>
+     *
+     * <code>.operations_research.OptionalBoolean use_path_lns = 16;</code>
+     */
+    public com.google.ortools.util.OptionalBoolean getUsePathLns() {
+      @SuppressWarnings("deprecation")
+      com.google.ortools.util.OptionalBoolean result = com.google.ortools.util.OptionalBoolean.valueOf(usePathLns_);
+      return result == null ? com.google.ortools.util.OptionalBoolean.UNRECOGNIZED : result;
     }
 
     public static final int USE_FULL_PATH_LNS_FIELD_NUMBER = 17;
-    private boolean useFullPathLns_;
+    private int useFullPathLns_;
     /**
      * <pre>
      * Operator which relaxes one entire path and all unactive nodes.
      * </pre>
      *
-     * <code>bool use_full_path_lns = 17;</code>
+     * <code>.operations_research.OptionalBoolean use_full_path_lns = 17;</code>
      */
-    public boolean getUseFullPathLns() {
+    public int getUseFullPathLnsValue() {
       return useFullPathLns_;
+    }
+    /**
+     * <pre>
+     * Operator which relaxes one entire path and all unactive nodes.
+     * </pre>
+     *
+     * <code>.operations_research.OptionalBoolean use_full_path_lns = 17;</code>
+     */
+    public com.google.ortools.util.OptionalBoolean getUseFullPathLns() {
+      @SuppressWarnings("deprecation")
+      com.google.ortools.util.OptionalBoolean result = com.google.ortools.util.OptionalBoolean.valueOf(useFullPathLns_);
+      return result == null ? com.google.ortools.util.OptionalBoolean.UNRECOGNIZED : result;
     }
 
     public static final int USE_TSP_LNS_FIELD_NUMBER = 18;
-    private boolean useTspLns_;
+    private int useTspLns_;
     /**
      * <pre>
      * TSP-base LNS.
@@ -1097,14 +2210,31 @@ private static final long serialVersionUID = 0L;
      * node to serve as base of a meta-node.
      * </pre>
      *
-     * <code>bool use_tsp_lns = 18;</code>
+     * <code>.operations_research.OptionalBoolean use_tsp_lns = 18;</code>
      */
-    public boolean getUseTspLns() {
+    public int getUseTspLnsValue() {
       return useTspLns_;
+    }
+    /**
+     * <pre>
+     * TSP-base LNS.
+     * Randomly merges consecutive nodes until n "meta"-nodes remain and solves
+     * the corresponding TSP.
+     * This defines an "unlimited" neighborhood which must be stopped by search
+     * limits. To force diversification, the operator iteratively forces each
+     * node to serve as base of a meta-node.
+     * </pre>
+     *
+     * <code>.operations_research.OptionalBoolean use_tsp_lns = 18;</code>
+     */
+    public com.google.ortools.util.OptionalBoolean getUseTspLns() {
+      @SuppressWarnings("deprecation")
+      com.google.ortools.util.OptionalBoolean result = com.google.ortools.util.OptionalBoolean.valueOf(useTspLns_);
+      return result == null ? com.google.ortools.util.OptionalBoolean.UNRECOGNIZED : result;
     }
 
     public static final int USE_INACTIVE_LNS_FIELD_NUMBER = 19;
-    private boolean useInactiveLns_;
+    private int useInactiveLns_;
     /**
      * <pre>
      * Operator which relaxes all inactive nodes and one sub-chain of six
@@ -1112,13 +2242,28 @@ private static final long serialVersionUID = 0L;
      * nodes or swaping arcs.
      * </pre>
      *
-     * <code>bool use_inactive_lns = 19;</code>
+     * <code>.operations_research.OptionalBoolean use_inactive_lns = 19;</code>
      */
-    public boolean getUseInactiveLns() {
+    public int getUseInactiveLnsValue() {
       return useInactiveLns_;
+    }
+    /**
+     * <pre>
+     * Operator which relaxes all inactive nodes and one sub-chain of six
+     * consecutive arcs. That way the path can be improved by inserting inactive
+     * nodes or swaping arcs.
+     * </pre>
+     *
+     * <code>.operations_research.OptionalBoolean use_inactive_lns = 19;</code>
+     */
+    public com.google.ortools.util.OptionalBoolean getUseInactiveLns() {
+      @SuppressWarnings("deprecation")
+      com.google.ortools.util.OptionalBoolean result = com.google.ortools.util.OptionalBoolean.valueOf(useInactiveLns_);
+      return result == null ? com.google.ortools.util.OptionalBoolean.UNRECOGNIZED : result;
     }
 
     private byte memoizedIsInitialized = -1;
+    @Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -1128,170 +2273,207 @@ private static final long serialVersionUID = 0L;
       return true;
     }
 
+    @Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (useRelocate_ != false) {
-        output.writeBool(1, useRelocate_);
+      if (useRelocate_ != com.google.ortools.util.OptionalBoolean.BOOL_UNSPECIFIED.getNumber()) {
+        output.writeEnum(1, useRelocate_);
       }
-      if (useRelocatePair_ != false) {
-        output.writeBool(2, useRelocatePair_);
+      if (useRelocatePair_ != com.google.ortools.util.OptionalBoolean.BOOL_UNSPECIFIED.getNumber()) {
+        output.writeEnum(2, useRelocatePair_);
       }
-      if (useRelocateNeighbors_ != false) {
-        output.writeBool(3, useRelocateNeighbors_);
+      if (useRelocateNeighbors_ != com.google.ortools.util.OptionalBoolean.BOOL_UNSPECIFIED.getNumber()) {
+        output.writeEnum(3, useRelocateNeighbors_);
       }
-      if (useExchange_ != false) {
-        output.writeBool(4, useExchange_);
+      if (useExchange_ != com.google.ortools.util.OptionalBoolean.BOOL_UNSPECIFIED.getNumber()) {
+        output.writeEnum(4, useExchange_);
       }
-      if (useCross_ != false) {
-        output.writeBool(5, useCross_);
+      if (useCross_ != com.google.ortools.util.OptionalBoolean.BOOL_UNSPECIFIED.getNumber()) {
+        output.writeEnum(5, useCross_);
       }
-      if (useCrossExchange_ != false) {
-        output.writeBool(6, useCrossExchange_);
+      if (useCrossExchange_ != com.google.ortools.util.OptionalBoolean.BOOL_UNSPECIFIED.getNumber()) {
+        output.writeEnum(6, useCrossExchange_);
       }
-      if (useTwoOpt_ != false) {
-        output.writeBool(7, useTwoOpt_);
+      if (useTwoOpt_ != com.google.ortools.util.OptionalBoolean.BOOL_UNSPECIFIED.getNumber()) {
+        output.writeEnum(7, useTwoOpt_);
       }
-      if (useOrOpt_ != false) {
-        output.writeBool(8, useOrOpt_);
+      if (useOrOpt_ != com.google.ortools.util.OptionalBoolean.BOOL_UNSPECIFIED.getNumber()) {
+        output.writeEnum(8, useOrOpt_);
       }
-      if (useLinKernighan_ != false) {
-        output.writeBool(9, useLinKernighan_);
+      if (useLinKernighan_ != com.google.ortools.util.OptionalBoolean.BOOL_UNSPECIFIED.getNumber()) {
+        output.writeEnum(9, useLinKernighan_);
       }
-      if (useTspOpt_ != false) {
-        output.writeBool(10, useTspOpt_);
+      if (useTspOpt_ != com.google.ortools.util.OptionalBoolean.BOOL_UNSPECIFIED.getNumber()) {
+        output.writeEnum(10, useTspOpt_);
       }
-      if (useMakeActive_ != false) {
-        output.writeBool(11, useMakeActive_);
+      if (useMakeActive_ != com.google.ortools.util.OptionalBoolean.BOOL_UNSPECIFIED.getNumber()) {
+        output.writeEnum(11, useMakeActive_);
       }
-      if (useMakeInactive_ != false) {
-        output.writeBool(12, useMakeInactive_);
+      if (useMakeInactive_ != com.google.ortools.util.OptionalBoolean.BOOL_UNSPECIFIED.getNumber()) {
+        output.writeEnum(12, useMakeInactive_);
       }
-      if (useMakeChainInactive_ != false) {
-        output.writeBool(13, useMakeChainInactive_);
+      if (useMakeChainInactive_ != com.google.ortools.util.OptionalBoolean.BOOL_UNSPECIFIED.getNumber()) {
+        output.writeEnum(13, useMakeChainInactive_);
       }
-      if (useSwapActive_ != false) {
-        output.writeBool(14, useSwapActive_);
+      if (useSwapActive_ != com.google.ortools.util.OptionalBoolean.BOOL_UNSPECIFIED.getNumber()) {
+        output.writeEnum(14, useSwapActive_);
       }
-      if (useExtendedSwapActive_ != false) {
-        output.writeBool(15, useExtendedSwapActive_);
+      if (useExtendedSwapActive_ != com.google.ortools.util.OptionalBoolean.BOOL_UNSPECIFIED.getNumber()) {
+        output.writeEnum(15, useExtendedSwapActive_);
       }
-      if (usePathLns_ != false) {
-        output.writeBool(16, usePathLns_);
+      if (usePathLns_ != com.google.ortools.util.OptionalBoolean.BOOL_UNSPECIFIED.getNumber()) {
+        output.writeEnum(16, usePathLns_);
       }
-      if (useFullPathLns_ != false) {
-        output.writeBool(17, useFullPathLns_);
+      if (useFullPathLns_ != com.google.ortools.util.OptionalBoolean.BOOL_UNSPECIFIED.getNumber()) {
+        output.writeEnum(17, useFullPathLns_);
       }
-      if (useTspLns_ != false) {
-        output.writeBool(18, useTspLns_);
+      if (useTspLns_ != com.google.ortools.util.OptionalBoolean.BOOL_UNSPECIFIED.getNumber()) {
+        output.writeEnum(18, useTspLns_);
       }
-      if (useInactiveLns_ != false) {
-        output.writeBool(19, useInactiveLns_);
+      if (useInactiveLns_ != com.google.ortools.util.OptionalBoolean.BOOL_UNSPECIFIED.getNumber()) {
+        output.writeEnum(19, useInactiveLns_);
       }
-      if (useNodePairSwapActive_ != false) {
-        output.writeBool(20, useNodePairSwapActive_);
+      if (useNodePairSwapActive_ != com.google.ortools.util.OptionalBoolean.BOOL_UNSPECIFIED.getNumber()) {
+        output.writeEnum(20, useNodePairSwapActive_);
       }
-      if (useRelocateAndMakeActive_ != false) {
-        output.writeBool(21, useRelocateAndMakeActive_);
+      if (useRelocateAndMakeActive_ != com.google.ortools.util.OptionalBoolean.BOOL_UNSPECIFIED.getNumber()) {
+        output.writeEnum(21, useRelocateAndMakeActive_);
+      }
+      if (useExchangePair_ != com.google.ortools.util.OptionalBoolean.BOOL_UNSPECIFIED.getNumber()) {
+        output.writeEnum(22, useExchangePair_);
+      }
+      if (useRelocateExpensiveChain_ != com.google.ortools.util.OptionalBoolean.BOOL_UNSPECIFIED.getNumber()) {
+        output.writeEnum(23, useRelocateExpensiveChain_);
+      }
+      if (useLightRelocatePair_ != com.google.ortools.util.OptionalBoolean.BOOL_UNSPECIFIED.getNumber()) {
+        output.writeEnum(24, useLightRelocatePair_);
+      }
+      if (useRelocateSubtrip_ != com.google.ortools.util.OptionalBoolean.BOOL_UNSPECIFIED.getNumber()) {
+        output.writeEnum(25, useRelocateSubtrip_);
+      }
+      if (useExchangeSubtrip_ != com.google.ortools.util.OptionalBoolean.BOOL_UNSPECIFIED.getNumber()) {
+        output.writeEnum(26, useExchangeSubtrip_);
       }
       unknownFields.writeTo(output);
     }
 
+    @Override
     public int getSerializedSize() {
       int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      if (useRelocate_ != false) {
+      if (useRelocate_ != com.google.ortools.util.OptionalBoolean.BOOL_UNSPECIFIED.getNumber()) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(1, useRelocate_);
+          .computeEnumSize(1, useRelocate_);
       }
-      if (useRelocatePair_ != false) {
+      if (useRelocatePair_ != com.google.ortools.util.OptionalBoolean.BOOL_UNSPECIFIED.getNumber()) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(2, useRelocatePair_);
+          .computeEnumSize(2, useRelocatePair_);
       }
-      if (useRelocateNeighbors_ != false) {
+      if (useRelocateNeighbors_ != com.google.ortools.util.OptionalBoolean.BOOL_UNSPECIFIED.getNumber()) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(3, useRelocateNeighbors_);
+          .computeEnumSize(3, useRelocateNeighbors_);
       }
-      if (useExchange_ != false) {
+      if (useExchange_ != com.google.ortools.util.OptionalBoolean.BOOL_UNSPECIFIED.getNumber()) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(4, useExchange_);
+          .computeEnumSize(4, useExchange_);
       }
-      if (useCross_ != false) {
+      if (useCross_ != com.google.ortools.util.OptionalBoolean.BOOL_UNSPECIFIED.getNumber()) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(5, useCross_);
+          .computeEnumSize(5, useCross_);
       }
-      if (useCrossExchange_ != false) {
+      if (useCrossExchange_ != com.google.ortools.util.OptionalBoolean.BOOL_UNSPECIFIED.getNumber()) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(6, useCrossExchange_);
+          .computeEnumSize(6, useCrossExchange_);
       }
-      if (useTwoOpt_ != false) {
+      if (useTwoOpt_ != com.google.ortools.util.OptionalBoolean.BOOL_UNSPECIFIED.getNumber()) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(7, useTwoOpt_);
+          .computeEnumSize(7, useTwoOpt_);
       }
-      if (useOrOpt_ != false) {
+      if (useOrOpt_ != com.google.ortools.util.OptionalBoolean.BOOL_UNSPECIFIED.getNumber()) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(8, useOrOpt_);
+          .computeEnumSize(8, useOrOpt_);
       }
-      if (useLinKernighan_ != false) {
+      if (useLinKernighan_ != com.google.ortools.util.OptionalBoolean.BOOL_UNSPECIFIED.getNumber()) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(9, useLinKernighan_);
+          .computeEnumSize(9, useLinKernighan_);
       }
-      if (useTspOpt_ != false) {
+      if (useTspOpt_ != com.google.ortools.util.OptionalBoolean.BOOL_UNSPECIFIED.getNumber()) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(10, useTspOpt_);
+          .computeEnumSize(10, useTspOpt_);
       }
-      if (useMakeActive_ != false) {
+      if (useMakeActive_ != com.google.ortools.util.OptionalBoolean.BOOL_UNSPECIFIED.getNumber()) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(11, useMakeActive_);
+          .computeEnumSize(11, useMakeActive_);
       }
-      if (useMakeInactive_ != false) {
+      if (useMakeInactive_ != com.google.ortools.util.OptionalBoolean.BOOL_UNSPECIFIED.getNumber()) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(12, useMakeInactive_);
+          .computeEnumSize(12, useMakeInactive_);
       }
-      if (useMakeChainInactive_ != false) {
+      if (useMakeChainInactive_ != com.google.ortools.util.OptionalBoolean.BOOL_UNSPECIFIED.getNumber()) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(13, useMakeChainInactive_);
+          .computeEnumSize(13, useMakeChainInactive_);
       }
-      if (useSwapActive_ != false) {
+      if (useSwapActive_ != com.google.ortools.util.OptionalBoolean.BOOL_UNSPECIFIED.getNumber()) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(14, useSwapActive_);
+          .computeEnumSize(14, useSwapActive_);
       }
-      if (useExtendedSwapActive_ != false) {
+      if (useExtendedSwapActive_ != com.google.ortools.util.OptionalBoolean.BOOL_UNSPECIFIED.getNumber()) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(15, useExtendedSwapActive_);
+          .computeEnumSize(15, useExtendedSwapActive_);
       }
-      if (usePathLns_ != false) {
+      if (usePathLns_ != com.google.ortools.util.OptionalBoolean.BOOL_UNSPECIFIED.getNumber()) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(16, usePathLns_);
+          .computeEnumSize(16, usePathLns_);
       }
-      if (useFullPathLns_ != false) {
+      if (useFullPathLns_ != com.google.ortools.util.OptionalBoolean.BOOL_UNSPECIFIED.getNumber()) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(17, useFullPathLns_);
+          .computeEnumSize(17, useFullPathLns_);
       }
-      if (useTspLns_ != false) {
+      if (useTspLns_ != com.google.ortools.util.OptionalBoolean.BOOL_UNSPECIFIED.getNumber()) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(18, useTspLns_);
+          .computeEnumSize(18, useTspLns_);
       }
-      if (useInactiveLns_ != false) {
+      if (useInactiveLns_ != com.google.ortools.util.OptionalBoolean.BOOL_UNSPECIFIED.getNumber()) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(19, useInactiveLns_);
+          .computeEnumSize(19, useInactiveLns_);
       }
-      if (useNodePairSwapActive_ != false) {
+      if (useNodePairSwapActive_ != com.google.ortools.util.OptionalBoolean.BOOL_UNSPECIFIED.getNumber()) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(20, useNodePairSwapActive_);
+          .computeEnumSize(20, useNodePairSwapActive_);
       }
-      if (useRelocateAndMakeActive_ != false) {
+      if (useRelocateAndMakeActive_ != com.google.ortools.util.OptionalBoolean.BOOL_UNSPECIFIED.getNumber()) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(21, useRelocateAndMakeActive_);
+          .computeEnumSize(21, useRelocateAndMakeActive_);
+      }
+      if (useExchangePair_ != com.google.ortools.util.OptionalBoolean.BOOL_UNSPECIFIED.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(22, useExchangePair_);
+      }
+      if (useRelocateExpensiveChain_ != com.google.ortools.util.OptionalBoolean.BOOL_UNSPECIFIED.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(23, useRelocateExpensiveChain_);
+      }
+      if (useLightRelocatePair_ != com.google.ortools.util.OptionalBoolean.BOOL_UNSPECIFIED.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(24, useLightRelocatePair_);
+      }
+      if (useRelocateSubtrip_ != com.google.ortools.util.OptionalBoolean.BOOL_UNSPECIFIED.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(25, useRelocateSubtrip_);
+      }
+      if (useExchangeSubtrip_ != com.google.ortools.util.OptionalBoolean.BOOL_UNSPECIFIED.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(26, useExchangeSubtrip_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
     }
 
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
+    @Override
+    public boolean equals(final Object obj) {
       if (obj == this) {
        return true;
       }
@@ -1300,54 +2482,37 @@ private static final long serialVersionUID = 0L;
       }
       com.google.ortools.constraintsolver.RoutingSearchParameters.LocalSearchNeighborhoodOperators other = (com.google.ortools.constraintsolver.RoutingSearchParameters.LocalSearchNeighborhoodOperators) obj;
 
-      boolean result = true;
-      result = result && (getUseRelocate()
-          == other.getUseRelocate());
-      result = result && (getUseRelocatePair()
-          == other.getUseRelocatePair());
-      result = result && (getUseRelocateNeighbors()
-          == other.getUseRelocateNeighbors());
-      result = result && (getUseExchange()
-          == other.getUseExchange());
-      result = result && (getUseCross()
-          == other.getUseCross());
-      result = result && (getUseCrossExchange()
-          == other.getUseCrossExchange());
-      result = result && (getUseTwoOpt()
-          == other.getUseTwoOpt());
-      result = result && (getUseOrOpt()
-          == other.getUseOrOpt());
-      result = result && (getUseLinKernighan()
-          == other.getUseLinKernighan());
-      result = result && (getUseTspOpt()
-          == other.getUseTspOpt());
-      result = result && (getUseMakeActive()
-          == other.getUseMakeActive());
-      result = result && (getUseRelocateAndMakeActive()
-          == other.getUseRelocateAndMakeActive());
-      result = result && (getUseMakeInactive()
-          == other.getUseMakeInactive());
-      result = result && (getUseMakeChainInactive()
-          == other.getUseMakeChainInactive());
-      result = result && (getUseSwapActive()
-          == other.getUseSwapActive());
-      result = result && (getUseExtendedSwapActive()
-          == other.getUseExtendedSwapActive());
-      result = result && (getUseNodePairSwapActive()
-          == other.getUseNodePairSwapActive());
-      result = result && (getUsePathLns()
-          == other.getUsePathLns());
-      result = result && (getUseFullPathLns()
-          == other.getUseFullPathLns());
-      result = result && (getUseTspLns()
-          == other.getUseTspLns());
-      result = result && (getUseInactiveLns()
-          == other.getUseInactiveLns());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (useRelocate_ != other.useRelocate_) return false;
+      if (useRelocatePair_ != other.useRelocatePair_) return false;
+      if (useLightRelocatePair_ != other.useLightRelocatePair_) return false;
+      if (useRelocateNeighbors_ != other.useRelocateNeighbors_) return false;
+      if (useRelocateSubtrip_ != other.useRelocateSubtrip_) return false;
+      if (useExchange_ != other.useExchange_) return false;
+      if (useExchangePair_ != other.useExchangePair_) return false;
+      if (useExchangeSubtrip_ != other.useExchangeSubtrip_) return false;
+      if (useCross_ != other.useCross_) return false;
+      if (useCrossExchange_ != other.useCrossExchange_) return false;
+      if (useRelocateExpensiveChain_ != other.useRelocateExpensiveChain_) return false;
+      if (useTwoOpt_ != other.useTwoOpt_) return false;
+      if (useOrOpt_ != other.useOrOpt_) return false;
+      if (useLinKernighan_ != other.useLinKernighan_) return false;
+      if (useTspOpt_ != other.useTspOpt_) return false;
+      if (useMakeActive_ != other.useMakeActive_) return false;
+      if (useRelocateAndMakeActive_ != other.useRelocateAndMakeActive_) return false;
+      if (useMakeInactive_ != other.useMakeInactive_) return false;
+      if (useMakeChainInactive_ != other.useMakeChainInactive_) return false;
+      if (useSwapActive_ != other.useSwapActive_) return false;
+      if (useExtendedSwapActive_ != other.useExtendedSwapActive_) return false;
+      if (useNodePairSwapActive_ != other.useNodePairSwapActive_) return false;
+      if (usePathLns_ != other.usePathLns_) return false;
+      if (useFullPathLns_ != other.useFullPathLns_) return false;
+      if (useTspLns_ != other.useTspLns_) return false;
+      if (useInactiveLns_ != other.useInactiveLns_) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
@@ -1355,68 +2520,57 @@ private static final long serialVersionUID = 0L;
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
       hash = (37 * hash) + USE_RELOCATE_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
-          getUseRelocate());
+      hash = (53 * hash) + useRelocate_;
       hash = (37 * hash) + USE_RELOCATE_PAIR_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
-          getUseRelocatePair());
+      hash = (53 * hash) + useRelocatePair_;
+      hash = (37 * hash) + USE_LIGHT_RELOCATE_PAIR_FIELD_NUMBER;
+      hash = (53 * hash) + useLightRelocatePair_;
       hash = (37 * hash) + USE_RELOCATE_NEIGHBORS_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
-          getUseRelocateNeighbors());
+      hash = (53 * hash) + useRelocateNeighbors_;
+      hash = (37 * hash) + USE_RELOCATE_SUBTRIP_FIELD_NUMBER;
+      hash = (53 * hash) + useRelocateSubtrip_;
       hash = (37 * hash) + USE_EXCHANGE_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
-          getUseExchange());
+      hash = (53 * hash) + useExchange_;
+      hash = (37 * hash) + USE_EXCHANGE_PAIR_FIELD_NUMBER;
+      hash = (53 * hash) + useExchangePair_;
+      hash = (37 * hash) + USE_EXCHANGE_SUBTRIP_FIELD_NUMBER;
+      hash = (53 * hash) + useExchangeSubtrip_;
       hash = (37 * hash) + USE_CROSS_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
-          getUseCross());
+      hash = (53 * hash) + useCross_;
       hash = (37 * hash) + USE_CROSS_EXCHANGE_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
-          getUseCrossExchange());
+      hash = (53 * hash) + useCrossExchange_;
+      hash = (37 * hash) + USE_RELOCATE_EXPENSIVE_CHAIN_FIELD_NUMBER;
+      hash = (53 * hash) + useRelocateExpensiveChain_;
       hash = (37 * hash) + USE_TWO_OPT_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
-          getUseTwoOpt());
+      hash = (53 * hash) + useTwoOpt_;
       hash = (37 * hash) + USE_OR_OPT_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
-          getUseOrOpt());
+      hash = (53 * hash) + useOrOpt_;
       hash = (37 * hash) + USE_LIN_KERNIGHAN_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
-          getUseLinKernighan());
+      hash = (53 * hash) + useLinKernighan_;
       hash = (37 * hash) + USE_TSP_OPT_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
-          getUseTspOpt());
+      hash = (53 * hash) + useTspOpt_;
       hash = (37 * hash) + USE_MAKE_ACTIVE_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
-          getUseMakeActive());
+      hash = (53 * hash) + useMakeActive_;
       hash = (37 * hash) + USE_RELOCATE_AND_MAKE_ACTIVE_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
-          getUseRelocateAndMakeActive());
+      hash = (53 * hash) + useRelocateAndMakeActive_;
       hash = (37 * hash) + USE_MAKE_INACTIVE_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
-          getUseMakeInactive());
+      hash = (53 * hash) + useMakeInactive_;
       hash = (37 * hash) + USE_MAKE_CHAIN_INACTIVE_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
-          getUseMakeChainInactive());
+      hash = (53 * hash) + useMakeChainInactive_;
       hash = (37 * hash) + USE_SWAP_ACTIVE_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
-          getUseSwapActive());
+      hash = (53 * hash) + useSwapActive_;
       hash = (37 * hash) + USE_EXTENDED_SWAP_ACTIVE_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
-          getUseExtendedSwapActive());
+      hash = (53 * hash) + useExtendedSwapActive_;
       hash = (37 * hash) + USE_NODE_PAIR_SWAP_ACTIVE_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
-          getUseNodePairSwapActive());
+      hash = (53 * hash) + useNodePairSwapActive_;
       hash = (37 * hash) + USE_PATH_LNS_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
-          getUsePathLns());
+      hash = (53 * hash) + usePathLns_;
       hash = (37 * hash) + USE_FULL_PATH_LNS_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
-          getUseFullPathLns());
+      hash = (53 * hash) + useFullPathLns_;
       hash = (37 * hash) + USE_TSP_LNS_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
-          getUseTspLns());
+      hash = (53 * hash) + useTspLns_;
       hash = (37 * hash) + USE_INACTIVE_LNS_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
-          getUseInactiveLns());
+      hash = (53 * hash) + useInactiveLns_;
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -1492,6 +2646,7 @@ private static final long serialVersionUID = 0L;
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
+    @Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
@@ -1499,12 +2654,13 @@ private static final long serialVersionUID = 0L;
     public static Builder newBuilder(com.google.ortools.constraintsolver.RoutingSearchParameters.LocalSearchNeighborhoodOperators prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
+    @Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
     }
 
-    @java.lang.Override
+    @Override
     protected Builder newBuilderForType(
         com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       Builder builder = new Builder(parent);
@@ -1513,6 +2669,7 @@ private static final long serialVersionUID = 0L;
     /**
      * <pre>
      * Local search neighborhood operators used to build a solutions neighborhood.
+     * Next ID: 27
      * </pre>
      *
      * Protobuf type {@code operations_research.RoutingSearchParameters.LocalSearchNeighborhoodOperators}
@@ -1526,6 +2683,7 @@ private static final long serialVersionUID = 0L;
         return com.google.ortools.constraintsolver.RoutingParameters.internal_static_operations_research_RoutingSearchParameters_LocalSearchNeighborhoodOperators_descriptor;
       }
 
+      @Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.google.ortools.constraintsolver.RoutingParameters.internal_static_operations_research_RoutingSearchParameters_LocalSearchNeighborhoodOperators_fieldAccessorTable
@@ -1548,62 +2706,76 @@ private static final long serialVersionUID = 0L;
                 .alwaysUseFieldBuilders) {
         }
       }
+      @Override
       public Builder clear() {
         super.clear();
-        useRelocate_ = false;
+        useRelocate_ = 0;
 
-        useRelocatePair_ = false;
+        useRelocatePair_ = 0;
 
-        useRelocateNeighbors_ = false;
+        useLightRelocatePair_ = 0;
 
-        useExchange_ = false;
+        useRelocateNeighbors_ = 0;
 
-        useCross_ = false;
+        useRelocateSubtrip_ = 0;
 
-        useCrossExchange_ = false;
+        useExchange_ = 0;
 
-        useTwoOpt_ = false;
+        useExchangePair_ = 0;
 
-        useOrOpt_ = false;
+        useExchangeSubtrip_ = 0;
 
-        useLinKernighan_ = false;
+        useCross_ = 0;
 
-        useTspOpt_ = false;
+        useCrossExchange_ = 0;
 
-        useMakeActive_ = false;
+        useRelocateExpensiveChain_ = 0;
 
-        useRelocateAndMakeActive_ = false;
+        useTwoOpt_ = 0;
 
-        useMakeInactive_ = false;
+        useOrOpt_ = 0;
 
-        useMakeChainInactive_ = false;
+        useLinKernighan_ = 0;
 
-        useSwapActive_ = false;
+        useTspOpt_ = 0;
 
-        useExtendedSwapActive_ = false;
+        useMakeActive_ = 0;
 
-        useNodePairSwapActive_ = false;
+        useRelocateAndMakeActive_ = 0;
 
-        usePathLns_ = false;
+        useMakeInactive_ = 0;
 
-        useFullPathLns_ = false;
+        useMakeChainInactive_ = 0;
 
-        useTspLns_ = false;
+        useSwapActive_ = 0;
 
-        useInactiveLns_ = false;
+        useExtendedSwapActive_ = 0;
+
+        useNodePairSwapActive_ = 0;
+
+        usePathLns_ = 0;
+
+        useFullPathLns_ = 0;
+
+        useTspLns_ = 0;
+
+        useInactiveLns_ = 0;
 
         return this;
       }
 
+      @Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
         return com.google.ortools.constraintsolver.RoutingParameters.internal_static_operations_research_RoutingSearchParameters_LocalSearchNeighborhoodOperators_descriptor;
       }
 
+      @Override
       public com.google.ortools.constraintsolver.RoutingSearchParameters.LocalSearchNeighborhoodOperators getDefaultInstanceForType() {
         return com.google.ortools.constraintsolver.RoutingSearchParameters.LocalSearchNeighborhoodOperators.getDefaultInstance();
       }
 
+      @Override
       public com.google.ortools.constraintsolver.RoutingSearchParameters.LocalSearchNeighborhoodOperators build() {
         com.google.ortools.constraintsolver.RoutingSearchParameters.LocalSearchNeighborhoodOperators result = buildPartial();
         if (!result.isInitialized()) {
@@ -1612,14 +2784,20 @@ private static final long serialVersionUID = 0L;
         return result;
       }
 
+      @Override
       public com.google.ortools.constraintsolver.RoutingSearchParameters.LocalSearchNeighborhoodOperators buildPartial() {
         com.google.ortools.constraintsolver.RoutingSearchParameters.LocalSearchNeighborhoodOperators result = new com.google.ortools.constraintsolver.RoutingSearchParameters.LocalSearchNeighborhoodOperators(this);
         result.useRelocate_ = useRelocate_;
         result.useRelocatePair_ = useRelocatePair_;
+        result.useLightRelocatePair_ = useLightRelocatePair_;
         result.useRelocateNeighbors_ = useRelocateNeighbors_;
+        result.useRelocateSubtrip_ = useRelocateSubtrip_;
         result.useExchange_ = useExchange_;
+        result.useExchangePair_ = useExchangePair_;
+        result.useExchangeSubtrip_ = useExchangeSubtrip_;
         result.useCross_ = useCross_;
         result.useCrossExchange_ = useCrossExchange_;
+        result.useRelocateExpensiveChain_ = useRelocateExpensiveChain_;
         result.useTwoOpt_ = useTwoOpt_;
         result.useOrOpt_ = useOrOpt_;
         result.useLinKernighan_ = useLinKernighan_;
@@ -1639,32 +2817,39 @@ private static final long serialVersionUID = 0L;
         return result;
       }
 
+      @Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
+      @Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+          Object value) {
+        return super.setField(field, value);
       }
+      @Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
+      @Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
+      @Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+          int index, Object value) {
+        return super.setRepeatedField(field, index, value);
       }
+      @Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+          Object value) {
+        return super.addRepeatedField(field, value);
       }
+      @Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.google.ortools.constraintsolver.RoutingSearchParameters.LocalSearchNeighborhoodOperators) {
           return mergeFrom((com.google.ortools.constraintsolver.RoutingSearchParameters.LocalSearchNeighborhoodOperators)other);
@@ -1676,78 +2861,95 @@ private static final long serialVersionUID = 0L;
 
       public Builder mergeFrom(com.google.ortools.constraintsolver.RoutingSearchParameters.LocalSearchNeighborhoodOperators other) {
         if (other == com.google.ortools.constraintsolver.RoutingSearchParameters.LocalSearchNeighborhoodOperators.getDefaultInstance()) return this;
-        if (other.getUseRelocate() != false) {
-          setUseRelocate(other.getUseRelocate());
+        if (other.useRelocate_ != 0) {
+          setUseRelocateValue(other.getUseRelocateValue());
         }
-        if (other.getUseRelocatePair() != false) {
-          setUseRelocatePair(other.getUseRelocatePair());
+        if (other.useRelocatePair_ != 0) {
+          setUseRelocatePairValue(other.getUseRelocatePairValue());
         }
-        if (other.getUseRelocateNeighbors() != false) {
-          setUseRelocateNeighbors(other.getUseRelocateNeighbors());
+        if (other.useLightRelocatePair_ != 0) {
+          setUseLightRelocatePairValue(other.getUseLightRelocatePairValue());
         }
-        if (other.getUseExchange() != false) {
-          setUseExchange(other.getUseExchange());
+        if (other.useRelocateNeighbors_ != 0) {
+          setUseRelocateNeighborsValue(other.getUseRelocateNeighborsValue());
         }
-        if (other.getUseCross() != false) {
-          setUseCross(other.getUseCross());
+        if (other.useRelocateSubtrip_ != 0) {
+          setUseRelocateSubtripValue(other.getUseRelocateSubtripValue());
         }
-        if (other.getUseCrossExchange() != false) {
-          setUseCrossExchange(other.getUseCrossExchange());
+        if (other.useExchange_ != 0) {
+          setUseExchangeValue(other.getUseExchangeValue());
         }
-        if (other.getUseTwoOpt() != false) {
-          setUseTwoOpt(other.getUseTwoOpt());
+        if (other.useExchangePair_ != 0) {
+          setUseExchangePairValue(other.getUseExchangePairValue());
         }
-        if (other.getUseOrOpt() != false) {
-          setUseOrOpt(other.getUseOrOpt());
+        if (other.useExchangeSubtrip_ != 0) {
+          setUseExchangeSubtripValue(other.getUseExchangeSubtripValue());
         }
-        if (other.getUseLinKernighan() != false) {
-          setUseLinKernighan(other.getUseLinKernighan());
+        if (other.useCross_ != 0) {
+          setUseCrossValue(other.getUseCrossValue());
         }
-        if (other.getUseTspOpt() != false) {
-          setUseTspOpt(other.getUseTspOpt());
+        if (other.useCrossExchange_ != 0) {
+          setUseCrossExchangeValue(other.getUseCrossExchangeValue());
         }
-        if (other.getUseMakeActive() != false) {
-          setUseMakeActive(other.getUseMakeActive());
+        if (other.useRelocateExpensiveChain_ != 0) {
+          setUseRelocateExpensiveChainValue(other.getUseRelocateExpensiveChainValue());
         }
-        if (other.getUseRelocateAndMakeActive() != false) {
-          setUseRelocateAndMakeActive(other.getUseRelocateAndMakeActive());
+        if (other.useTwoOpt_ != 0) {
+          setUseTwoOptValue(other.getUseTwoOptValue());
         }
-        if (other.getUseMakeInactive() != false) {
-          setUseMakeInactive(other.getUseMakeInactive());
+        if (other.useOrOpt_ != 0) {
+          setUseOrOptValue(other.getUseOrOptValue());
         }
-        if (other.getUseMakeChainInactive() != false) {
-          setUseMakeChainInactive(other.getUseMakeChainInactive());
+        if (other.useLinKernighan_ != 0) {
+          setUseLinKernighanValue(other.getUseLinKernighanValue());
         }
-        if (other.getUseSwapActive() != false) {
-          setUseSwapActive(other.getUseSwapActive());
+        if (other.useTspOpt_ != 0) {
+          setUseTspOptValue(other.getUseTspOptValue());
         }
-        if (other.getUseExtendedSwapActive() != false) {
-          setUseExtendedSwapActive(other.getUseExtendedSwapActive());
+        if (other.useMakeActive_ != 0) {
+          setUseMakeActiveValue(other.getUseMakeActiveValue());
         }
-        if (other.getUseNodePairSwapActive() != false) {
-          setUseNodePairSwapActive(other.getUseNodePairSwapActive());
+        if (other.useRelocateAndMakeActive_ != 0) {
+          setUseRelocateAndMakeActiveValue(other.getUseRelocateAndMakeActiveValue());
         }
-        if (other.getUsePathLns() != false) {
-          setUsePathLns(other.getUsePathLns());
+        if (other.useMakeInactive_ != 0) {
+          setUseMakeInactiveValue(other.getUseMakeInactiveValue());
         }
-        if (other.getUseFullPathLns() != false) {
-          setUseFullPathLns(other.getUseFullPathLns());
+        if (other.useMakeChainInactive_ != 0) {
+          setUseMakeChainInactiveValue(other.getUseMakeChainInactiveValue());
         }
-        if (other.getUseTspLns() != false) {
-          setUseTspLns(other.getUseTspLns());
+        if (other.useSwapActive_ != 0) {
+          setUseSwapActiveValue(other.getUseSwapActiveValue());
         }
-        if (other.getUseInactiveLns() != false) {
-          setUseInactiveLns(other.getUseInactiveLns());
+        if (other.useExtendedSwapActive_ != 0) {
+          setUseExtendedSwapActiveValue(other.getUseExtendedSwapActiveValue());
+        }
+        if (other.useNodePairSwapActive_ != 0) {
+          setUseNodePairSwapActiveValue(other.getUseNodePairSwapActiveValue());
+        }
+        if (other.usePathLns_ != 0) {
+          setUsePathLnsValue(other.getUsePathLnsValue());
+        }
+        if (other.useFullPathLns_ != 0) {
+          setUseFullPathLnsValue(other.getUseFullPathLnsValue());
+        }
+        if (other.useTspLns_ != 0) {
+          setUseTspLnsValue(other.getUseTspLnsValue());
+        }
+        if (other.useInactiveLns_ != 0) {
+          setUseInactiveLnsValue(other.getUseInactiveLnsValue());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
       }
 
+      @Override
       public final boolean isInitialized() {
         return true;
       }
 
+      @Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -1766,7 +2968,7 @@ private static final long serialVersionUID = 0L;
         return this;
       }
 
-      private boolean useRelocate_ ;
+      private int useRelocate_ = 0;
       /**
        * <pre>
        * --- Inter-route operators ---
@@ -1780,9 +2982,9 @@ private static final long serialVersionUID = 0L;
        *   1 -&gt; [4] -&gt;  2  -&gt;  3  -&gt; 5
        * </pre>
        *
-       * <code>bool use_relocate = 1;</code>
+       * <code>.operations_research.OptionalBoolean use_relocate = 1;</code>
        */
-      public boolean getUseRelocate() {
+      public int getUseRelocateValue() {
         return useRelocate_;
       }
       /**
@@ -1798,10 +3000,9 @@ private static final long serialVersionUID = 0L;
        *   1 -&gt; [4] -&gt;  2  -&gt;  3  -&gt; 5
        * </pre>
        *
-       * <code>bool use_relocate = 1;</code>
+       * <code>.operations_research.OptionalBoolean use_relocate = 1;</code>
        */
-      public Builder setUseRelocate(boolean value) {
-        
+      public Builder setUseRelocateValue(int value) {
         useRelocate_ = value;
         onChanged();
         return this;
@@ -1819,21 +3020,66 @@ private static final long serialVersionUID = 0L;
        *   1 -&gt; [4] -&gt;  2  -&gt;  3  -&gt; 5
        * </pre>
        *
-       * <code>bool use_relocate = 1;</code>
+       * <code>.operations_research.OptionalBoolean use_relocate = 1;</code>
+       */
+      public com.google.ortools.util.OptionalBoolean getUseRelocate() {
+        @SuppressWarnings("deprecation")
+        com.google.ortools.util.OptionalBoolean result = com.google.ortools.util.OptionalBoolean.valueOf(useRelocate_);
+        return result == null ? com.google.ortools.util.OptionalBoolean.UNRECOGNIZED : result;
+      }
+      /**
+       * <pre>
+       * --- Inter-route operators ---
+       * Operator which moves a single node to another position.
+       * Possible neighbors for the path 1 -&gt; 2 -&gt; 3 -&gt; 4 -&gt; 5
+       * (where (1, 5) are first and last nodes of the path and can therefore not
+       * be moved):
+       *   1 -&gt;  3  -&gt; [2] -&gt;  4  -&gt; 5
+       *   1 -&gt;  3  -&gt;  4  -&gt; [2] -&gt; 5
+       *   1 -&gt;  2  -&gt;  4  -&gt; [3] -&gt; 5
+       *   1 -&gt; [4] -&gt;  2  -&gt;  3  -&gt; 5
+       * </pre>
+       *
+       * <code>.operations_research.OptionalBoolean use_relocate = 1;</code>
+       */
+      public Builder setUseRelocate(com.google.ortools.util.OptionalBoolean value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        useRelocate_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * --- Inter-route operators ---
+       * Operator which moves a single node to another position.
+       * Possible neighbors for the path 1 -&gt; 2 -&gt; 3 -&gt; 4 -&gt; 5
+       * (where (1, 5) are first and last nodes of the path and can therefore not
+       * be moved):
+       *   1 -&gt;  3  -&gt; [2] -&gt;  4  -&gt; 5
+       *   1 -&gt;  3  -&gt;  4  -&gt; [2] -&gt; 5
+       *   1 -&gt;  2  -&gt;  4  -&gt; [3] -&gt; 5
+       *   1 -&gt; [4] -&gt;  2  -&gt;  3  -&gt; 5
+       * </pre>
+       *
+       * <code>.operations_research.OptionalBoolean use_relocate = 1;</code>
        */
       public Builder clearUseRelocate() {
         
-        useRelocate_ = false;
+        useRelocate_ = 0;
         onChanged();
         return this;
       }
 
-      private boolean useRelocatePair_ ;
+      private int useRelocatePair_ = 0;
       /**
        * <pre>
        * Operator which moves a pair of pickup and delivery nodes to another
        * position where the first node of the pair must be before the second node
-       * on the same path.
+       * on the same path. Compared to the light_relocate_pair operator, tries all
+       * possible positions of insertion of a pair (not only after another pair).
        * Possible neighbors for the path 1 -&gt; A -&gt; B -&gt; 2 -&gt; 3 (where (1, 3) are
        * first and last nodes of the path and can therefore not be moved, and
        * (A, B) is a pair of nodes):
@@ -1841,16 +3087,17 @@ private static final long serialVersionUID = 0L;
        *   1 -&gt;  2  -&gt; [A] -&gt; [B] -&gt; 3
        * </pre>
        *
-       * <code>bool use_relocate_pair = 2;</code>
+       * <code>.operations_research.OptionalBoolean use_relocate_pair = 2;</code>
        */
-      public boolean getUseRelocatePair() {
+      public int getUseRelocatePairValue() {
         return useRelocatePair_;
       }
       /**
        * <pre>
        * Operator which moves a pair of pickup and delivery nodes to another
        * position where the first node of the pair must be before the second node
-       * on the same path.
+       * on the same path. Compared to the light_relocate_pair operator, tries all
+       * possible positions of insertion of a pair (not only after another pair).
        * Possible neighbors for the path 1 -&gt; A -&gt; B -&gt; 2 -&gt; 3 (where (1, 3) are
        * first and last nodes of the path and can therefore not be moved, and
        * (A, B) is a pair of nodes):
@@ -1858,10 +3105,9 @@ private static final long serialVersionUID = 0L;
        *   1 -&gt;  2  -&gt; [A] -&gt; [B] -&gt; 3
        * </pre>
        *
-       * <code>bool use_relocate_pair = 2;</code>
+       * <code>.operations_research.OptionalBoolean use_relocate_pair = 2;</code>
        */
-      public Builder setUseRelocatePair(boolean value) {
-        
+      public Builder setUseRelocatePairValue(int value) {
         useRelocatePair_ = value;
         onChanged();
         return this;
@@ -1870,7 +3116,8 @@ private static final long serialVersionUID = 0L;
        * <pre>
        * Operator which moves a pair of pickup and delivery nodes to another
        * position where the first node of the pair must be before the second node
-       * on the same path.
+       * on the same path. Compared to the light_relocate_pair operator, tries all
+       * possible positions of insertion of a pair (not only after another pair).
        * Possible neighbors for the path 1 -&gt; A -&gt; B -&gt; 2 -&gt; 3 (where (1, 3) are
        * first and last nodes of the path and can therefore not be moved, and
        * (A, B) is a pair of nodes):
@@ -1878,16 +3125,155 @@ private static final long serialVersionUID = 0L;
        *   1 -&gt;  2  -&gt; [A] -&gt; [B] -&gt; 3
        * </pre>
        *
-       * <code>bool use_relocate_pair = 2;</code>
+       * <code>.operations_research.OptionalBoolean use_relocate_pair = 2;</code>
+       */
+      public com.google.ortools.util.OptionalBoolean getUseRelocatePair() {
+        @SuppressWarnings("deprecation")
+        com.google.ortools.util.OptionalBoolean result = com.google.ortools.util.OptionalBoolean.valueOf(useRelocatePair_);
+        return result == null ? com.google.ortools.util.OptionalBoolean.UNRECOGNIZED : result;
+      }
+      /**
+       * <pre>
+       * Operator which moves a pair of pickup and delivery nodes to another
+       * position where the first node of the pair must be before the second node
+       * on the same path. Compared to the light_relocate_pair operator, tries all
+       * possible positions of insertion of a pair (not only after another pair).
+       * Possible neighbors for the path 1 -&gt; A -&gt; B -&gt; 2 -&gt; 3 (where (1, 3) are
+       * first and last nodes of the path and can therefore not be moved, and
+       * (A, B) is a pair of nodes):
+       *   1 -&gt; [A] -&gt;  2  -&gt; [B] -&gt; 3
+       *   1 -&gt;  2  -&gt; [A] -&gt; [B] -&gt; 3
+       * </pre>
+       *
+       * <code>.operations_research.OptionalBoolean use_relocate_pair = 2;</code>
+       */
+      public Builder setUseRelocatePair(com.google.ortools.util.OptionalBoolean value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        useRelocatePair_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Operator which moves a pair of pickup and delivery nodes to another
+       * position where the first node of the pair must be before the second node
+       * on the same path. Compared to the light_relocate_pair operator, tries all
+       * possible positions of insertion of a pair (not only after another pair).
+       * Possible neighbors for the path 1 -&gt; A -&gt; B -&gt; 2 -&gt; 3 (where (1, 3) are
+       * first and last nodes of the path and can therefore not be moved, and
+       * (A, B) is a pair of nodes):
+       *   1 -&gt; [A] -&gt;  2  -&gt; [B] -&gt; 3
+       *   1 -&gt;  2  -&gt; [A] -&gt; [B] -&gt; 3
+       * </pre>
+       *
+       * <code>.operations_research.OptionalBoolean use_relocate_pair = 2;</code>
        */
       public Builder clearUseRelocatePair() {
         
-        useRelocatePair_ = false;
+        useRelocatePair_ = 0;
         onChanged();
         return this;
       }
 
-      private boolean useRelocateNeighbors_ ;
+      private int useLightRelocatePair_ = 0;
+      /**
+       * <pre>
+       * Operator which moves a pair of pickup and delivery nodes after another
+       * pair.
+       * Possible neighbors for paths 1 -&gt; A -&gt; B -&gt; 2, 3 -&gt; C -&gt; D -&gt; 4 (where
+       * (1, 2) and (3, 4) are first and last nodes of paths and can therefore not
+       * be moved, and (A, B) and (C, D) are pair of nodes):
+       *   1 -&gt; 2, 3 -&gt; C -&gt; [A] -&gt; D -&gt; [B] -&gt; 4
+       *   1 -&gt; A -&gt; [C] -&gt; B -&gt; [D] -&gt; 2, 3 -&gt; 4
+       * </pre>
+       *
+       * <code>.operations_research.OptionalBoolean use_light_relocate_pair = 24;</code>
+       */
+      public int getUseLightRelocatePairValue() {
+        return useLightRelocatePair_;
+      }
+      /**
+       * <pre>
+       * Operator which moves a pair of pickup and delivery nodes after another
+       * pair.
+       * Possible neighbors for paths 1 -&gt; A -&gt; B -&gt; 2, 3 -&gt; C -&gt; D -&gt; 4 (where
+       * (1, 2) and (3, 4) are first and last nodes of paths and can therefore not
+       * be moved, and (A, B) and (C, D) are pair of nodes):
+       *   1 -&gt; 2, 3 -&gt; C -&gt; [A] -&gt; D -&gt; [B] -&gt; 4
+       *   1 -&gt; A -&gt; [C] -&gt; B -&gt; [D] -&gt; 2, 3 -&gt; 4
+       * </pre>
+       *
+       * <code>.operations_research.OptionalBoolean use_light_relocate_pair = 24;</code>
+       */
+      public Builder setUseLightRelocatePairValue(int value) {
+        useLightRelocatePair_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Operator which moves a pair of pickup and delivery nodes after another
+       * pair.
+       * Possible neighbors for paths 1 -&gt; A -&gt; B -&gt; 2, 3 -&gt; C -&gt; D -&gt; 4 (where
+       * (1, 2) and (3, 4) are first and last nodes of paths and can therefore not
+       * be moved, and (A, B) and (C, D) are pair of nodes):
+       *   1 -&gt; 2, 3 -&gt; C -&gt; [A] -&gt; D -&gt; [B] -&gt; 4
+       *   1 -&gt; A -&gt; [C] -&gt; B -&gt; [D] -&gt; 2, 3 -&gt; 4
+       * </pre>
+       *
+       * <code>.operations_research.OptionalBoolean use_light_relocate_pair = 24;</code>
+       */
+      public com.google.ortools.util.OptionalBoolean getUseLightRelocatePair() {
+        @SuppressWarnings("deprecation")
+        com.google.ortools.util.OptionalBoolean result = com.google.ortools.util.OptionalBoolean.valueOf(useLightRelocatePair_);
+        return result == null ? com.google.ortools.util.OptionalBoolean.UNRECOGNIZED : result;
+      }
+      /**
+       * <pre>
+       * Operator which moves a pair of pickup and delivery nodes after another
+       * pair.
+       * Possible neighbors for paths 1 -&gt; A -&gt; B -&gt; 2, 3 -&gt; C -&gt; D -&gt; 4 (where
+       * (1, 2) and (3, 4) are first and last nodes of paths and can therefore not
+       * be moved, and (A, B) and (C, D) are pair of nodes):
+       *   1 -&gt; 2, 3 -&gt; C -&gt; [A] -&gt; D -&gt; [B] -&gt; 4
+       *   1 -&gt; A -&gt; [C] -&gt; B -&gt; [D] -&gt; 2, 3 -&gt; 4
+       * </pre>
+       *
+       * <code>.operations_research.OptionalBoolean use_light_relocate_pair = 24;</code>
+       */
+      public Builder setUseLightRelocatePair(com.google.ortools.util.OptionalBoolean value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        useLightRelocatePair_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Operator which moves a pair of pickup and delivery nodes after another
+       * pair.
+       * Possible neighbors for paths 1 -&gt; A -&gt; B -&gt; 2, 3 -&gt; C -&gt; D -&gt; 4 (where
+       * (1, 2) and (3, 4) are first and last nodes of paths and can therefore not
+       * be moved, and (A, B) and (C, D) are pair of nodes):
+       *   1 -&gt; 2, 3 -&gt; C -&gt; [A] -&gt; D -&gt; [B] -&gt; 4
+       *   1 -&gt; A -&gt; [C] -&gt; B -&gt; [D] -&gt; 2, 3 -&gt; 4
+       * </pre>
+       *
+       * <code>.operations_research.OptionalBoolean use_light_relocate_pair = 24;</code>
+       */
+      public Builder clearUseLightRelocatePair() {
+        
+        useLightRelocatePair_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int useRelocateNeighbors_ = 0;
       /**
        * <pre>
        * Relocate neighborhood which moves chains of neighbors.
@@ -1914,9 +3300,9 @@ private static final long serialVersionUID = 0L;
        * located at the same place (for instance nodes part of a same stop).
        * </pre>
        *
-       * <code>bool use_relocate_neighbors = 3;</code>
+       * <code>.operations_research.OptionalBoolean use_relocate_neighbors = 3;</code>
        */
-      public boolean getUseRelocateNeighbors() {
+      public int getUseRelocateNeighborsValue() {
         return useRelocateNeighbors_;
       }
       /**
@@ -1945,10 +3331,9 @@ private static final long serialVersionUID = 0L;
        * located at the same place (for instance nodes part of a same stop).
        * </pre>
        *
-       * <code>bool use_relocate_neighbors = 3;</code>
+       * <code>.operations_research.OptionalBoolean use_relocate_neighbors = 3;</code>
        */
-      public Builder setUseRelocateNeighbors(boolean value) {
-        
+      public Builder setUseRelocateNeighborsValue(int value) {
         useRelocateNeighbors_ = value;
         onChanged();
         return this;
@@ -1979,16 +3364,206 @@ private static final long serialVersionUID = 0L;
        * located at the same place (for instance nodes part of a same stop).
        * </pre>
        *
-       * <code>bool use_relocate_neighbors = 3;</code>
+       * <code>.operations_research.OptionalBoolean use_relocate_neighbors = 3;</code>
+       */
+      public com.google.ortools.util.OptionalBoolean getUseRelocateNeighbors() {
+        @SuppressWarnings("deprecation")
+        com.google.ortools.util.OptionalBoolean result = com.google.ortools.util.OptionalBoolean.valueOf(useRelocateNeighbors_);
+        return result == null ? com.google.ortools.util.OptionalBoolean.UNRECOGNIZED : result;
+      }
+      /**
+       * <pre>
+       * Relocate neighborhood which moves chains of neighbors.
+       * The operator starts by relocating a node n after a node m, then continues
+       * moving nodes which were after n as long as the "cost" added is less than
+       * the "cost" of the arc (m, n). If the new chain doesn't respect the domain
+       * of next variables, it will try reordering the nodes until it finds a
+       * valid path.
+       * Possible neighbors for path 1 -&gt; A -&gt; B -&gt; C -&gt; D -&gt; E -&gt; 2 (where (1, 2)
+       * are first and last nodes of the path and can therefore not be moved, A
+       * must be performed before B, and A, D and E are located at the same
+       * place):
+       * 1 -&gt; A -&gt; C -&gt; [B] -&gt; D -&gt; E -&gt; 2
+       * 1 -&gt; A -&gt; C -&gt; D -&gt; [B] -&gt; E -&gt; 2
+       * 1 -&gt; A -&gt; C -&gt; D -&gt; E -&gt; [B] -&gt; 2
+       * 1 -&gt; A -&gt; B -&gt; D -&gt; [C] -&gt; E -&gt; 2
+       * 1 -&gt; A -&gt; B -&gt; D -&gt; E -&gt; [C] -&gt; 2
+       * 1 -&gt; A -&gt; [D] -&gt; [E] -&gt; B -&gt; C -&gt; 2
+       * 1 -&gt; A -&gt; B -&gt; [D] -&gt; [E] -&gt;  C -&gt; 2
+       * 1 -&gt; A -&gt; [E] -&gt; B -&gt; C -&gt; D -&gt; 2
+       * 1 -&gt; A -&gt; B -&gt; [E] -&gt; C -&gt; D -&gt; 2
+       * 1 -&gt; A -&gt; B -&gt; C -&gt; [E] -&gt; D -&gt; 2
+       * This operator is extremelly useful to move chains of nodes which are
+       * located at the same place (for instance nodes part of a same stop).
+       * </pre>
+       *
+       * <code>.operations_research.OptionalBoolean use_relocate_neighbors = 3;</code>
+       */
+      public Builder setUseRelocateNeighbors(com.google.ortools.util.OptionalBoolean value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        useRelocateNeighbors_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Relocate neighborhood which moves chains of neighbors.
+       * The operator starts by relocating a node n after a node m, then continues
+       * moving nodes which were after n as long as the "cost" added is less than
+       * the "cost" of the arc (m, n). If the new chain doesn't respect the domain
+       * of next variables, it will try reordering the nodes until it finds a
+       * valid path.
+       * Possible neighbors for path 1 -&gt; A -&gt; B -&gt; C -&gt; D -&gt; E -&gt; 2 (where (1, 2)
+       * are first and last nodes of the path and can therefore not be moved, A
+       * must be performed before B, and A, D and E are located at the same
+       * place):
+       * 1 -&gt; A -&gt; C -&gt; [B] -&gt; D -&gt; E -&gt; 2
+       * 1 -&gt; A -&gt; C -&gt; D -&gt; [B] -&gt; E -&gt; 2
+       * 1 -&gt; A -&gt; C -&gt; D -&gt; E -&gt; [B] -&gt; 2
+       * 1 -&gt; A -&gt; B -&gt; D -&gt; [C] -&gt; E -&gt; 2
+       * 1 -&gt; A -&gt; B -&gt; D -&gt; E -&gt; [C] -&gt; 2
+       * 1 -&gt; A -&gt; [D] -&gt; [E] -&gt; B -&gt; C -&gt; 2
+       * 1 -&gt; A -&gt; B -&gt; [D] -&gt; [E] -&gt;  C -&gt; 2
+       * 1 -&gt; A -&gt; [E] -&gt; B -&gt; C -&gt; D -&gt; 2
+       * 1 -&gt; A -&gt; B -&gt; [E] -&gt; C -&gt; D -&gt; 2
+       * 1 -&gt; A -&gt; B -&gt; C -&gt; [E] -&gt; D -&gt; 2
+       * This operator is extremelly useful to move chains of nodes which are
+       * located at the same place (for instance nodes part of a same stop).
+       * </pre>
+       *
+       * <code>.operations_research.OptionalBoolean use_relocate_neighbors = 3;</code>
        */
       public Builder clearUseRelocateNeighbors() {
         
-        useRelocateNeighbors_ = false;
+        useRelocateNeighbors_ = 0;
         onChanged();
         return this;
       }
 
-      private boolean useExchange_ ;
+      private int useRelocateSubtrip_ = 0;
+      /**
+       * <pre>
+       * Relocate neighborhood that moves subpaths all pickup and delivery
+       * pairs have both pickup and delivery inside the subpath or both outside
+       * the subpath. For instance, for given paths:
+       * 0 -&gt; A -&gt; B -&gt; A' -&gt; B' -&gt; 5 -&gt; 6 -&gt; 8
+       * 7 -&gt; 9
+       * Pairs (A,A') and (B,B') are interleaved, so the expected neighbors are:
+       * 0 -&gt; 5 -&gt; A -&gt; B -&gt; A' -&gt; B' -&gt; 6 -&gt; 8
+       * 7 -&gt; 9
+       * 0 -&gt; 5 -&gt; 6 -&gt; A -&gt; B -&gt; A' -&gt; B' -&gt; 8
+       * 7 -&gt; 9
+       * 0 -&gt; 5 -&gt; 6 -&gt; 8
+       * 7 -&gt; A -&gt; B -&gt; A' -&gt; B' -&gt; 9
+       * </pre>
+       *
+       * <code>.operations_research.OptionalBoolean use_relocate_subtrip = 25;</code>
+       */
+      public int getUseRelocateSubtripValue() {
+        return useRelocateSubtrip_;
+      }
+      /**
+       * <pre>
+       * Relocate neighborhood that moves subpaths all pickup and delivery
+       * pairs have both pickup and delivery inside the subpath or both outside
+       * the subpath. For instance, for given paths:
+       * 0 -&gt; A -&gt; B -&gt; A' -&gt; B' -&gt; 5 -&gt; 6 -&gt; 8
+       * 7 -&gt; 9
+       * Pairs (A,A') and (B,B') are interleaved, so the expected neighbors are:
+       * 0 -&gt; 5 -&gt; A -&gt; B -&gt; A' -&gt; B' -&gt; 6 -&gt; 8
+       * 7 -&gt; 9
+       * 0 -&gt; 5 -&gt; 6 -&gt; A -&gt; B -&gt; A' -&gt; B' -&gt; 8
+       * 7 -&gt; 9
+       * 0 -&gt; 5 -&gt; 6 -&gt; 8
+       * 7 -&gt; A -&gt; B -&gt; A' -&gt; B' -&gt; 9
+       * </pre>
+       *
+       * <code>.operations_research.OptionalBoolean use_relocate_subtrip = 25;</code>
+       */
+      public Builder setUseRelocateSubtripValue(int value) {
+        useRelocateSubtrip_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Relocate neighborhood that moves subpaths all pickup and delivery
+       * pairs have both pickup and delivery inside the subpath or both outside
+       * the subpath. For instance, for given paths:
+       * 0 -&gt; A -&gt; B -&gt; A' -&gt; B' -&gt; 5 -&gt; 6 -&gt; 8
+       * 7 -&gt; 9
+       * Pairs (A,A') and (B,B') are interleaved, so the expected neighbors are:
+       * 0 -&gt; 5 -&gt; A -&gt; B -&gt; A' -&gt; B' -&gt; 6 -&gt; 8
+       * 7 -&gt; 9
+       * 0 -&gt; 5 -&gt; 6 -&gt; A -&gt; B -&gt; A' -&gt; B' -&gt; 8
+       * 7 -&gt; 9
+       * 0 -&gt; 5 -&gt; 6 -&gt; 8
+       * 7 -&gt; A -&gt; B -&gt; A' -&gt; B' -&gt; 9
+       * </pre>
+       *
+       * <code>.operations_research.OptionalBoolean use_relocate_subtrip = 25;</code>
+       */
+      public com.google.ortools.util.OptionalBoolean getUseRelocateSubtrip() {
+        @SuppressWarnings("deprecation")
+        com.google.ortools.util.OptionalBoolean result = com.google.ortools.util.OptionalBoolean.valueOf(useRelocateSubtrip_);
+        return result == null ? com.google.ortools.util.OptionalBoolean.UNRECOGNIZED : result;
+      }
+      /**
+       * <pre>
+       * Relocate neighborhood that moves subpaths all pickup and delivery
+       * pairs have both pickup and delivery inside the subpath or both outside
+       * the subpath. For instance, for given paths:
+       * 0 -&gt; A -&gt; B -&gt; A' -&gt; B' -&gt; 5 -&gt; 6 -&gt; 8
+       * 7 -&gt; 9
+       * Pairs (A,A') and (B,B') are interleaved, so the expected neighbors are:
+       * 0 -&gt; 5 -&gt; A -&gt; B -&gt; A' -&gt; B' -&gt; 6 -&gt; 8
+       * 7 -&gt; 9
+       * 0 -&gt; 5 -&gt; 6 -&gt; A -&gt; B -&gt; A' -&gt; B' -&gt; 8
+       * 7 -&gt; 9
+       * 0 -&gt; 5 -&gt; 6 -&gt; 8
+       * 7 -&gt; A -&gt; B -&gt; A' -&gt; B' -&gt; 9
+       * </pre>
+       *
+       * <code>.operations_research.OptionalBoolean use_relocate_subtrip = 25;</code>
+       */
+      public Builder setUseRelocateSubtrip(com.google.ortools.util.OptionalBoolean value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        useRelocateSubtrip_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Relocate neighborhood that moves subpaths all pickup and delivery
+       * pairs have both pickup and delivery inside the subpath or both outside
+       * the subpath. For instance, for given paths:
+       * 0 -&gt; A -&gt; B -&gt; A' -&gt; B' -&gt; 5 -&gt; 6 -&gt; 8
+       * 7 -&gt; 9
+       * Pairs (A,A') and (B,B') are interleaved, so the expected neighbors are:
+       * 0 -&gt; 5 -&gt; A -&gt; B -&gt; A' -&gt; B' -&gt; 6 -&gt; 8
+       * 7 -&gt; 9
+       * 0 -&gt; 5 -&gt; 6 -&gt; A -&gt; B -&gt; A' -&gt; B' -&gt; 8
+       * 7 -&gt; 9
+       * 0 -&gt; 5 -&gt; 6 -&gt; 8
+       * 7 -&gt; A -&gt; B -&gt; A' -&gt; B' -&gt; 9
+       * </pre>
+       *
+       * <code>.operations_research.OptionalBoolean use_relocate_subtrip = 25;</code>
+       */
+      public Builder clearUseRelocateSubtrip() {
+        
+        useRelocateSubtrip_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int useExchange_ = 0;
       /**
        * <pre>
        * Operator which exchanges the positions of two nodes.
@@ -2000,9 +3575,9 @@ private static final long serialVersionUID = 0L;
        *   1 -&gt;  2  -&gt; [4] -&gt; [3] -&gt; 5
        * </pre>
        *
-       * <code>bool use_exchange = 4;</code>
+       * <code>.operations_research.OptionalBoolean use_exchange = 4;</code>
        */
-      public boolean getUseExchange() {
+      public int getUseExchangeValue() {
         return useExchange_;
       }
       /**
@@ -2016,10 +3591,9 @@ private static final long serialVersionUID = 0L;
        *   1 -&gt;  2  -&gt; [4] -&gt; [3] -&gt; 5
        * </pre>
        *
-       * <code>bool use_exchange = 4;</code>
+       * <code>.operations_research.OptionalBoolean use_exchange = 4;</code>
        */
-      public Builder setUseExchange(boolean value) {
-        
+      public Builder setUseExchangeValue(int value) {
         useExchange_ = value;
         onChanged();
         return this;
@@ -2035,16 +3609,221 @@ private static final long serialVersionUID = 0L;
        *   1 -&gt;  2  -&gt; [4] -&gt; [3] -&gt; 5
        * </pre>
        *
-       * <code>bool use_exchange = 4;</code>
+       * <code>.operations_research.OptionalBoolean use_exchange = 4;</code>
+       */
+      public com.google.ortools.util.OptionalBoolean getUseExchange() {
+        @SuppressWarnings("deprecation")
+        com.google.ortools.util.OptionalBoolean result = com.google.ortools.util.OptionalBoolean.valueOf(useExchange_);
+        return result == null ? com.google.ortools.util.OptionalBoolean.UNRECOGNIZED : result;
+      }
+      /**
+       * <pre>
+       * Operator which exchanges the positions of two nodes.
+       * Possible neighbors for the path 1 -&gt; 2 -&gt; 3 -&gt; 4 -&gt; 5
+       * (where (1, 5) are first and last nodes of the path and can therefore not
+       * be moved):
+       *   1 -&gt; [3] -&gt; [2] -&gt;  4  -&gt; 5
+       *   1 -&gt; [4] -&gt;  3  -&gt; [2] -&gt; 5
+       *   1 -&gt;  2  -&gt; [4] -&gt; [3] -&gt; 5
+       * </pre>
+       *
+       * <code>.operations_research.OptionalBoolean use_exchange = 4;</code>
+       */
+      public Builder setUseExchange(com.google.ortools.util.OptionalBoolean value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        useExchange_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Operator which exchanges the positions of two nodes.
+       * Possible neighbors for the path 1 -&gt; 2 -&gt; 3 -&gt; 4 -&gt; 5
+       * (where (1, 5) are first and last nodes of the path and can therefore not
+       * be moved):
+       *   1 -&gt; [3] -&gt; [2] -&gt;  4  -&gt; 5
+       *   1 -&gt; [4] -&gt;  3  -&gt; [2] -&gt; 5
+       *   1 -&gt;  2  -&gt; [4] -&gt; [3] -&gt; 5
+       * </pre>
+       *
+       * <code>.operations_research.OptionalBoolean use_exchange = 4;</code>
        */
       public Builder clearUseExchange() {
         
-        useExchange_ = false;
+        useExchange_ = 0;
         onChanged();
         return this;
       }
 
-      private boolean useCross_ ;
+      private int useExchangePair_ = 0;
+      /**
+       * <pre>
+       * Operator which exchanges the positions of two pair of nodes. Pairs
+       * correspond to the pickup and delivery pairs defined in the routing model.
+       * Possible neighbor for the paths
+       * 1 -&gt; A -&gt; B -&gt; 2 -&gt; 3 and 4 -&gt; C -&gt; D -&gt; 5
+       * (where (1, 3) and (4, 5) are first and last nodes of the paths and can
+       * therefore not be moved, and (A, B) and (C,D) are pairs of nodes):
+       *   1 -&gt; [C] -&gt;  [D] -&gt; 2 -&gt; 3, 4 -&gt; [A] -&gt; [B] -&gt; 5
+       * </pre>
+       *
+       * <code>.operations_research.OptionalBoolean use_exchange_pair = 22;</code>
+       */
+      public int getUseExchangePairValue() {
+        return useExchangePair_;
+      }
+      /**
+       * <pre>
+       * Operator which exchanges the positions of two pair of nodes. Pairs
+       * correspond to the pickup and delivery pairs defined in the routing model.
+       * Possible neighbor for the paths
+       * 1 -&gt; A -&gt; B -&gt; 2 -&gt; 3 and 4 -&gt; C -&gt; D -&gt; 5
+       * (where (1, 3) and (4, 5) are first and last nodes of the paths and can
+       * therefore not be moved, and (A, B) and (C,D) are pairs of nodes):
+       *   1 -&gt; [C] -&gt;  [D] -&gt; 2 -&gt; 3, 4 -&gt; [A] -&gt; [B] -&gt; 5
+       * </pre>
+       *
+       * <code>.operations_research.OptionalBoolean use_exchange_pair = 22;</code>
+       */
+      public Builder setUseExchangePairValue(int value) {
+        useExchangePair_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Operator which exchanges the positions of two pair of nodes. Pairs
+       * correspond to the pickup and delivery pairs defined in the routing model.
+       * Possible neighbor for the paths
+       * 1 -&gt; A -&gt; B -&gt; 2 -&gt; 3 and 4 -&gt; C -&gt; D -&gt; 5
+       * (where (1, 3) and (4, 5) are first and last nodes of the paths and can
+       * therefore not be moved, and (A, B) and (C,D) are pairs of nodes):
+       *   1 -&gt; [C] -&gt;  [D] -&gt; 2 -&gt; 3, 4 -&gt; [A] -&gt; [B] -&gt; 5
+       * </pre>
+       *
+       * <code>.operations_research.OptionalBoolean use_exchange_pair = 22;</code>
+       */
+      public com.google.ortools.util.OptionalBoolean getUseExchangePair() {
+        @SuppressWarnings("deprecation")
+        com.google.ortools.util.OptionalBoolean result = com.google.ortools.util.OptionalBoolean.valueOf(useExchangePair_);
+        return result == null ? com.google.ortools.util.OptionalBoolean.UNRECOGNIZED : result;
+      }
+      /**
+       * <pre>
+       * Operator which exchanges the positions of two pair of nodes. Pairs
+       * correspond to the pickup and delivery pairs defined in the routing model.
+       * Possible neighbor for the paths
+       * 1 -&gt; A -&gt; B -&gt; 2 -&gt; 3 and 4 -&gt; C -&gt; D -&gt; 5
+       * (where (1, 3) and (4, 5) are first and last nodes of the paths and can
+       * therefore not be moved, and (A, B) and (C,D) are pairs of nodes):
+       *   1 -&gt; [C] -&gt;  [D] -&gt; 2 -&gt; 3, 4 -&gt; [A] -&gt; [B] -&gt; 5
+       * </pre>
+       *
+       * <code>.operations_research.OptionalBoolean use_exchange_pair = 22;</code>
+       */
+      public Builder setUseExchangePair(com.google.ortools.util.OptionalBoolean value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        useExchangePair_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Operator which exchanges the positions of two pair of nodes. Pairs
+       * correspond to the pickup and delivery pairs defined in the routing model.
+       * Possible neighbor for the paths
+       * 1 -&gt; A -&gt; B -&gt; 2 -&gt; 3 and 4 -&gt; C -&gt; D -&gt; 5
+       * (where (1, 3) and (4, 5) are first and last nodes of the paths and can
+       * therefore not be moved, and (A, B) and (C,D) are pairs of nodes):
+       *   1 -&gt; [C] -&gt;  [D] -&gt; 2 -&gt; 3, 4 -&gt; [A] -&gt; [B] -&gt; 5
+       * </pre>
+       *
+       * <code>.operations_research.OptionalBoolean use_exchange_pair = 22;</code>
+       */
+      public Builder clearUseExchangePair() {
+        
+        useExchangePair_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int useExchangeSubtrip_ = 0;
+      /**
+       * <pre>
+       * Operator which exchanges subtrips associated to two pairs of nodes,
+       * see use_relocate_subtrip for a definition of subtrips.
+       * </pre>
+       *
+       * <code>.operations_research.OptionalBoolean use_exchange_subtrip = 26;</code>
+       */
+      public int getUseExchangeSubtripValue() {
+        return useExchangeSubtrip_;
+      }
+      /**
+       * <pre>
+       * Operator which exchanges subtrips associated to two pairs of nodes,
+       * see use_relocate_subtrip for a definition of subtrips.
+       * </pre>
+       *
+       * <code>.operations_research.OptionalBoolean use_exchange_subtrip = 26;</code>
+       */
+      public Builder setUseExchangeSubtripValue(int value) {
+        useExchangeSubtrip_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Operator which exchanges subtrips associated to two pairs of nodes,
+       * see use_relocate_subtrip for a definition of subtrips.
+       * </pre>
+       *
+       * <code>.operations_research.OptionalBoolean use_exchange_subtrip = 26;</code>
+       */
+      public com.google.ortools.util.OptionalBoolean getUseExchangeSubtrip() {
+        @SuppressWarnings("deprecation")
+        com.google.ortools.util.OptionalBoolean result = com.google.ortools.util.OptionalBoolean.valueOf(useExchangeSubtrip_);
+        return result == null ? com.google.ortools.util.OptionalBoolean.UNRECOGNIZED : result;
+      }
+      /**
+       * <pre>
+       * Operator which exchanges subtrips associated to two pairs of nodes,
+       * see use_relocate_subtrip for a definition of subtrips.
+       * </pre>
+       *
+       * <code>.operations_research.OptionalBoolean use_exchange_subtrip = 26;</code>
+       */
+      public Builder setUseExchangeSubtrip(com.google.ortools.util.OptionalBoolean value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        useExchangeSubtrip_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Operator which exchanges subtrips associated to two pairs of nodes,
+       * see use_relocate_subtrip for a definition of subtrips.
+       * </pre>
+       *
+       * <code>.operations_research.OptionalBoolean use_exchange_subtrip = 26;</code>
+       */
+      public Builder clearUseExchangeSubtrip() {
+        
+        useExchangeSubtrip_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int useCross_ = 0;
       /**
        * <pre>
        * Operator which cross exchanges the starting chains of 2 paths, including
@@ -2058,9 +3837,9 @@ private static final long serialVersionUID = 0L;
        *   1 -&gt; [7] -&gt; 5            6 -&gt; [2 -&gt; 3 -&gt; 4] -&gt; 8
        * </pre>
        *
-       * <code>bool use_cross = 5;</code>
+       * <code>.operations_research.OptionalBoolean use_cross = 5;</code>
        */
-      public boolean getUseCross() {
+      public int getUseCrossValue() {
         return useCross_;
       }
       /**
@@ -2076,10 +3855,9 @@ private static final long serialVersionUID = 0L;
        *   1 -&gt; [7] -&gt; 5            6 -&gt; [2 -&gt; 3 -&gt; 4] -&gt; 8
        * </pre>
        *
-       * <code>bool use_cross = 5;</code>
+       * <code>.operations_research.OptionalBoolean use_cross = 5;</code>
        */
-      public Builder setUseCross(boolean value) {
-        
+      public Builder setUseCrossValue(int value) {
         useCross_ = value;
         onChanged();
         return this;
@@ -2097,54 +3875,235 @@ private static final long serialVersionUID = 0L;
        *   1 -&gt; [7] -&gt; 5            6 -&gt; [2 -&gt; 3 -&gt; 4] -&gt; 8
        * </pre>
        *
-       * <code>bool use_cross = 5;</code>
+       * <code>.operations_research.OptionalBoolean use_cross = 5;</code>
+       */
+      public com.google.ortools.util.OptionalBoolean getUseCross() {
+        @SuppressWarnings("deprecation")
+        com.google.ortools.util.OptionalBoolean result = com.google.ortools.util.OptionalBoolean.valueOf(useCross_);
+        return result == null ? com.google.ortools.util.OptionalBoolean.UNRECOGNIZED : result;
+      }
+      /**
+       * <pre>
+       * Operator which cross exchanges the starting chains of 2 paths, including
+       * exchanging the whole paths.
+       * First and last nodes are not moved.
+       * Possible neighbors for the paths 1 -&gt; 2 -&gt; 3 -&gt; 4 -&gt; 5 and 6 -&gt; 7 -&gt; 8
+       * (where (1, 5) and (6, 8) are first and last nodes of the paths and can
+       * therefore not be moved):
+       *   1 -&gt; [7] -&gt; 3 -&gt; 4 -&gt; 5  6 -&gt; [2] -&gt; 8
+       *   1 -&gt; [7] -&gt; 4 -&gt; 5       6 -&gt; [2 -&gt; 3] -&gt; 8
+       *   1 -&gt; [7] -&gt; 5            6 -&gt; [2 -&gt; 3 -&gt; 4] -&gt; 8
+       * </pre>
+       *
+       * <code>.operations_research.OptionalBoolean use_cross = 5;</code>
+       */
+      public Builder setUseCross(com.google.ortools.util.OptionalBoolean value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        useCross_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Operator which cross exchanges the starting chains of 2 paths, including
+       * exchanging the whole paths.
+       * First and last nodes are not moved.
+       * Possible neighbors for the paths 1 -&gt; 2 -&gt; 3 -&gt; 4 -&gt; 5 and 6 -&gt; 7 -&gt; 8
+       * (where (1, 5) and (6, 8) are first and last nodes of the paths and can
+       * therefore not be moved):
+       *   1 -&gt; [7] -&gt; 3 -&gt; 4 -&gt; 5  6 -&gt; [2] -&gt; 8
+       *   1 -&gt; [7] -&gt; 4 -&gt; 5       6 -&gt; [2 -&gt; 3] -&gt; 8
+       *   1 -&gt; [7] -&gt; 5            6 -&gt; [2 -&gt; 3 -&gt; 4] -&gt; 8
+       * </pre>
+       *
+       * <code>.operations_research.OptionalBoolean use_cross = 5;</code>
        */
       public Builder clearUseCross() {
         
-        useCross_ = false;
+        useCross_ = 0;
         onChanged();
         return this;
       }
 
-      private boolean useCrossExchange_ ;
+      private int useCrossExchange_ = 0;
       /**
        * <pre>
-       * Not implemented as of 10/2015.
+       * Not implemented yet. TODO(b/68128619): Implement.
        * </pre>
        *
-       * <code>bool use_cross_exchange = 6;</code>
+       * <code>.operations_research.OptionalBoolean use_cross_exchange = 6;</code>
        */
-      public boolean getUseCrossExchange() {
+      public int getUseCrossExchangeValue() {
         return useCrossExchange_;
       }
       /**
        * <pre>
-       * Not implemented as of 10/2015.
+       * Not implemented yet. TODO(b/68128619): Implement.
        * </pre>
        *
-       * <code>bool use_cross_exchange = 6;</code>
+       * <code>.operations_research.OptionalBoolean use_cross_exchange = 6;</code>
        */
-      public Builder setUseCrossExchange(boolean value) {
-        
+      public Builder setUseCrossExchangeValue(int value) {
         useCrossExchange_ = value;
         onChanged();
         return this;
       }
       /**
        * <pre>
-       * Not implemented as of 10/2015.
+       * Not implemented yet. TODO(b/68128619): Implement.
        * </pre>
        *
-       * <code>bool use_cross_exchange = 6;</code>
+       * <code>.operations_research.OptionalBoolean use_cross_exchange = 6;</code>
+       */
+      public com.google.ortools.util.OptionalBoolean getUseCrossExchange() {
+        @SuppressWarnings("deprecation")
+        com.google.ortools.util.OptionalBoolean result = com.google.ortools.util.OptionalBoolean.valueOf(useCrossExchange_);
+        return result == null ? com.google.ortools.util.OptionalBoolean.UNRECOGNIZED : result;
+      }
+      /**
+       * <pre>
+       * Not implemented yet. TODO(b/68128619): Implement.
+       * </pre>
+       *
+       * <code>.operations_research.OptionalBoolean use_cross_exchange = 6;</code>
+       */
+      public Builder setUseCrossExchange(com.google.ortools.util.OptionalBoolean value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        useCrossExchange_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Not implemented yet. TODO(b/68128619): Implement.
+       * </pre>
+       *
+       * <code>.operations_research.OptionalBoolean use_cross_exchange = 6;</code>
        */
       public Builder clearUseCrossExchange() {
         
-        useCrossExchange_ = false;
+        useCrossExchange_ = 0;
         onChanged();
         return this;
       }
 
-      private boolean useTwoOpt_ ;
+      private int useRelocateExpensiveChain_ = 0;
+      /**
+       * <pre>
+       * Operator which detects the relocate_expensive_chain_num_arcs_to_consider
+       * most expensive arcs on a path, and moves the chain resulting from cutting
+       * pairs of arcs among these to another position.
+       * Possible neighbors for paths 1 -&gt; 2 (empty) and
+       * 3 -&gt; A ------&gt; B --&gt; C -----&gt; D -&gt; 4 (where A -&gt; B and C -&gt; D are the 2
+       * most expensive arcs, and the chain resulting from breaking them is
+       * B -&gt; C):
+       *   1 -&gt; [B -&gt; C] -&gt; 2     3 -&gt; A -&gt; D -&gt; 4
+       *   1 -&gt; 2      3 -&gt; [B -&gt; C] -&gt; A -&gt; D -&gt; 4
+       *   1 -&gt; 2      3 -&gt; A -&gt; D -&gt; [B -&gt; C] -&gt; 4
+       * </pre>
+       *
+       * <code>.operations_research.OptionalBoolean use_relocate_expensive_chain = 23;</code>
+       */
+      public int getUseRelocateExpensiveChainValue() {
+        return useRelocateExpensiveChain_;
+      }
+      /**
+       * <pre>
+       * Operator which detects the relocate_expensive_chain_num_arcs_to_consider
+       * most expensive arcs on a path, and moves the chain resulting from cutting
+       * pairs of arcs among these to another position.
+       * Possible neighbors for paths 1 -&gt; 2 (empty) and
+       * 3 -&gt; A ------&gt; B --&gt; C -----&gt; D -&gt; 4 (where A -&gt; B and C -&gt; D are the 2
+       * most expensive arcs, and the chain resulting from breaking them is
+       * B -&gt; C):
+       *   1 -&gt; [B -&gt; C] -&gt; 2     3 -&gt; A -&gt; D -&gt; 4
+       *   1 -&gt; 2      3 -&gt; [B -&gt; C] -&gt; A -&gt; D -&gt; 4
+       *   1 -&gt; 2      3 -&gt; A -&gt; D -&gt; [B -&gt; C] -&gt; 4
+       * </pre>
+       *
+       * <code>.operations_research.OptionalBoolean use_relocate_expensive_chain = 23;</code>
+       */
+      public Builder setUseRelocateExpensiveChainValue(int value) {
+        useRelocateExpensiveChain_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Operator which detects the relocate_expensive_chain_num_arcs_to_consider
+       * most expensive arcs on a path, and moves the chain resulting from cutting
+       * pairs of arcs among these to another position.
+       * Possible neighbors for paths 1 -&gt; 2 (empty) and
+       * 3 -&gt; A ------&gt; B --&gt; C -----&gt; D -&gt; 4 (where A -&gt; B and C -&gt; D are the 2
+       * most expensive arcs, and the chain resulting from breaking them is
+       * B -&gt; C):
+       *   1 -&gt; [B -&gt; C] -&gt; 2     3 -&gt; A -&gt; D -&gt; 4
+       *   1 -&gt; 2      3 -&gt; [B -&gt; C] -&gt; A -&gt; D -&gt; 4
+       *   1 -&gt; 2      3 -&gt; A -&gt; D -&gt; [B -&gt; C] -&gt; 4
+       * </pre>
+       *
+       * <code>.operations_research.OptionalBoolean use_relocate_expensive_chain = 23;</code>
+       */
+      public com.google.ortools.util.OptionalBoolean getUseRelocateExpensiveChain() {
+        @SuppressWarnings("deprecation")
+        com.google.ortools.util.OptionalBoolean result = com.google.ortools.util.OptionalBoolean.valueOf(useRelocateExpensiveChain_);
+        return result == null ? com.google.ortools.util.OptionalBoolean.UNRECOGNIZED : result;
+      }
+      /**
+       * <pre>
+       * Operator which detects the relocate_expensive_chain_num_arcs_to_consider
+       * most expensive arcs on a path, and moves the chain resulting from cutting
+       * pairs of arcs among these to another position.
+       * Possible neighbors for paths 1 -&gt; 2 (empty) and
+       * 3 -&gt; A ------&gt; B --&gt; C -----&gt; D -&gt; 4 (where A -&gt; B and C -&gt; D are the 2
+       * most expensive arcs, and the chain resulting from breaking them is
+       * B -&gt; C):
+       *   1 -&gt; [B -&gt; C] -&gt; 2     3 -&gt; A -&gt; D -&gt; 4
+       *   1 -&gt; 2      3 -&gt; [B -&gt; C] -&gt; A -&gt; D -&gt; 4
+       *   1 -&gt; 2      3 -&gt; A -&gt; D -&gt; [B -&gt; C] -&gt; 4
+       * </pre>
+       *
+       * <code>.operations_research.OptionalBoolean use_relocate_expensive_chain = 23;</code>
+       */
+      public Builder setUseRelocateExpensiveChain(com.google.ortools.util.OptionalBoolean value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        useRelocateExpensiveChain_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Operator which detects the relocate_expensive_chain_num_arcs_to_consider
+       * most expensive arcs on a path, and moves the chain resulting from cutting
+       * pairs of arcs among these to another position.
+       * Possible neighbors for paths 1 -&gt; 2 (empty) and
+       * 3 -&gt; A ------&gt; B --&gt; C -----&gt; D -&gt; 4 (where A -&gt; B and C -&gt; D are the 2
+       * most expensive arcs, and the chain resulting from breaking them is
+       * B -&gt; C):
+       *   1 -&gt; [B -&gt; C] -&gt; 2     3 -&gt; A -&gt; D -&gt; 4
+       *   1 -&gt; 2      3 -&gt; [B -&gt; C] -&gt; A -&gt; D -&gt; 4
+       *   1 -&gt; 2      3 -&gt; A -&gt; D -&gt; [B -&gt; C] -&gt; 4
+       * </pre>
+       *
+       * <code>.operations_research.OptionalBoolean use_relocate_expensive_chain = 23;</code>
+       */
+      public Builder clearUseRelocateExpensiveChain() {
+        
+        useRelocateExpensiveChain_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int useTwoOpt_ = 0;
       /**
        * <pre>
        * --- Intra-route operators ---
@@ -2159,9 +4118,9 @@ private static final long serialVersionUID = 0L;
        *   1 -&gt;  2 -&gt; [4 -&gt; 3] -&gt; 5
        * </pre>
        *
-       * <code>bool use_two_opt = 7;</code>
+       * <code>.operations_research.OptionalBoolean use_two_opt = 7;</code>
        */
-      public boolean getUseTwoOpt() {
+      public int getUseTwoOptValue() {
         return useTwoOpt_;
       }
       /**
@@ -2178,10 +4137,9 @@ private static final long serialVersionUID = 0L;
        *   1 -&gt;  2 -&gt; [4 -&gt; 3] -&gt; 5
        * </pre>
        *
-       * <code>bool use_two_opt = 7;</code>
+       * <code>.operations_research.OptionalBoolean use_two_opt = 7;</code>
        */
-      public Builder setUseTwoOpt(boolean value) {
-        
+      public Builder setUseTwoOptValue(int value) {
         useTwoOpt_ = value;
         onChanged();
         return this;
@@ -2200,16 +4158,62 @@ private static final long serialVersionUID = 0L;
        *   1 -&gt;  2 -&gt; [4 -&gt; 3] -&gt; 5
        * </pre>
        *
-       * <code>bool use_two_opt = 7;</code>
+       * <code>.operations_research.OptionalBoolean use_two_opt = 7;</code>
+       */
+      public com.google.ortools.util.OptionalBoolean getUseTwoOpt() {
+        @SuppressWarnings("deprecation")
+        com.google.ortools.util.OptionalBoolean result = com.google.ortools.util.OptionalBoolean.valueOf(useTwoOpt_);
+        return result == null ? com.google.ortools.util.OptionalBoolean.UNRECOGNIZED : result;
+      }
+      /**
+       * <pre>
+       * --- Intra-route operators ---
+       * Operator which reverves a sub-chain of a path. It is called TwoOpt
+       * because it breaks two arcs on the path; resulting paths are called
+       * two-optimal.
+       * Possible neighbors for the path 1 -&gt; 2 -&gt; 3 -&gt; 4 -&gt; 5
+       * (where (1, 5) are first and last nodes of the path and can therefore not
+       * be moved):
+       *   1 -&gt; [3 -&gt; 2] -&gt; 4  -&gt; 5
+       *   1 -&gt; [4 -&gt; 3  -&gt; 2] -&gt; 5
+       *   1 -&gt;  2 -&gt; [4 -&gt; 3] -&gt; 5
+       * </pre>
+       *
+       * <code>.operations_research.OptionalBoolean use_two_opt = 7;</code>
+       */
+      public Builder setUseTwoOpt(com.google.ortools.util.OptionalBoolean value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        useTwoOpt_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * --- Intra-route operators ---
+       * Operator which reverves a sub-chain of a path. It is called TwoOpt
+       * because it breaks two arcs on the path; resulting paths are called
+       * two-optimal.
+       * Possible neighbors for the path 1 -&gt; 2 -&gt; 3 -&gt; 4 -&gt; 5
+       * (where (1, 5) are first and last nodes of the path and can therefore not
+       * be moved):
+       *   1 -&gt; [3 -&gt; 2] -&gt; 4  -&gt; 5
+       *   1 -&gt; [4 -&gt; 3  -&gt; 2] -&gt; 5
+       *   1 -&gt;  2 -&gt; [4 -&gt; 3] -&gt; 5
+       * </pre>
+       *
+       * <code>.operations_research.OptionalBoolean use_two_opt = 7;</code>
        */
       public Builder clearUseTwoOpt() {
         
-        useTwoOpt_ = false;
+        useTwoOpt_ = 0;
         onChanged();
         return this;
       }
 
-      private boolean useOrOpt_ ;
+      private int useOrOpt_ = 0;
       /**
        * <pre>
        * Operator which moves sub-chains of a path of length 1, 2 and 3 to another
@@ -2225,9 +4229,9 @@ private static final long serialVersionUID = 0L;
        * path).
        * </pre>
        *
-       * <code>bool use_or_opt = 8;</code>
+       * <code>.operations_research.OptionalBoolean use_or_opt = 8;</code>
        */
-      public boolean getUseOrOpt() {
+      public int getUseOrOptValue() {
         return useOrOpt_;
       }
       /**
@@ -2245,10 +4249,9 @@ private static final long serialVersionUID = 0L;
        * path).
        * </pre>
        *
-       * <code>bool use_or_opt = 8;</code>
+       * <code>.operations_research.OptionalBoolean use_or_opt = 8;</code>
        */
-      public Builder setUseOrOpt(boolean value) {
-        
+      public Builder setUseOrOptValue(int value) {
         useOrOpt_ = value;
         onChanged();
         return this;
@@ -2268,16 +4271,64 @@ private static final long serialVersionUID = 0L;
        * path).
        * </pre>
        *
-       * <code>bool use_or_opt = 8;</code>
+       * <code>.operations_research.OptionalBoolean use_or_opt = 8;</code>
+       */
+      public com.google.ortools.util.OptionalBoolean getUseOrOpt() {
+        @SuppressWarnings("deprecation")
+        com.google.ortools.util.OptionalBoolean result = com.google.ortools.util.OptionalBoolean.valueOf(useOrOpt_);
+        return result == null ? com.google.ortools.util.OptionalBoolean.UNRECOGNIZED : result;
+      }
+      /**
+       * <pre>
+       * Operator which moves sub-chains of a path of length 1, 2 and 3 to another
+       * position in the same path.
+       * When the length of the sub-chain is 1, the operator simply moves a node
+       * to another position.
+       * Possible neighbors for the path 1 -&gt; 2 -&gt; 3 -&gt; 4 -&gt; 5, for a sub-chain
+       * length of 2 (where (1, 5) are first and last nodes of the path and can
+       * therefore not be moved):
+       *   1 -&gt;  4 -&gt; [2 -&gt; 3] -&gt; 5
+       *   1 -&gt; [3 -&gt; 4] -&gt; 2  -&gt; 5
+       * The OR_OPT operator is a limited version of 3-Opt (breaks 3 arcs on a
+       * path).
+       * </pre>
+       *
+       * <code>.operations_research.OptionalBoolean use_or_opt = 8;</code>
+       */
+      public Builder setUseOrOpt(com.google.ortools.util.OptionalBoolean value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        useOrOpt_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Operator which moves sub-chains of a path of length 1, 2 and 3 to another
+       * position in the same path.
+       * When the length of the sub-chain is 1, the operator simply moves a node
+       * to another position.
+       * Possible neighbors for the path 1 -&gt; 2 -&gt; 3 -&gt; 4 -&gt; 5, for a sub-chain
+       * length of 2 (where (1, 5) are first and last nodes of the path and can
+       * therefore not be moved):
+       *   1 -&gt;  4 -&gt; [2 -&gt; 3] -&gt; 5
+       *   1 -&gt; [3 -&gt; 4] -&gt; 2  -&gt; 5
+       * The OR_OPT operator is a limited version of 3-Opt (breaks 3 arcs on a
+       * path).
+       * </pre>
+       *
+       * <code>.operations_research.OptionalBoolean use_or_opt = 8;</code>
        */
       public Builder clearUseOrOpt() {
         
-        useOrOpt_ = false;
+        useOrOpt_ = 0;
         onChanged();
         return this;
       }
 
-      private boolean useLinKernighan_ ;
+      private int useLinKernighan_ = 0;
       /**
        * <pre>
        * Lin-Kernighan operator.
@@ -2286,9 +4337,9 @@ private static final long serialVersionUID = 0L;
        * the global gain is positive.
        * </pre>
        *
-       * <code>bool use_lin_kernighan = 9;</code>
+       * <code>.operations_research.OptionalBoolean use_lin_kernighan = 9;</code>
        */
-      public boolean getUseLinKernighan() {
+      public int getUseLinKernighanValue() {
         return useLinKernighan_;
       }
       /**
@@ -2299,10 +4350,9 @@ private static final long serialVersionUID = 0L;
        * the global gain is positive.
        * </pre>
        *
-       * <code>bool use_lin_kernighan = 9;</code>
+       * <code>.operations_research.OptionalBoolean use_lin_kernighan = 9;</code>
        */
-      public Builder setUseLinKernighan(boolean value) {
-        
+      public Builder setUseLinKernighanValue(int value) {
         useLinKernighan_ = value;
         onChanged();
         return this;
@@ -2315,16 +4365,50 @@ private static final long serialVersionUID = 0L;
        * the global gain is positive.
        * </pre>
        *
-       * <code>bool use_lin_kernighan = 9;</code>
+       * <code>.operations_research.OptionalBoolean use_lin_kernighan = 9;</code>
+       */
+      public com.google.ortools.util.OptionalBoolean getUseLinKernighan() {
+        @SuppressWarnings("deprecation")
+        com.google.ortools.util.OptionalBoolean result = com.google.ortools.util.OptionalBoolean.valueOf(useLinKernighan_);
+        return result == null ? com.google.ortools.util.OptionalBoolean.UNRECOGNIZED : result;
+      }
+      /**
+       * <pre>
+       * Lin-Kernighan operator.
+       * While the accumulated local gain is positive, performs a 2-OPT or a 3-OPT
+       * move followed by a series of 2-OPT moves. Returns a neighbor for which
+       * the global gain is positive.
+       * </pre>
+       *
+       * <code>.operations_research.OptionalBoolean use_lin_kernighan = 9;</code>
+       */
+      public Builder setUseLinKernighan(com.google.ortools.util.OptionalBoolean value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        useLinKernighan_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Lin-Kernighan operator.
+       * While the accumulated local gain is positive, performs a 2-OPT or a 3-OPT
+       * move followed by a series of 2-OPT moves. Returns a neighbor for which
+       * the global gain is positive.
+       * </pre>
+       *
+       * <code>.operations_research.OptionalBoolean use_lin_kernighan = 9;</code>
        */
       public Builder clearUseLinKernighan() {
         
-        useLinKernighan_ = false;
+        useLinKernighan_ = 0;
         onChanged();
         return this;
       }
 
-      private boolean useTspOpt_ ;
+      private int useTspOpt_ = 0;
       /**
        * <pre>
        * Sliding TSP operator.
@@ -2335,9 +4419,9 @@ private static final long serialVersionUID = 0L;
        * cost(A,i) = cost(1,i) and cost(i,A) = cost(i,6).
        * </pre>
        *
-       * <code>bool use_tsp_opt = 10;</code>
+       * <code>.operations_research.OptionalBoolean use_tsp_opt = 10;</code>
        */
-      public boolean getUseTspOpt() {
+      public int getUseTspOptValue() {
         return useTspOpt_;
       }
       /**
@@ -2350,10 +4434,9 @@ private static final long serialVersionUID = 0L;
        * cost(A,i) = cost(1,i) and cost(i,A) = cost(i,6).
        * </pre>
        *
-       * <code>bool use_tsp_opt = 10;</code>
+       * <code>.operations_research.OptionalBoolean use_tsp_opt = 10;</code>
        */
-      public Builder setUseTspOpt(boolean value) {
-        
+      public Builder setUseTspOptValue(int value) {
         useTspOpt_ = value;
         onChanged();
         return this;
@@ -2368,16 +4451,54 @@ private static final long serialVersionUID = 0L;
        * cost(A,i) = cost(1,i) and cost(i,A) = cost(i,6).
        * </pre>
        *
-       * <code>bool use_tsp_opt = 10;</code>
+       * <code>.operations_research.OptionalBoolean use_tsp_opt = 10;</code>
+       */
+      public com.google.ortools.util.OptionalBoolean getUseTspOpt() {
+        @SuppressWarnings("deprecation")
+        com.google.ortools.util.OptionalBoolean result = com.google.ortools.util.OptionalBoolean.valueOf(useTspOpt_);
+        return result == null ? com.google.ortools.util.OptionalBoolean.UNRECOGNIZED : result;
+      }
+      /**
+       * <pre>
+       * Sliding TSP operator.
+       * Uses an exact dynamic programming algorithm to solve the TSP
+       * corresponding to path sub-chains.
+       * For a subchain 1 -&gt; 2 -&gt; 3 -&gt; 4 -&gt; 5 -&gt; 6, solves the TSP on
+       * nodes A, 2, 3, 4, 5, where A is a merger of nodes 1 and 6 such that
+       * cost(A,i) = cost(1,i) and cost(i,A) = cost(i,6).
+       * </pre>
+       *
+       * <code>.operations_research.OptionalBoolean use_tsp_opt = 10;</code>
+       */
+      public Builder setUseTspOpt(com.google.ortools.util.OptionalBoolean value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        useTspOpt_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Sliding TSP operator.
+       * Uses an exact dynamic programming algorithm to solve the TSP
+       * corresponding to path sub-chains.
+       * For a subchain 1 -&gt; 2 -&gt; 3 -&gt; 4 -&gt; 5 -&gt; 6, solves the TSP on
+       * nodes A, 2, 3, 4, 5, where A is a merger of nodes 1 and 6 such that
+       * cost(A,i) = cost(1,i) and cost(i,A) = cost(i,6).
+       * </pre>
+       *
+       * <code>.operations_research.OptionalBoolean use_tsp_opt = 10;</code>
        */
       public Builder clearUseTspOpt() {
         
-        useTspOpt_ = false;
+        useTspOpt_ = 0;
         onChanged();
         return this;
       }
 
-      private boolean useMakeActive_ ;
+      private int useMakeActive_ = 0;
       /**
        * <pre>
        * --- Operators on inactive nodes ---
@@ -2389,9 +4510,9 @@ private static final long serialVersionUID = 0L;
        *   1 -&gt;  2  -&gt;  3  -&gt; [5] -&gt; 4
        * </pre>
        *
-       * <code>bool use_make_active = 11;</code>
+       * <code>.operations_research.OptionalBoolean use_make_active = 11;</code>
        */
-      public boolean getUseMakeActive() {
+      public int getUseMakeActiveValue() {
         return useMakeActive_;
       }
       /**
@@ -2405,10 +4526,9 @@ private static final long serialVersionUID = 0L;
        *   1 -&gt;  2  -&gt;  3  -&gt; [5] -&gt; 4
        * </pre>
        *
-       * <code>bool use_make_active = 11;</code>
+       * <code>.operations_research.OptionalBoolean use_make_active = 11;</code>
        */
-      public Builder setUseMakeActive(boolean value) {
-        
+      public Builder setUseMakeActiveValue(int value) {
         useMakeActive_ = value;
         onChanged();
         return this;
@@ -2424,16 +4544,56 @@ private static final long serialVersionUID = 0L;
        *   1 -&gt;  2  -&gt;  3  -&gt; [5] -&gt; 4
        * </pre>
        *
-       * <code>bool use_make_active = 11;</code>
+       * <code>.operations_research.OptionalBoolean use_make_active = 11;</code>
+       */
+      public com.google.ortools.util.OptionalBoolean getUseMakeActive() {
+        @SuppressWarnings("deprecation")
+        com.google.ortools.util.OptionalBoolean result = com.google.ortools.util.OptionalBoolean.valueOf(useMakeActive_);
+        return result == null ? com.google.ortools.util.OptionalBoolean.UNRECOGNIZED : result;
+      }
+      /**
+       * <pre>
+       * --- Operators on inactive nodes ---
+       * Operator which inserts an inactive node into a path.
+       * Possible neighbors for the path 1 -&gt; 2 -&gt; 3 -&gt; 4 with 5 inactive
+       * (where 1 and 4 are first and last nodes of the path) are:
+       *   1 -&gt; [5] -&gt;  2  -&gt;  3  -&gt; 4
+       *   1 -&gt;  2  -&gt; [5] -&gt;  3  -&gt; 4
+       *   1 -&gt;  2  -&gt;  3  -&gt; [5] -&gt; 4
+       * </pre>
+       *
+       * <code>.operations_research.OptionalBoolean use_make_active = 11;</code>
+       */
+      public Builder setUseMakeActive(com.google.ortools.util.OptionalBoolean value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        useMakeActive_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * --- Operators on inactive nodes ---
+       * Operator which inserts an inactive node into a path.
+       * Possible neighbors for the path 1 -&gt; 2 -&gt; 3 -&gt; 4 with 5 inactive
+       * (where 1 and 4 are first and last nodes of the path) are:
+       *   1 -&gt; [5] -&gt;  2  -&gt;  3  -&gt; 4
+       *   1 -&gt;  2  -&gt; [5] -&gt;  3  -&gt; 4
+       *   1 -&gt;  2  -&gt;  3  -&gt; [5] -&gt; 4
+       * </pre>
+       *
+       * <code>.operations_research.OptionalBoolean use_make_active = 11;</code>
        */
       public Builder clearUseMakeActive() {
         
-        useMakeActive_ = false;
+        useMakeActive_ = 0;
         onChanged();
         return this;
       }
 
-      private boolean useRelocateAndMakeActive_ ;
+      private int useRelocateAndMakeActive_ = 0;
       /**
        * <pre>
        * Operator which relocates a node while making an inactive one active.
@@ -2448,9 +4608,9 @@ private static final long serialVersionUID = 0L;
        *   1 -&gt; 4 -&gt; 3 -&gt; 5, 2 -&gt; 6.
        * </pre>
        *
-       * <code>bool use_relocate_and_make_active = 21;</code>
+       * <code>.operations_research.OptionalBoolean use_relocate_and_make_active = 21;</code>
        */
-      public boolean getUseRelocateAndMakeActive() {
+      public int getUseRelocateAndMakeActiveValue() {
         return useRelocateAndMakeActive_;
       }
       /**
@@ -2467,10 +4627,9 @@ private static final long serialVersionUID = 0L;
        *   1 -&gt; 4 -&gt; 3 -&gt; 5, 2 -&gt; 6.
        * </pre>
        *
-       * <code>bool use_relocate_and_make_active = 21;</code>
+       * <code>.operations_research.OptionalBoolean use_relocate_and_make_active = 21;</code>
        */
-      public Builder setUseRelocateAndMakeActive(boolean value) {
-        
+      public Builder setUseRelocateAndMakeActiveValue(int value) {
         useRelocateAndMakeActive_ = value;
         onChanged();
         return this;
@@ -2489,16 +4648,62 @@ private static final long serialVersionUID = 0L;
        *   1 -&gt; 4 -&gt; 3 -&gt; 5, 2 -&gt; 6.
        * </pre>
        *
-       * <code>bool use_relocate_and_make_active = 21;</code>
+       * <code>.operations_research.OptionalBoolean use_relocate_and_make_active = 21;</code>
+       */
+      public com.google.ortools.util.OptionalBoolean getUseRelocateAndMakeActive() {
+        @SuppressWarnings("deprecation")
+        com.google.ortools.util.OptionalBoolean result = com.google.ortools.util.OptionalBoolean.valueOf(useRelocateAndMakeActive_);
+        return result == null ? com.google.ortools.util.OptionalBoolean.UNRECOGNIZED : result;
+      }
+      /**
+       * <pre>
+       * Operator which relocates a node while making an inactive one active.
+       * As of 3/2017, the operator is limited to two kinds of moves:
+       * - Relocating a node and replacing it by an inactive node.
+       *   Possible neighbor for path 1 -&gt; 5, 2 -&gt; 3 -&gt; 6 and 4 inactive
+       *   (where 1,2 and 5,6 are first and last nodes of paths) is:
+       *   1 -&gt; 3 -&gt; 5, 2 -&gt; 4 -&gt; 6.
+       * - Relocating a node and inserting an inactive node next to it.
+       *   Possible neighbor for path 1 -&gt; 5, 2 -&gt; 3 -&gt; 6 and 4 inactive
+       *   (where 1,2 and 5,6 are first and last nodes of paths) is:
+       *   1 -&gt; 4 -&gt; 3 -&gt; 5, 2 -&gt; 6.
+       * </pre>
+       *
+       * <code>.operations_research.OptionalBoolean use_relocate_and_make_active = 21;</code>
+       */
+      public Builder setUseRelocateAndMakeActive(com.google.ortools.util.OptionalBoolean value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        useRelocateAndMakeActive_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Operator which relocates a node while making an inactive one active.
+       * As of 3/2017, the operator is limited to two kinds of moves:
+       * - Relocating a node and replacing it by an inactive node.
+       *   Possible neighbor for path 1 -&gt; 5, 2 -&gt; 3 -&gt; 6 and 4 inactive
+       *   (where 1,2 and 5,6 are first and last nodes of paths) is:
+       *   1 -&gt; 3 -&gt; 5, 2 -&gt; 4 -&gt; 6.
+       * - Relocating a node and inserting an inactive node next to it.
+       *   Possible neighbor for path 1 -&gt; 5, 2 -&gt; 3 -&gt; 6 and 4 inactive
+       *   (where 1,2 and 5,6 are first and last nodes of paths) is:
+       *   1 -&gt; 4 -&gt; 3 -&gt; 5, 2 -&gt; 6.
+       * </pre>
+       *
+       * <code>.operations_research.OptionalBoolean use_relocate_and_make_active = 21;</code>
        */
       public Builder clearUseRelocateAndMakeActive() {
         
-        useRelocateAndMakeActive_ = false;
+        useRelocateAndMakeActive_ = 0;
         onChanged();
         return this;
       }
 
-      private boolean useMakeInactive_ ;
+      private int useMakeInactive_ = 0;
       /**
        * <pre>
        * Operator which makes path nodes inactive.
@@ -2508,9 +4713,9 @@ private static final long serialVersionUID = 0L;
        *   1 -&gt; 2 -&gt; 4 with 3 inactive
        * </pre>
        *
-       * <code>bool use_make_inactive = 12;</code>
+       * <code>.operations_research.OptionalBoolean use_make_inactive = 12;</code>
        */
-      public boolean getUseMakeInactive() {
+      public int getUseMakeInactiveValue() {
         return useMakeInactive_;
       }
       /**
@@ -2522,10 +4727,9 @@ private static final long serialVersionUID = 0L;
        *   1 -&gt; 2 -&gt; 4 with 3 inactive
        * </pre>
        *
-       * <code>bool use_make_inactive = 12;</code>
+       * <code>.operations_research.OptionalBoolean use_make_inactive = 12;</code>
        */
-      public Builder setUseMakeInactive(boolean value) {
-        
+      public Builder setUseMakeInactiveValue(int value) {
         useMakeInactive_ = value;
         onChanged();
         return this;
@@ -2539,16 +4743,52 @@ private static final long serialVersionUID = 0L;
        *   1 -&gt; 2 -&gt; 4 with 3 inactive
        * </pre>
        *
-       * <code>bool use_make_inactive = 12;</code>
+       * <code>.operations_research.OptionalBoolean use_make_inactive = 12;</code>
+       */
+      public com.google.ortools.util.OptionalBoolean getUseMakeInactive() {
+        @SuppressWarnings("deprecation")
+        com.google.ortools.util.OptionalBoolean result = com.google.ortools.util.OptionalBoolean.valueOf(useMakeInactive_);
+        return result == null ? com.google.ortools.util.OptionalBoolean.UNRECOGNIZED : result;
+      }
+      /**
+       * <pre>
+       * Operator which makes path nodes inactive.
+       * Possible neighbors for the path 1 -&gt; 2 -&gt; 3 -&gt; 4 (where 1 and 4 are first
+       * and last nodes of the path) are:
+       *   1 -&gt; 3 -&gt; 4 with 2 inactive
+       *   1 -&gt; 2 -&gt; 4 with 3 inactive
+       * </pre>
+       *
+       * <code>.operations_research.OptionalBoolean use_make_inactive = 12;</code>
+       */
+      public Builder setUseMakeInactive(com.google.ortools.util.OptionalBoolean value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        useMakeInactive_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Operator which makes path nodes inactive.
+       * Possible neighbors for the path 1 -&gt; 2 -&gt; 3 -&gt; 4 (where 1 and 4 are first
+       * and last nodes of the path) are:
+       *   1 -&gt; 3 -&gt; 4 with 2 inactive
+       *   1 -&gt; 2 -&gt; 4 with 3 inactive
+       * </pre>
+       *
+       * <code>.operations_research.OptionalBoolean use_make_inactive = 12;</code>
        */
       public Builder clearUseMakeInactive() {
         
-        useMakeInactive_ = false;
+        useMakeInactive_ = 0;
         onChanged();
         return this;
       }
 
-      private boolean useMakeChainInactive_ ;
+      private int useMakeChainInactive_ = 0;
       /**
        * <pre>
        * Operator which makes a "chain" of path nodes inactive.
@@ -2559,9 +4799,9 @@ private static final long serialVersionUID = 0L;
        *   1 -&gt; 4 with 2 and 3 inactive
        * </pre>
        *
-       * <code>bool use_make_chain_inactive = 13;</code>
+       * <code>.operations_research.OptionalBoolean use_make_chain_inactive = 13;</code>
        */
-      public boolean getUseMakeChainInactive() {
+      public int getUseMakeChainInactiveValue() {
         return useMakeChainInactive_;
       }
       /**
@@ -2574,10 +4814,9 @@ private static final long serialVersionUID = 0L;
        *   1 -&gt; 4 with 2 and 3 inactive
        * </pre>
        *
-       * <code>bool use_make_chain_inactive = 13;</code>
+       * <code>.operations_research.OptionalBoolean use_make_chain_inactive = 13;</code>
        */
-      public Builder setUseMakeChainInactive(boolean value) {
-        
+      public Builder setUseMakeChainInactiveValue(int value) {
         useMakeChainInactive_ = value;
         onChanged();
         return this;
@@ -2592,16 +4831,54 @@ private static final long serialVersionUID = 0L;
        *   1 -&gt; 4 with 2 and 3 inactive
        * </pre>
        *
-       * <code>bool use_make_chain_inactive = 13;</code>
+       * <code>.operations_research.OptionalBoolean use_make_chain_inactive = 13;</code>
+       */
+      public com.google.ortools.util.OptionalBoolean getUseMakeChainInactive() {
+        @SuppressWarnings("deprecation")
+        com.google.ortools.util.OptionalBoolean result = com.google.ortools.util.OptionalBoolean.valueOf(useMakeChainInactive_);
+        return result == null ? com.google.ortools.util.OptionalBoolean.UNRECOGNIZED : result;
+      }
+      /**
+       * <pre>
+       * Operator which makes a "chain" of path nodes inactive.
+       * Possible neighbors for the path 1 -&gt; 2 -&gt; 3 -&gt; 4 (where 1 and 4 are first
+       * and last nodes of the path) are:
+       *   1 -&gt; 3 -&gt; 4 with 2 inactive
+       *   1 -&gt; 2 -&gt; 4 with 3 inactive
+       *   1 -&gt; 4 with 2 and 3 inactive
+       * </pre>
+       *
+       * <code>.operations_research.OptionalBoolean use_make_chain_inactive = 13;</code>
+       */
+      public Builder setUseMakeChainInactive(com.google.ortools.util.OptionalBoolean value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        useMakeChainInactive_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Operator which makes a "chain" of path nodes inactive.
+       * Possible neighbors for the path 1 -&gt; 2 -&gt; 3 -&gt; 4 (where 1 and 4 are first
+       * and last nodes of the path) are:
+       *   1 -&gt; 3 -&gt; 4 with 2 inactive
+       *   1 -&gt; 2 -&gt; 4 with 3 inactive
+       *   1 -&gt; 4 with 2 and 3 inactive
+       * </pre>
+       *
+       * <code>.operations_research.OptionalBoolean use_make_chain_inactive = 13;</code>
        */
       public Builder clearUseMakeChainInactive() {
         
-        useMakeChainInactive_ = false;
+        useMakeChainInactive_ = 0;
         onChanged();
         return this;
       }
 
-      private boolean useSwapActive_ ;
+      private int useSwapActive_ = 0;
       /**
        * <pre>
        * Operator which replaces an active node by an inactive one.
@@ -2611,9 +4888,9 @@ private static final long serialVersionUID = 0L;
        *   1 -&gt;  2  -&gt; [5] -&gt; 4 with 3 inactive
        * </pre>
        *
-       * <code>bool use_swap_active = 14;</code>
+       * <code>.operations_research.OptionalBoolean use_swap_active = 14;</code>
        */
-      public boolean getUseSwapActive() {
+      public int getUseSwapActiveValue() {
         return useSwapActive_;
       }
       /**
@@ -2625,10 +4902,9 @@ private static final long serialVersionUID = 0L;
        *   1 -&gt;  2  -&gt; [5] -&gt; 4 with 3 inactive
        * </pre>
        *
-       * <code>bool use_swap_active = 14;</code>
+       * <code>.operations_research.OptionalBoolean use_swap_active = 14;</code>
        */
-      public Builder setUseSwapActive(boolean value) {
-        
+      public Builder setUseSwapActiveValue(int value) {
         useSwapActive_ = value;
         onChanged();
         return this;
@@ -2642,16 +4918,52 @@ private static final long serialVersionUID = 0L;
        *   1 -&gt;  2  -&gt; [5] -&gt; 4 with 3 inactive
        * </pre>
        *
-       * <code>bool use_swap_active = 14;</code>
+       * <code>.operations_research.OptionalBoolean use_swap_active = 14;</code>
+       */
+      public com.google.ortools.util.OptionalBoolean getUseSwapActive() {
+        @SuppressWarnings("deprecation")
+        com.google.ortools.util.OptionalBoolean result = com.google.ortools.util.OptionalBoolean.valueOf(useSwapActive_);
+        return result == null ? com.google.ortools.util.OptionalBoolean.UNRECOGNIZED : result;
+      }
+      /**
+       * <pre>
+       * Operator which replaces an active node by an inactive one.
+       * Possible neighbors for the path 1 -&gt; 2 -&gt; 3 -&gt; 4 with 5 inactive
+       * (where 1 and 4 are first and last nodes of the path) are:
+       *   1 -&gt; [5] -&gt;  3  -&gt; 4 with 2 inactive
+       *   1 -&gt;  2  -&gt; [5] -&gt; 4 with 3 inactive
+       * </pre>
+       *
+       * <code>.operations_research.OptionalBoolean use_swap_active = 14;</code>
+       */
+      public Builder setUseSwapActive(com.google.ortools.util.OptionalBoolean value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        useSwapActive_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Operator which replaces an active node by an inactive one.
+       * Possible neighbors for the path 1 -&gt; 2 -&gt; 3 -&gt; 4 with 5 inactive
+       * (where 1 and 4 are first and last nodes of the path) are:
+       *   1 -&gt; [5] -&gt;  3  -&gt; 4 with 2 inactive
+       *   1 -&gt;  2  -&gt; [5] -&gt; 4 with 3 inactive
+       * </pre>
+       *
+       * <code>.operations_research.OptionalBoolean use_swap_active = 14;</code>
        */
       public Builder clearUseSwapActive() {
         
-        useSwapActive_ = false;
+        useSwapActive_ = 0;
         onChanged();
         return this;
       }
 
-      private boolean useExtendedSwapActive_ ;
+      private int useExtendedSwapActive_ = 0;
       /**
        * <pre>
        * Operator which makes an inactive node active and an active one inactive.
@@ -2666,9 +4978,9 @@ private static final long serialVersionUID = 0L;
        *   1 -&gt;  2  -&gt; [5] -&gt; 4 with 3 inactive
        * </pre>
        *
-       * <code>bool use_extended_swap_active = 15;</code>
+       * <code>.operations_research.OptionalBoolean use_extended_swap_active = 15;</code>
        */
-      public boolean getUseExtendedSwapActive() {
+      public int getUseExtendedSwapActiveValue() {
         return useExtendedSwapActive_;
       }
       /**
@@ -2685,10 +4997,9 @@ private static final long serialVersionUID = 0L;
        *   1 -&gt;  2  -&gt; [5] -&gt; 4 with 3 inactive
        * </pre>
        *
-       * <code>bool use_extended_swap_active = 15;</code>
+       * <code>.operations_research.OptionalBoolean use_extended_swap_active = 15;</code>
        */
-      public Builder setUseExtendedSwapActive(boolean value) {
-        
+      public Builder setUseExtendedSwapActiveValue(int value) {
         useExtendedSwapActive_ = value;
         onChanged();
         return this;
@@ -2707,16 +5018,62 @@ private static final long serialVersionUID = 0L;
        *   1 -&gt;  2  -&gt; [5] -&gt; 4 with 3 inactive
        * </pre>
        *
-       * <code>bool use_extended_swap_active = 15;</code>
+       * <code>.operations_research.OptionalBoolean use_extended_swap_active = 15;</code>
+       */
+      public com.google.ortools.util.OptionalBoolean getUseExtendedSwapActive() {
+        @SuppressWarnings("deprecation")
+        com.google.ortools.util.OptionalBoolean result = com.google.ortools.util.OptionalBoolean.valueOf(useExtendedSwapActive_);
+        return result == null ? com.google.ortools.util.OptionalBoolean.UNRECOGNIZED : result;
+      }
+      /**
+       * <pre>
+       * Operator which makes an inactive node active and an active one inactive.
+       * It is similar to SwapActiveOperator excepts that it tries to insert the
+       * inactive node in all possible positions instead of just the position of
+       * the node made inactive.
+       * Possible neighbors for the path 1 -&gt; 2 -&gt; 3 -&gt; 4 with 5 inactive
+       * (where 1 and 4 are first and last nodes of the path) are:
+       *   1 -&gt; [5] -&gt;  3  -&gt; 4 with 2 inactive
+       *   1 -&gt;  3  -&gt; [5] -&gt; 4 with 2 inactive
+       *   1 -&gt; [5] -&gt;  2  -&gt; 4 with 3 inactive
+       *   1 -&gt;  2  -&gt; [5] -&gt; 4 with 3 inactive
+       * </pre>
+       *
+       * <code>.operations_research.OptionalBoolean use_extended_swap_active = 15;</code>
+       */
+      public Builder setUseExtendedSwapActive(com.google.ortools.util.OptionalBoolean value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        useExtendedSwapActive_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Operator which makes an inactive node active and an active one inactive.
+       * It is similar to SwapActiveOperator excepts that it tries to insert the
+       * inactive node in all possible positions instead of just the position of
+       * the node made inactive.
+       * Possible neighbors for the path 1 -&gt; 2 -&gt; 3 -&gt; 4 with 5 inactive
+       * (where 1 and 4 are first and last nodes of the path) are:
+       *   1 -&gt; [5] -&gt;  3  -&gt; 4 with 2 inactive
+       *   1 -&gt;  3  -&gt; [5] -&gt; 4 with 2 inactive
+       *   1 -&gt; [5] -&gt;  2  -&gt; 4 with 3 inactive
+       *   1 -&gt;  2  -&gt; [5] -&gt; 4 with 3 inactive
+       * </pre>
+       *
+       * <code>.operations_research.OptionalBoolean use_extended_swap_active = 15;</code>
        */
       public Builder clearUseExtendedSwapActive() {
         
-        useExtendedSwapActive_ = false;
+        useExtendedSwapActive_ = 0;
         onChanged();
         return this;
       }
 
-      private boolean useNodePairSwapActive_ ;
+      private int useNodePairSwapActive_ = 0;
       /**
        * <pre>
        * Operator which makes an inactive node active and an active pair of nodes
@@ -2732,9 +5089,9 @@ private static final long serialVersionUID = 0L;
        *   1 -&gt; [4] -&gt; [5] -&gt; 3 with 2 inactive
        * </pre>
        *
-       * <code>bool use_node_pair_swap_active = 20;</code>
+       * <code>.operations_research.OptionalBoolean use_node_pair_swap_active = 20;</code>
        */
-      public boolean getUseNodePairSwapActive() {
+      public int getUseNodePairSwapActiveValue() {
         return useNodePairSwapActive_;
       }
       /**
@@ -2752,10 +5109,9 @@ private static final long serialVersionUID = 0L;
        *   1 -&gt; [4] -&gt; [5] -&gt; 3 with 2 inactive
        * </pre>
        *
-       * <code>bool use_node_pair_swap_active = 20;</code>
+       * <code>.operations_research.OptionalBoolean use_node_pair_swap_active = 20;</code>
        */
-      public Builder setUseNodePairSwapActive(boolean value) {
-        
+      public Builder setUseNodePairSwapActiveValue(int value) {
         useNodePairSwapActive_ = value;
         onChanged();
         return this;
@@ -2775,16 +5131,64 @@ private static final long serialVersionUID = 0L;
        *   1 -&gt; [4] -&gt; [5] -&gt; 3 with 2 inactive
        * </pre>
        *
-       * <code>bool use_node_pair_swap_active = 20;</code>
+       * <code>.operations_research.OptionalBoolean use_node_pair_swap_active = 20;</code>
+       */
+      public com.google.ortools.util.OptionalBoolean getUseNodePairSwapActive() {
+        @SuppressWarnings("deprecation")
+        com.google.ortools.util.OptionalBoolean result = com.google.ortools.util.OptionalBoolean.valueOf(useNodePairSwapActive_);
+        return result == null ? com.google.ortools.util.OptionalBoolean.UNRECOGNIZED : result;
+      }
+      /**
+       * <pre>
+       * Operator which makes an inactive node active and an active pair of nodes
+       * inactive OR makes an inactive pair of nodes active and an active node
+       * inactive.
+       * Possible neighbors for the path 1 -&gt; 2 -&gt; 3 -&gt; 4 with 5 inactive
+       * (where 1 and 4 are first and last nodes of the path and (2,3) is a pair
+       * of nodes) are:
+       *   1 -&gt; [5] -&gt; 4 with (2,3) inactive
+       * Possible neighbors for the path 1 -&gt; 2 -&gt; 3 with (4,5) inactive
+       * (where 1 and 3 are first and last nodes of the path and (4,5) is a pair
+       * of nodes) are:
+       *   1 -&gt; [4] -&gt; [5] -&gt; 3 with 2 inactive
+       * </pre>
+       *
+       * <code>.operations_research.OptionalBoolean use_node_pair_swap_active = 20;</code>
+       */
+      public Builder setUseNodePairSwapActive(com.google.ortools.util.OptionalBoolean value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        useNodePairSwapActive_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Operator which makes an inactive node active and an active pair of nodes
+       * inactive OR makes an inactive pair of nodes active and an active node
+       * inactive.
+       * Possible neighbors for the path 1 -&gt; 2 -&gt; 3 -&gt; 4 with 5 inactive
+       * (where 1 and 4 are first and last nodes of the path and (2,3) is a pair
+       * of nodes) are:
+       *   1 -&gt; [5] -&gt; 4 with (2,3) inactive
+       * Possible neighbors for the path 1 -&gt; 2 -&gt; 3 with (4,5) inactive
+       * (where 1 and 3 are first and last nodes of the path and (4,5) is a pair
+       * of nodes) are:
+       *   1 -&gt; [4] -&gt; [5] -&gt; 3 with 2 inactive
+       * </pre>
+       *
+       * <code>.operations_research.OptionalBoolean use_node_pair_swap_active = 20;</code>
        */
       public Builder clearUseNodePairSwapActive() {
         
-        useNodePairSwapActive_ = false;
+        useNodePairSwapActive_ = 0;
         onChanged();
         return this;
       }
 
-      private boolean usePathLns_ ;
+      private int usePathLns_ = 0;
       /**
        * <pre>
        * --- Large neighborhood search operators ---
@@ -2797,9 +5201,9 @@ private static final long serialVersionUID = 0L;
        * overlap.
        * </pre>
        *
-       * <code>bool use_path_lns = 16;</code>
+       * <code>.operations_research.OptionalBoolean use_path_lns = 16;</code>
        */
-      public boolean getUsePathLns() {
+      public int getUsePathLnsValue() {
         return usePathLns_;
       }
       /**
@@ -2814,10 +5218,9 @@ private static final long serialVersionUID = 0L;
        * overlap.
        * </pre>
        *
-       * <code>bool use_path_lns = 16;</code>
+       * <code>.operations_research.OptionalBoolean use_path_lns = 16;</code>
        */
-      public Builder setUsePathLns(boolean value) {
-        
+      public Builder setUsePathLnsValue(int value) {
         usePathLns_ = value;
         onChanged();
         return this;
@@ -2834,24 +5237,66 @@ private static final long serialVersionUID = 0L;
        * overlap.
        * </pre>
        *
-       * <code>bool use_path_lns = 16;</code>
+       * <code>.operations_research.OptionalBoolean use_path_lns = 16;</code>
+       */
+      public com.google.ortools.util.OptionalBoolean getUsePathLns() {
+        @SuppressWarnings("deprecation")
+        com.google.ortools.util.OptionalBoolean result = com.google.ortools.util.OptionalBoolean.valueOf(usePathLns_);
+        return result == null ? com.google.ortools.util.OptionalBoolean.UNRECOGNIZED : result;
+      }
+      /**
+       * <pre>
+       * --- Large neighborhood search operators ---
+       * Operator which relaxes two sub-chains of three consecutive arcs each.
+       * Each sub-chain is defined by a start node and the next three arcs. Those
+       * six arcs are relaxed to build a new neighbor.
+       * PATH_LNS explores all possible pairs of starting nodes and so defines
+       * n^2 neighbors, n being the number of nodes.
+       * Note that the two sub-chains can be part of the same path; they even may
+       * overlap.
+       * </pre>
+       *
+       * <code>.operations_research.OptionalBoolean use_path_lns = 16;</code>
+       */
+      public Builder setUsePathLns(com.google.ortools.util.OptionalBoolean value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        usePathLns_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * --- Large neighborhood search operators ---
+       * Operator which relaxes two sub-chains of three consecutive arcs each.
+       * Each sub-chain is defined by a start node and the next three arcs. Those
+       * six arcs are relaxed to build a new neighbor.
+       * PATH_LNS explores all possible pairs of starting nodes and so defines
+       * n^2 neighbors, n being the number of nodes.
+       * Note that the two sub-chains can be part of the same path; they even may
+       * overlap.
+       * </pre>
+       *
+       * <code>.operations_research.OptionalBoolean use_path_lns = 16;</code>
        */
       public Builder clearUsePathLns() {
         
-        usePathLns_ = false;
+        usePathLns_ = 0;
         onChanged();
         return this;
       }
 
-      private boolean useFullPathLns_ ;
+      private int useFullPathLns_ = 0;
       /**
        * <pre>
        * Operator which relaxes one entire path and all unactive nodes.
        * </pre>
        *
-       * <code>bool use_full_path_lns = 17;</code>
+       * <code>.operations_research.OptionalBoolean use_full_path_lns = 17;</code>
        */
-      public boolean getUseFullPathLns() {
+      public int getUseFullPathLnsValue() {
         return useFullPathLns_;
       }
       /**
@@ -2859,10 +5304,9 @@ private static final long serialVersionUID = 0L;
        * Operator which relaxes one entire path and all unactive nodes.
        * </pre>
        *
-       * <code>bool use_full_path_lns = 17;</code>
+       * <code>.operations_research.OptionalBoolean use_full_path_lns = 17;</code>
        */
-      public Builder setUseFullPathLns(boolean value) {
-        
+      public Builder setUseFullPathLnsValue(int value) {
         useFullPathLns_ = value;
         onChanged();
         return this;
@@ -2872,16 +5316,44 @@ private static final long serialVersionUID = 0L;
        * Operator which relaxes one entire path and all unactive nodes.
        * </pre>
        *
-       * <code>bool use_full_path_lns = 17;</code>
+       * <code>.operations_research.OptionalBoolean use_full_path_lns = 17;</code>
+       */
+      public com.google.ortools.util.OptionalBoolean getUseFullPathLns() {
+        @SuppressWarnings("deprecation")
+        com.google.ortools.util.OptionalBoolean result = com.google.ortools.util.OptionalBoolean.valueOf(useFullPathLns_);
+        return result == null ? com.google.ortools.util.OptionalBoolean.UNRECOGNIZED : result;
+      }
+      /**
+       * <pre>
+       * Operator which relaxes one entire path and all unactive nodes.
+       * </pre>
+       *
+       * <code>.operations_research.OptionalBoolean use_full_path_lns = 17;</code>
+       */
+      public Builder setUseFullPathLns(com.google.ortools.util.OptionalBoolean value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        useFullPathLns_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Operator which relaxes one entire path and all unactive nodes.
+       * </pre>
+       *
+       * <code>.operations_research.OptionalBoolean use_full_path_lns = 17;</code>
        */
       public Builder clearUseFullPathLns() {
         
-        useFullPathLns_ = false;
+        useFullPathLns_ = 0;
         onChanged();
         return this;
       }
 
-      private boolean useTspLns_ ;
+      private int useTspLns_ = 0;
       /**
        * <pre>
        * TSP-base LNS.
@@ -2892,9 +5364,9 @@ private static final long serialVersionUID = 0L;
        * node to serve as base of a meta-node.
        * </pre>
        *
-       * <code>bool use_tsp_lns = 18;</code>
+       * <code>.operations_research.OptionalBoolean use_tsp_lns = 18;</code>
        */
-      public boolean getUseTspLns() {
+      public int getUseTspLnsValue() {
         return useTspLns_;
       }
       /**
@@ -2907,10 +5379,9 @@ private static final long serialVersionUID = 0L;
        * node to serve as base of a meta-node.
        * </pre>
        *
-       * <code>bool use_tsp_lns = 18;</code>
+       * <code>.operations_research.OptionalBoolean use_tsp_lns = 18;</code>
        */
-      public Builder setUseTspLns(boolean value) {
-        
+      public Builder setUseTspLnsValue(int value) {
         useTspLns_ = value;
         onChanged();
         return this;
@@ -2925,16 +5396,54 @@ private static final long serialVersionUID = 0L;
        * node to serve as base of a meta-node.
        * </pre>
        *
-       * <code>bool use_tsp_lns = 18;</code>
+       * <code>.operations_research.OptionalBoolean use_tsp_lns = 18;</code>
+       */
+      public com.google.ortools.util.OptionalBoolean getUseTspLns() {
+        @SuppressWarnings("deprecation")
+        com.google.ortools.util.OptionalBoolean result = com.google.ortools.util.OptionalBoolean.valueOf(useTspLns_);
+        return result == null ? com.google.ortools.util.OptionalBoolean.UNRECOGNIZED : result;
+      }
+      /**
+       * <pre>
+       * TSP-base LNS.
+       * Randomly merges consecutive nodes until n "meta"-nodes remain and solves
+       * the corresponding TSP.
+       * This defines an "unlimited" neighborhood which must be stopped by search
+       * limits. To force diversification, the operator iteratively forces each
+       * node to serve as base of a meta-node.
+       * </pre>
+       *
+       * <code>.operations_research.OptionalBoolean use_tsp_lns = 18;</code>
+       */
+      public Builder setUseTspLns(com.google.ortools.util.OptionalBoolean value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        useTspLns_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * TSP-base LNS.
+       * Randomly merges consecutive nodes until n "meta"-nodes remain and solves
+       * the corresponding TSP.
+       * This defines an "unlimited" neighborhood which must be stopped by search
+       * limits. To force diversification, the operator iteratively forces each
+       * node to serve as base of a meta-node.
+       * </pre>
+       *
+       * <code>.operations_research.OptionalBoolean use_tsp_lns = 18;</code>
        */
       public Builder clearUseTspLns() {
         
-        useTspLns_ = false;
+        useTspLns_ = 0;
         onChanged();
         return this;
       }
 
-      private boolean useInactiveLns_ ;
+      private int useInactiveLns_ = 0;
       /**
        * <pre>
        * Operator which relaxes all inactive nodes and one sub-chain of six
@@ -2942,9 +5451,9 @@ private static final long serialVersionUID = 0L;
        * nodes or swaping arcs.
        * </pre>
        *
-       * <code>bool use_inactive_lns = 19;</code>
+       * <code>.operations_research.OptionalBoolean use_inactive_lns = 19;</code>
        */
-      public boolean getUseInactiveLns() {
+      public int getUseInactiveLnsValue() {
         return useInactiveLns_;
       }
       /**
@@ -2954,10 +5463,9 @@ private static final long serialVersionUID = 0L;
        * nodes or swaping arcs.
        * </pre>
        *
-       * <code>bool use_inactive_lns = 19;</code>
+       * <code>.operations_research.OptionalBoolean use_inactive_lns = 19;</code>
        */
-      public Builder setUseInactiveLns(boolean value) {
-        
+      public Builder setUseInactiveLnsValue(int value) {
         useInactiveLns_ = value;
         onChanged();
         return this;
@@ -2969,19 +5477,53 @@ private static final long serialVersionUID = 0L;
        * nodes or swaping arcs.
        * </pre>
        *
-       * <code>bool use_inactive_lns = 19;</code>
+       * <code>.operations_research.OptionalBoolean use_inactive_lns = 19;</code>
        */
-      public Builder clearUseInactiveLns() {
+      public com.google.ortools.util.OptionalBoolean getUseInactiveLns() {
+        @SuppressWarnings("deprecation")
+        com.google.ortools.util.OptionalBoolean result = com.google.ortools.util.OptionalBoolean.valueOf(useInactiveLns_);
+        return result == null ? com.google.ortools.util.OptionalBoolean.UNRECOGNIZED : result;
+      }
+      /**
+       * <pre>
+       * Operator which relaxes all inactive nodes and one sub-chain of six
+       * consecutive arcs. That way the path can be improved by inserting inactive
+       * nodes or swaping arcs.
+       * </pre>
+       *
+       * <code>.operations_research.OptionalBoolean use_inactive_lns = 19;</code>
+       */
+      public Builder setUseInactiveLns(com.google.ortools.util.OptionalBoolean value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
         
-        useInactiveLns_ = false;
+        useInactiveLns_ = value.getNumber();
         onChanged();
         return this;
       }
+      /**
+       * <pre>
+       * Operator which relaxes all inactive nodes and one sub-chain of six
+       * consecutive arcs. That way the path can be improved by inserting inactive
+       * nodes or swaping arcs.
+       * </pre>
+       *
+       * <code>.operations_research.OptionalBoolean use_inactive_lns = 19;</code>
+       */
+      public Builder clearUseInactiveLns() {
+        
+        useInactiveLns_ = 0;
+        onChanged();
+        return this;
+      }
+      @Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
+      @Override
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
         return super.mergeUnknownFields(unknownFields);
@@ -3003,6 +5545,7 @@ private static final long serialVersionUID = 0L;
 
     private static final com.google.protobuf.Parser<LocalSearchNeighborhoodOperators>
         PARSER = new com.google.protobuf.AbstractParser<LocalSearchNeighborhoodOperators>() {
+      @Override
       public LocalSearchNeighborhoodOperators parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -3015,11 +5558,12 @@ private static final long serialVersionUID = 0L;
       return PARSER;
     }
 
-    @java.lang.Override
+    @Override
     public com.google.protobuf.Parser<LocalSearchNeighborhoodOperators> getParserForType() {
       return PARSER;
     }
 
+    @Override
     public com.google.ortools.constraintsolver.RoutingSearchParameters.LocalSearchNeighborhoodOperators getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
@@ -3046,23 +5590,24 @@ private static final long serialVersionUID = 0L;
    * <code>.operations_research.FirstSolutionStrategy.Value first_solution_strategy = 1;</code>
    */
   public com.google.ortools.constraintsolver.FirstSolutionStrategy.Value getFirstSolutionStrategy() {
+    @SuppressWarnings("deprecation")
     com.google.ortools.constraintsolver.FirstSolutionStrategy.Value result = com.google.ortools.constraintsolver.FirstSolutionStrategy.Value.valueOf(firstSolutionStrategy_);
     return result == null ? com.google.ortools.constraintsolver.FirstSolutionStrategy.Value.UNRECOGNIZED : result;
   }
 
-  public static final int USE_FILTERED_FIRST_SOLUTION_STRATEGY_FIELD_NUMBER = 2;
-  private boolean useFilteredFirstSolutionStrategy_;
+  public static final int USE_UNFILTERED_FIRST_SOLUTION_STRATEGY_FIELD_NUMBER = 2;
+  private boolean useUnfilteredFirstSolutionStrategy_;
   /**
    * <pre>
-   * These are advanced first solutions strategy settings which should not be
-   * modified unless you know what you are doing.
+   * --- Advanced first solutions strategy settings ---
+   * Don't touch these unless you know what you are doing.
    * Use filtered version of first solution strategy if available.
    * </pre>
    *
-   * <code>bool use_filtered_first_solution_strategy = 2;</code>
+   * <code>bool use_unfiltered_first_solution_strategy = 2;</code>
    */
-  public boolean getUseFilteredFirstSolutionStrategy() {
-    return useFilteredFirstSolutionStrategy_;
+  public boolean getUseUnfilteredFirstSolutionStrategy() {
+    return useUnfilteredFirstSolutionStrategy_;
   }
 
   public static final int SAVINGS_NEIGHBORS_RATIO_FIELD_NUMBER = 14;
@@ -3070,15 +5615,32 @@ private static final long serialVersionUID = 0L;
   /**
    * <pre>
    * Parameters specific to the Savings first solution heuristic.
-   * Ratio (between 0 and 1) of neighbors to consider for each node when
-   * constructing the savings. If &lt;= 0 or greater than 1, its value is
-   * considered to be 1.0.
+   * Ratio (in ]0, 1]) of neighbors to consider for each node when constructing
+   * the savings. If unspecified, its value is considered to be 1.0.
    * </pre>
    *
    * <code>double savings_neighbors_ratio = 14;</code>
    */
   public double getSavingsNeighborsRatio() {
     return savingsNeighborsRatio_;
+  }
+
+  public static final int SAVINGS_MAX_MEMORY_USAGE_BYTES_FIELD_NUMBER = 23;
+  private double savingsMaxMemoryUsageBytes_;
+  /**
+   * <pre>
+   * The number of neighbors considered for each node in the Savings heuristic
+   * is chosen so that the space used to store the savings doesn't exceed
+   * savings_max_memory_usage_bytes, which must be in ]0, 1e10].
+   * NOTE: If both savings_neighbors_ratio and savings_max_memory_usage_bytes
+   * are specified, the number of neighbors considered for each node will be the
+   * minimum of the two numbers determined by these parameters.
+   * </pre>
+   *
+   * <code>double savings_max_memory_usage_bytes = 23;</code>
+   */
+  public double getSavingsMaxMemoryUsageBytes() {
+    return savingsMaxMemoryUsageBytes_;
   }
 
   public static final int SAVINGS_ADD_REVERSE_ARCS_FIELD_NUMBER = 15;
@@ -3093,6 +5655,67 @@ private static final long serialVersionUID = 0L;
    */
   public boolean getSavingsAddReverseArcs() {
     return savingsAddReverseArcs_;
+  }
+
+  public static final int SAVINGS_ARC_COEFFICIENT_FIELD_NUMBER = 18;
+  private double savingsArcCoefficient_;
+  /**
+   * <pre>
+   * Coefficient of the cost of the arc for which the saving value is being
+   * computed:
+   * Saving(a--&gt;b) = Cost(a--&gt;end) + Cost(start--&gt;b)
+   *                 - savings_arc_coefficient * Cost(a--&gt;b)
+   * This parameter must be greater than 0, and its default value is 1.
+   * </pre>
+   *
+   * <code>double savings_arc_coefficient = 18;</code>
+   */
+  public double getSavingsArcCoefficient() {
+    return savingsArcCoefficient_;
+  }
+
+  public static final int SAVINGS_PARALLEL_ROUTES_FIELD_NUMBER = 19;
+  private boolean savingsParallelRoutes_;
+  /**
+   * <pre>
+   * When true, the routes are built in parallel, sequentially otherwise.
+   * </pre>
+   *
+   * <code>bool savings_parallel_routes = 19;</code>
+   */
+  public boolean getSavingsParallelRoutes() {
+    return savingsParallelRoutes_;
+  }
+
+  public static final int CHEAPEST_INSERTION_FARTHEST_SEEDS_RATIO_FIELD_NUMBER = 16;
+  private double cheapestInsertionFarthestSeedsRatio_;
+  /**
+   * <pre>
+   * Ratio (between 0 and 1) of available vehicles in the model on which
+   * farthest nodes of the model are inserted as seeds in the
+   * GlobalCheapestInsertion first solution heuristic.
+   * </pre>
+   *
+   * <code>double cheapest_insertion_farthest_seeds_ratio = 16;</code>
+   */
+  public double getCheapestInsertionFarthestSeedsRatio() {
+    return cheapestInsertionFarthestSeedsRatio_;
+  }
+
+  public static final int CHEAPEST_INSERTION_NEIGHBORS_RATIO_FIELD_NUMBER = 21;
+  private double cheapestInsertionNeighborsRatio_;
+  /**
+   * <pre>
+   * Ratio (in ]0, 1]) of neighbors to consider for each node when creating
+   * new insertions in the parallel/sequential cheapest insertion heuristic.
+   * If not overridden, its default value is 1, meaning all neighbors will be
+   * considered.
+   * </pre>
+   *
+   * <code>double cheapest_insertion_neighbors_ratio = 21;</code>
+   */
+  public double getCheapestInsertionNeighborsRatio() {
+    return cheapestInsertionNeighborsRatio_;
   }
 
   public static final int LOCAL_SEARCH_OPERATORS_FIELD_NUMBER = 3;
@@ -3116,6 +5739,25 @@ private static final long serialVersionUID = 0L;
     return getLocalSearchOperators();
   }
 
+  public static final int RELOCATE_EXPENSIVE_CHAIN_NUM_ARCS_TO_CONSIDER_FIELD_NUMBER = 20;
+  private int relocateExpensiveChainNumArcsToConsider_;
+  /**
+   * <pre>
+   * Number of expensive arcs to consider cutting in the RelocateExpensiveChain
+   * neighborhood operator (see
+   * LocalSearchNeighborhoodOperators.use_relocate_expensive_chain()).
+   * This parameter must be greater than 2.
+   * NOTE(user): The number of neighbors generated by the operator for
+   * relocate_expensive_chain_num_arcs_to_consider = K is around
+   * K*(K-1)/2 * number_of_routes * number_of_nodes.
+   * </pre>
+   *
+   * <code>int32 relocate_expensive_chain_num_arcs_to_consider = 20;</code>
+   */
+  public int getRelocateExpensiveChainNumArcsToConsider() {
+    return relocateExpensiveChainNumArcsToConsider_;
+  }
+
   public static final int LOCAL_SEARCH_METAHEURISTIC_FIELD_NUMBER = 4;
   private int localSearchMetaheuristic_;
   /**
@@ -3136,6 +5778,7 @@ private static final long serialVersionUID = 0L;
    * <code>.operations_research.LocalSearchMetaheuristic.Value local_search_metaheuristic = 4;</code>
    */
   public com.google.ortools.constraintsolver.LocalSearchMetaheuristic.Value getLocalSearchMetaheuristic() {
+    @SuppressWarnings("deprecation")
     com.google.ortools.constraintsolver.LocalSearchMetaheuristic.Value result = com.google.ortools.constraintsolver.LocalSearchMetaheuristic.Value.valueOf(localSearchMetaheuristic_);
     return result == null ? com.google.ortools.constraintsolver.LocalSearchMetaheuristic.Value.UNRECOGNIZED : result;
   }
@@ -3147,7 +5790,7 @@ private static final long serialVersionUID = 0L;
    * These are advanced settings which should not be modified unless you know
    * what you are doing.
    * Lambda coefficient used to penalize arc costs when GUIDED_LOCAL_SEARCH is
-   * used.
+   * used. Must be positive.
    * </pre>
    *
    * <code>double guided_local_search_lambda_coefficient = 5;</code>
@@ -3172,16 +5815,32 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int OPTIMIZATION_STEP_FIELD_NUMBER = 7;
-  private long optimizationStep_;
+  private double optimizationStep_;
   /**
    * <pre>
-   * Minimum step by which the solution must be improved in local search.
+   * Minimum step by which the solution must be improved in local search. 0
+   * means "unspecified". If this value is fractional, it will get rounded to
+   * the nearest integer.
    * </pre>
    *
-   * <code>int64 optimization_step = 7;</code>
+   * <code>double optimization_step = 7;</code>
    */
-  public long getOptimizationStep() {
+  public double getOptimizationStep() {
     return optimizationStep_;
+  }
+
+  public static final int NUMBER_OF_SOLUTIONS_TO_COLLECT_FIELD_NUMBER = 17;
+  private int numberOfSolutionsToCollect_;
+  /**
+   * <pre>
+   * Number of solutions to collect during the search. Corresponds to the best
+   * solutions found during the search. 0 means "unspecified".
+   * </pre>
+   *
+   * <code>int32 number_of_solutions_to_collect = 17;</code>
+   */
+  public int getNumberOfSolutionsToCollect() {
+    return numberOfSolutionsToCollect_;
   }
 
   public static final int SOLUTION_LIMIT_FIELD_NUMBER = 8;
@@ -3189,7 +5848,8 @@ private static final long serialVersionUID = 0L;
   /**
    * <pre>
    * -- Search limits --
-   * Limit to the number of solutions generated during the search.
+   * Limit to the number of solutions generated during the search. 0 means
+   * "unspecified".
    * </pre>
    *
    * <code>int64 solution_limit = 8;</code>
@@ -3198,75 +5858,103 @@ private static final long serialVersionUID = 0L;
     return solutionLimit_;
   }
 
-  public static final int TIME_LIMIT_MS_FIELD_NUMBER = 9;
-  private long timeLimitMs_;
+  public static final int TIME_LIMIT_FIELD_NUMBER = 9;
+  private com.google.protobuf.Duration timeLimit_;
   /**
    * <pre>
-   * Limit in milliseconds to the time spent in the search.
+   * Limit to the time spent in the search.
    * </pre>
    *
-   * <code>int64 time_limit_ms = 9;</code>
+   * <code>.google.protobuf.Duration time_limit = 9;</code>
    */
-  public long getTimeLimitMs() {
-    return timeLimitMs_;
+  public boolean hasTimeLimit() {
+    return timeLimit_ != null;
   }
-
-  public static final int LNS_TIME_LIMIT_MS_FIELD_NUMBER = 10;
-  private long lnsTimeLimitMs_;
   /**
    * <pre>
-   * Limit in milliseconds to the time spent in the completion search for each
-   * local search neighbor.
+   * Limit to the time spent in the search.
    * </pre>
    *
-   * <code>int64 lns_time_limit_ms = 10;</code>
+   * <code>.google.protobuf.Duration time_limit = 9;</code>
    */
-  public long getLnsTimeLimitMs() {
-    return lnsTimeLimitMs_;
+  public com.google.protobuf.Duration getTimeLimit() {
+    return timeLimit_ == null ? com.google.protobuf.Duration.getDefaultInstance() : timeLimit_;
+  }
+  /**
+   * <pre>
+   * Limit to the time spent in the search.
+   * </pre>
+   *
+   * <code>.google.protobuf.Duration time_limit = 9;</code>
+   */
+  public com.google.protobuf.DurationOrBuilder getTimeLimitOrBuilder() {
+    return getTimeLimit();
   }
 
-  public static final int USE_LIGHT_PROPAGATION_FIELD_NUMBER = 11;
-  private boolean useLightPropagation_;
+  public static final int LNS_TIME_LIMIT_FIELD_NUMBER = 10;
+  private com.google.protobuf.Duration lnsTimeLimit_;
+  /**
+   * <pre>
+   * Limit to the time spent in the completion search for each local search
+   * neighbor.
+   * </pre>
+   *
+   * <code>.google.protobuf.Duration lns_time_limit = 10;</code>
+   */
+  public boolean hasLnsTimeLimit() {
+    return lnsTimeLimit_ != null;
+  }
+  /**
+   * <pre>
+   * Limit to the time spent in the completion search for each local search
+   * neighbor.
+   * </pre>
+   *
+   * <code>.google.protobuf.Duration lns_time_limit = 10;</code>
+   */
+  public com.google.protobuf.Duration getLnsTimeLimit() {
+    return lnsTimeLimit_ == null ? com.google.protobuf.Duration.getDefaultInstance() : lnsTimeLimit_;
+  }
+  /**
+   * <pre>
+   * Limit to the time spent in the completion search for each local search
+   * neighbor.
+   * </pre>
+   *
+   * <code>.google.protobuf.Duration lns_time_limit = 10;</code>
+   */
+  public com.google.protobuf.DurationOrBuilder getLnsTimeLimitOrBuilder() {
+    return getLnsTimeLimit();
+  }
+
+  public static final int USE_FULL_PROPAGATION_FIELD_NUMBER = 11;
+  private boolean useFullPropagation_;
   /**
    * <pre>
    * --- Propagation control ---
    * These are advanced settings which should not be modified unless you know
    * what you are doing.
-   * Use constraints with light propagation in routing model. Extra propagation
-   * is only necessary when using depth-first search or for models which
-   * require strong propagation to finalize the value of secondary variables.
+   * Use constraints with full propagation in routing model (instead of 'light'
+   * propagation only). Full propagation is only necessary when using
+   * depth-first search or for models which require strong propagation to
+   * finalize the value of secondary variables.
    * Changing this setting to true will slow down the search in most cases and
    * increase memory consumption in all cases.
    * </pre>
    *
-   * <code>bool use_light_propagation = 11;</code>
+   * <code>bool use_full_propagation = 11;</code>
    */
-  public boolean getUseLightPropagation() {
-    return useLightPropagation_;
-  }
-
-  public static final int FINGERPRINT_ARC_COST_EVALUATORS_FIELD_NUMBER = 12;
-  private boolean fingerprintArcCostEvaluators_;
-  /**
-   * <pre>
-   * --- Miscellaneous ---
-   * Some of these are advanced settings which should not be modified unless you
-   * know what you are doing.
-   * If true, arc cost evaluators will be fingerprinted. The fingerprint will
-   * be used when computing vehicle cost equivalent classes, otherwise the
-   * address of the evaluator will be used.
-   * </pre>
-   *
-   * <code>bool fingerprint_arc_cost_evaluators = 12;</code>
-   */
-  public boolean getFingerprintArcCostEvaluators() {
-    return fingerprintArcCostEvaluators_;
+  public boolean getUseFullPropagation() {
+    return useFullPropagation_;
   }
 
   public static final int LOG_SEARCH_FIELD_NUMBER = 13;
   private boolean logSearch_;
   /**
    * <pre>
+   * --- Miscellaneous ---
+   * Some of these are advanced settings which should not be modified unless you
+   * know what you are doing.
    * Activates search logging. For each solution found during the search, the
    * following will be displayed: its objective value, the maximum objective
    * value since the beginning of the search, the elapsed time since the
@@ -3284,7 +5972,21 @@ private static final long serialVersionUID = 0L;
     return logSearch_;
   }
 
+  public static final int LOG_COST_SCALING_FACTOR_FIELD_NUMBER = 22;
+  private double logCostScalingFactor_;
+  /**
+   * <pre>
+   * In logs, cost values will be unscaled by this factor.
+   * </pre>
+   *
+   * <code>double log_cost_scaling_factor = 22;</code>
+   */
+  public double getLogCostScalingFactor() {
+    return logCostScalingFactor_;
+  }
+
   private byte memoizedIsInitialized = -1;
+  @Override
   public final boolean isInitialized() {
     byte isInitialized = memoizedIsInitialized;
     if (isInitialized == 1) return true;
@@ -3294,18 +5996,19 @@ private static final long serialVersionUID = 0L;
     return true;
   }
 
+  @Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
-    if (firstSolutionStrategy_ != com.google.ortools.constraintsolver.FirstSolutionStrategy.Value.AUTOMATIC.getNumber()) {
+    if (firstSolutionStrategy_ != com.google.ortools.constraintsolver.FirstSolutionStrategy.Value.UNSET.getNumber()) {
       output.writeEnum(1, firstSolutionStrategy_);
     }
-    if (useFilteredFirstSolutionStrategy_ != false) {
-      output.writeBool(2, useFilteredFirstSolutionStrategy_);
+    if (useUnfilteredFirstSolutionStrategy_ != false) {
+      output.writeBool(2, useUnfilteredFirstSolutionStrategy_);
     }
     if (localSearchOperators_ != null) {
       output.writeMessage(3, getLocalSearchOperators());
     }
-    if (localSearchMetaheuristic_ != com.google.ortools.constraintsolver.LocalSearchMetaheuristic.Value.AUTOMATIC.getNumber()) {
+    if (localSearchMetaheuristic_ != com.google.ortools.constraintsolver.LocalSearchMetaheuristic.Value.UNSET.getNumber()) {
       output.writeEnum(4, localSearchMetaheuristic_);
     }
     if (guidedLocalSearchLambdaCoefficient_ != 0D) {
@@ -3314,23 +6017,20 @@ private static final long serialVersionUID = 0L;
     if (useDepthFirstSearch_ != false) {
       output.writeBool(6, useDepthFirstSearch_);
     }
-    if (optimizationStep_ != 0L) {
-      output.writeInt64(7, optimizationStep_);
+    if (optimizationStep_ != 0D) {
+      output.writeDouble(7, optimizationStep_);
     }
     if (solutionLimit_ != 0L) {
       output.writeInt64(8, solutionLimit_);
     }
-    if (timeLimitMs_ != 0L) {
-      output.writeInt64(9, timeLimitMs_);
+    if (timeLimit_ != null) {
+      output.writeMessage(9, getTimeLimit());
     }
-    if (lnsTimeLimitMs_ != 0L) {
-      output.writeInt64(10, lnsTimeLimitMs_);
+    if (lnsTimeLimit_ != null) {
+      output.writeMessage(10, getLnsTimeLimit());
     }
-    if (useLightPropagation_ != false) {
-      output.writeBool(11, useLightPropagation_);
-    }
-    if (fingerprintArcCostEvaluators_ != false) {
-      output.writeBool(12, fingerprintArcCostEvaluators_);
+    if (useFullPropagation_ != false) {
+      output.writeBool(11, useFullPropagation_);
     }
     if (logSearch_ != false) {
       output.writeBool(13, logSearch_);
@@ -3341,27 +6041,52 @@ private static final long serialVersionUID = 0L;
     if (savingsAddReverseArcs_ != false) {
       output.writeBool(15, savingsAddReverseArcs_);
     }
+    if (cheapestInsertionFarthestSeedsRatio_ != 0D) {
+      output.writeDouble(16, cheapestInsertionFarthestSeedsRatio_);
+    }
+    if (numberOfSolutionsToCollect_ != 0) {
+      output.writeInt32(17, numberOfSolutionsToCollect_);
+    }
+    if (savingsArcCoefficient_ != 0D) {
+      output.writeDouble(18, savingsArcCoefficient_);
+    }
+    if (savingsParallelRoutes_ != false) {
+      output.writeBool(19, savingsParallelRoutes_);
+    }
+    if (relocateExpensiveChainNumArcsToConsider_ != 0) {
+      output.writeInt32(20, relocateExpensiveChainNumArcsToConsider_);
+    }
+    if (cheapestInsertionNeighborsRatio_ != 0D) {
+      output.writeDouble(21, cheapestInsertionNeighborsRatio_);
+    }
+    if (logCostScalingFactor_ != 0D) {
+      output.writeDouble(22, logCostScalingFactor_);
+    }
+    if (savingsMaxMemoryUsageBytes_ != 0D) {
+      output.writeDouble(23, savingsMaxMemoryUsageBytes_);
+    }
     unknownFields.writeTo(output);
   }
 
+  @Override
   public int getSerializedSize() {
     int size = memoizedSize;
     if (size != -1) return size;
 
     size = 0;
-    if (firstSolutionStrategy_ != com.google.ortools.constraintsolver.FirstSolutionStrategy.Value.AUTOMATIC.getNumber()) {
+    if (firstSolutionStrategy_ != com.google.ortools.constraintsolver.FirstSolutionStrategy.Value.UNSET.getNumber()) {
       size += com.google.protobuf.CodedOutputStream
         .computeEnumSize(1, firstSolutionStrategy_);
     }
-    if (useFilteredFirstSolutionStrategy_ != false) {
+    if (useUnfilteredFirstSolutionStrategy_ != false) {
       size += com.google.protobuf.CodedOutputStream
-        .computeBoolSize(2, useFilteredFirstSolutionStrategy_);
+        .computeBoolSize(2, useUnfilteredFirstSolutionStrategy_);
     }
     if (localSearchOperators_ != null) {
       size += com.google.protobuf.CodedOutputStream
         .computeMessageSize(3, getLocalSearchOperators());
     }
-    if (localSearchMetaheuristic_ != com.google.ortools.constraintsolver.LocalSearchMetaheuristic.Value.AUTOMATIC.getNumber()) {
+    if (localSearchMetaheuristic_ != com.google.ortools.constraintsolver.LocalSearchMetaheuristic.Value.UNSET.getNumber()) {
       size += com.google.protobuf.CodedOutputStream
         .computeEnumSize(4, localSearchMetaheuristic_);
     }
@@ -3373,29 +6098,25 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeBoolSize(6, useDepthFirstSearch_);
     }
-    if (optimizationStep_ != 0L) {
+    if (optimizationStep_ != 0D) {
       size += com.google.protobuf.CodedOutputStream
-        .computeInt64Size(7, optimizationStep_);
+        .computeDoubleSize(7, optimizationStep_);
     }
     if (solutionLimit_ != 0L) {
       size += com.google.protobuf.CodedOutputStream
         .computeInt64Size(8, solutionLimit_);
     }
-    if (timeLimitMs_ != 0L) {
+    if (timeLimit_ != null) {
       size += com.google.protobuf.CodedOutputStream
-        .computeInt64Size(9, timeLimitMs_);
+        .computeMessageSize(9, getTimeLimit());
     }
-    if (lnsTimeLimitMs_ != 0L) {
+    if (lnsTimeLimit_ != null) {
       size += com.google.protobuf.CodedOutputStream
-        .computeInt64Size(10, lnsTimeLimitMs_);
+        .computeMessageSize(10, getLnsTimeLimit());
     }
-    if (useLightPropagation_ != false) {
+    if (useFullPropagation_ != false) {
       size += com.google.protobuf.CodedOutputStream
-        .computeBoolSize(11, useLightPropagation_);
-    }
-    if (fingerprintArcCostEvaluators_ != false) {
-      size += com.google.protobuf.CodedOutputStream
-        .computeBoolSize(12, fingerprintArcCostEvaluators_);
+        .computeBoolSize(11, useFullPropagation_);
     }
     if (logSearch_ != false) {
       size += com.google.protobuf.CodedOutputStream
@@ -3409,13 +6130,45 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeBoolSize(15, savingsAddReverseArcs_);
     }
+    if (cheapestInsertionFarthestSeedsRatio_ != 0D) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeDoubleSize(16, cheapestInsertionFarthestSeedsRatio_);
+    }
+    if (numberOfSolutionsToCollect_ != 0) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeInt32Size(17, numberOfSolutionsToCollect_);
+    }
+    if (savingsArcCoefficient_ != 0D) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeDoubleSize(18, savingsArcCoefficient_);
+    }
+    if (savingsParallelRoutes_ != false) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeBoolSize(19, savingsParallelRoutes_);
+    }
+    if (relocateExpensiveChainNumArcsToConsider_ != 0) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeInt32Size(20, relocateExpensiveChainNumArcsToConsider_);
+    }
+    if (cheapestInsertionNeighborsRatio_ != 0D) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeDoubleSize(21, cheapestInsertionNeighborsRatio_);
+    }
+    if (logCostScalingFactor_ != 0D) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeDoubleSize(22, logCostScalingFactor_);
+    }
+    if (savingsMaxMemoryUsageBytes_ != 0D) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeDoubleSize(23, savingsMaxMemoryUsageBytes_);
+    }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
     return size;
   }
 
-  @java.lang.Override
-  public boolean equals(final java.lang.Object obj) {
+  @Override
+  public boolean equals(final Object obj) {
     if (obj == this) {
      return true;
     }
@@ -3424,47 +6177,70 @@ private static final long serialVersionUID = 0L;
     }
     com.google.ortools.constraintsolver.RoutingSearchParameters other = (com.google.ortools.constraintsolver.RoutingSearchParameters) obj;
 
-    boolean result = true;
-    result = result && firstSolutionStrategy_ == other.firstSolutionStrategy_;
-    result = result && (getUseFilteredFirstSolutionStrategy()
-        == other.getUseFilteredFirstSolutionStrategy());
-    result = result && (
-        java.lang.Double.doubleToLongBits(getSavingsNeighborsRatio())
-        == java.lang.Double.doubleToLongBits(
-            other.getSavingsNeighborsRatio()));
-    result = result && (getSavingsAddReverseArcs()
-        == other.getSavingsAddReverseArcs());
-    result = result && (hasLocalSearchOperators() == other.hasLocalSearchOperators());
+    if (firstSolutionStrategy_ != other.firstSolutionStrategy_) return false;
+    if (getUseUnfilteredFirstSolutionStrategy()
+        != other.getUseUnfilteredFirstSolutionStrategy()) return false;
+    if (Double.doubleToLongBits(getSavingsNeighborsRatio())
+        != Double.doubleToLongBits(
+            other.getSavingsNeighborsRatio())) return false;
+    if (Double.doubleToLongBits(getSavingsMaxMemoryUsageBytes())
+        != Double.doubleToLongBits(
+            other.getSavingsMaxMemoryUsageBytes())) return false;
+    if (getSavingsAddReverseArcs()
+        != other.getSavingsAddReverseArcs()) return false;
+    if (Double.doubleToLongBits(getSavingsArcCoefficient())
+        != Double.doubleToLongBits(
+            other.getSavingsArcCoefficient())) return false;
+    if (getSavingsParallelRoutes()
+        != other.getSavingsParallelRoutes()) return false;
+    if (Double.doubleToLongBits(getCheapestInsertionFarthestSeedsRatio())
+        != Double.doubleToLongBits(
+            other.getCheapestInsertionFarthestSeedsRatio())) return false;
+    if (Double.doubleToLongBits(getCheapestInsertionNeighborsRatio())
+        != Double.doubleToLongBits(
+            other.getCheapestInsertionNeighborsRatio())) return false;
+    if (hasLocalSearchOperators() != other.hasLocalSearchOperators()) return false;
     if (hasLocalSearchOperators()) {
-      result = result && getLocalSearchOperators()
-          .equals(other.getLocalSearchOperators());
+      if (!getLocalSearchOperators()
+          .equals(other.getLocalSearchOperators())) return false;
     }
-    result = result && localSearchMetaheuristic_ == other.localSearchMetaheuristic_;
-    result = result && (
-        java.lang.Double.doubleToLongBits(getGuidedLocalSearchLambdaCoefficient())
-        == java.lang.Double.doubleToLongBits(
-            other.getGuidedLocalSearchLambdaCoefficient()));
-    result = result && (getUseDepthFirstSearch()
-        == other.getUseDepthFirstSearch());
-    result = result && (getOptimizationStep()
-        == other.getOptimizationStep());
-    result = result && (getSolutionLimit()
-        == other.getSolutionLimit());
-    result = result && (getTimeLimitMs()
-        == other.getTimeLimitMs());
-    result = result && (getLnsTimeLimitMs()
-        == other.getLnsTimeLimitMs());
-    result = result && (getUseLightPropagation()
-        == other.getUseLightPropagation());
-    result = result && (getFingerprintArcCostEvaluators()
-        == other.getFingerprintArcCostEvaluators());
-    result = result && (getLogSearch()
-        == other.getLogSearch());
-    result = result && unknownFields.equals(other.unknownFields);
-    return result;
+    if (getRelocateExpensiveChainNumArcsToConsider()
+        != other.getRelocateExpensiveChainNumArcsToConsider()) return false;
+    if (localSearchMetaheuristic_ != other.localSearchMetaheuristic_) return false;
+    if (Double.doubleToLongBits(getGuidedLocalSearchLambdaCoefficient())
+        != Double.doubleToLongBits(
+            other.getGuidedLocalSearchLambdaCoefficient())) return false;
+    if (getUseDepthFirstSearch()
+        != other.getUseDepthFirstSearch()) return false;
+    if (Double.doubleToLongBits(getOptimizationStep())
+        != Double.doubleToLongBits(
+            other.getOptimizationStep())) return false;
+    if (getNumberOfSolutionsToCollect()
+        != other.getNumberOfSolutionsToCollect()) return false;
+    if (getSolutionLimit()
+        != other.getSolutionLimit()) return false;
+    if (hasTimeLimit() != other.hasTimeLimit()) return false;
+    if (hasTimeLimit()) {
+      if (!getTimeLimit()
+          .equals(other.getTimeLimit())) return false;
+    }
+    if (hasLnsTimeLimit() != other.hasLnsTimeLimit()) return false;
+    if (hasLnsTimeLimit()) {
+      if (!getLnsTimeLimit()
+          .equals(other.getLnsTimeLimit())) return false;
+    }
+    if (getUseFullPropagation()
+        != other.getUseFullPropagation()) return false;
+    if (getLogSearch()
+        != other.getLogSearch()) return false;
+    if (Double.doubleToLongBits(getLogCostScalingFactor())
+        != Double.doubleToLongBits(
+            other.getLogCostScalingFactor())) return false;
+    if (!unknownFields.equals(other.unknownFields)) return false;
+    return true;
   }
 
-  @java.lang.Override
+  @Override
   public int hashCode() {
     if (memoizedHashCode != 0) {
       return memoizedHashCode;
@@ -3473,48 +6249,69 @@ private static final long serialVersionUID = 0L;
     hash = (19 * hash) + getDescriptor().hashCode();
     hash = (37 * hash) + FIRST_SOLUTION_STRATEGY_FIELD_NUMBER;
     hash = (53 * hash) + firstSolutionStrategy_;
-    hash = (37 * hash) + USE_FILTERED_FIRST_SOLUTION_STRATEGY_FIELD_NUMBER;
+    hash = (37 * hash) + USE_UNFILTERED_FIRST_SOLUTION_STRATEGY_FIELD_NUMBER;
     hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
-        getUseFilteredFirstSolutionStrategy());
+        getUseUnfilteredFirstSolutionStrategy());
     hash = (37 * hash) + SAVINGS_NEIGHBORS_RATIO_FIELD_NUMBER;
     hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-        java.lang.Double.doubleToLongBits(getSavingsNeighborsRatio()));
+        Double.doubleToLongBits(getSavingsNeighborsRatio()));
+    hash = (37 * hash) + SAVINGS_MAX_MEMORY_USAGE_BYTES_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        Double.doubleToLongBits(getSavingsMaxMemoryUsageBytes()));
     hash = (37 * hash) + SAVINGS_ADD_REVERSE_ARCS_FIELD_NUMBER;
     hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
         getSavingsAddReverseArcs());
+    hash = (37 * hash) + SAVINGS_ARC_COEFFICIENT_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        Double.doubleToLongBits(getSavingsArcCoefficient()));
+    hash = (37 * hash) + SAVINGS_PARALLEL_ROUTES_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+        getSavingsParallelRoutes());
+    hash = (37 * hash) + CHEAPEST_INSERTION_FARTHEST_SEEDS_RATIO_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        Double.doubleToLongBits(getCheapestInsertionFarthestSeedsRatio()));
+    hash = (37 * hash) + CHEAPEST_INSERTION_NEIGHBORS_RATIO_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        Double.doubleToLongBits(getCheapestInsertionNeighborsRatio()));
     if (hasLocalSearchOperators()) {
       hash = (37 * hash) + LOCAL_SEARCH_OPERATORS_FIELD_NUMBER;
       hash = (53 * hash) + getLocalSearchOperators().hashCode();
     }
+    hash = (37 * hash) + RELOCATE_EXPENSIVE_CHAIN_NUM_ARCS_TO_CONSIDER_FIELD_NUMBER;
+    hash = (53 * hash) + getRelocateExpensiveChainNumArcsToConsider();
     hash = (37 * hash) + LOCAL_SEARCH_METAHEURISTIC_FIELD_NUMBER;
     hash = (53 * hash) + localSearchMetaheuristic_;
     hash = (37 * hash) + GUIDED_LOCAL_SEARCH_LAMBDA_COEFFICIENT_FIELD_NUMBER;
     hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-        java.lang.Double.doubleToLongBits(getGuidedLocalSearchLambdaCoefficient()));
+        Double.doubleToLongBits(getGuidedLocalSearchLambdaCoefficient()));
     hash = (37 * hash) + USE_DEPTH_FIRST_SEARCH_FIELD_NUMBER;
     hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
         getUseDepthFirstSearch());
     hash = (37 * hash) + OPTIMIZATION_STEP_FIELD_NUMBER;
     hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-        getOptimizationStep());
+        Double.doubleToLongBits(getOptimizationStep()));
+    hash = (37 * hash) + NUMBER_OF_SOLUTIONS_TO_COLLECT_FIELD_NUMBER;
+    hash = (53 * hash) + getNumberOfSolutionsToCollect();
     hash = (37 * hash) + SOLUTION_LIMIT_FIELD_NUMBER;
     hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
         getSolutionLimit());
-    hash = (37 * hash) + TIME_LIMIT_MS_FIELD_NUMBER;
-    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-        getTimeLimitMs());
-    hash = (37 * hash) + LNS_TIME_LIMIT_MS_FIELD_NUMBER;
-    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-        getLnsTimeLimitMs());
-    hash = (37 * hash) + USE_LIGHT_PROPAGATION_FIELD_NUMBER;
+    if (hasTimeLimit()) {
+      hash = (37 * hash) + TIME_LIMIT_FIELD_NUMBER;
+      hash = (53 * hash) + getTimeLimit().hashCode();
+    }
+    if (hasLnsTimeLimit()) {
+      hash = (37 * hash) + LNS_TIME_LIMIT_FIELD_NUMBER;
+      hash = (53 * hash) + getLnsTimeLimit().hashCode();
+    }
+    hash = (37 * hash) + USE_FULL_PROPAGATION_FIELD_NUMBER;
     hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
-        getUseLightPropagation());
-    hash = (37 * hash) + FINGERPRINT_ARC_COST_EVALUATORS_FIELD_NUMBER;
-    hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
-        getFingerprintArcCostEvaluators());
+        getUseFullPropagation());
     hash = (37 * hash) + LOG_SEARCH_FIELD_NUMBER;
     hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
         getLogSearch());
+    hash = (37 * hash) + LOG_COST_SCALING_FACTOR_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        Double.doubleToLongBits(getLogCostScalingFactor()));
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -3590,6 +6387,7 @@ private static final long serialVersionUID = 0L;
         .parseWithIOException(PARSER, input, extensionRegistry);
   }
 
+  @Override
   public Builder newBuilderForType() { return newBuilder(); }
   public static Builder newBuilder() {
     return DEFAULT_INSTANCE.toBuilder();
@@ -3597,12 +6395,13 @@ private static final long serialVersionUID = 0L;
   public static Builder newBuilder(com.google.ortools.constraintsolver.RoutingSearchParameters prototype) {
     return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
   }
+  @Override
   public Builder toBuilder() {
     return this == DEFAULT_INSTANCE
         ? new Builder() : new Builder().mergeFrom(this);
   }
 
-  @java.lang.Override
+  @Override
   protected Builder newBuilderForType(
       com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
     Builder builder = new Builder(parent);
@@ -3611,6 +6410,10 @@ private static final long serialVersionUID = 0L;
   /**
    * <pre>
    * Parameters defining the search used to solve vehicle routing problems.
+   * If a parameter is unset (or, equivalently, set to its default value),
+   * then the routing library will pick its preferred value for that parameter
+   * automatically: this should be the case for most parameters.
+   * To see those "default" parameters, call GetDefaultRoutingSearchParameters().
    * </pre>
    *
    * Protobuf type {@code operations_research.RoutingSearchParameters}
@@ -3624,6 +6427,7 @@ private static final long serialVersionUID = 0L;
       return com.google.ortools.constraintsolver.RoutingParameters.internal_static_operations_research_RoutingSearchParameters_descriptor;
     }
 
+    @Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.google.ortools.constraintsolver.RoutingParameters.internal_static_operations_research_RoutingSearchParameters_fieldAccessorTable
@@ -3646,15 +6450,26 @@ private static final long serialVersionUID = 0L;
               .alwaysUseFieldBuilders) {
       }
     }
+    @Override
     public Builder clear() {
       super.clear();
       firstSolutionStrategy_ = 0;
 
-      useFilteredFirstSolutionStrategy_ = false;
+      useUnfilteredFirstSolutionStrategy_ = false;
 
       savingsNeighborsRatio_ = 0D;
 
+      savingsMaxMemoryUsageBytes_ = 0D;
+
       savingsAddReverseArcs_ = false;
+
+      savingsArcCoefficient_ = 0D;
+
+      savingsParallelRoutes_ = false;
+
+      cheapestInsertionFarthestSeedsRatio_ = 0D;
+
+      cheapestInsertionNeighborsRatio_ = 0D;
 
       if (localSearchOperatorsBuilder_ == null) {
         localSearchOperators_ = null;
@@ -3662,38 +6477,53 @@ private static final long serialVersionUID = 0L;
         localSearchOperators_ = null;
         localSearchOperatorsBuilder_ = null;
       }
+      relocateExpensiveChainNumArcsToConsider_ = 0;
+
       localSearchMetaheuristic_ = 0;
 
       guidedLocalSearchLambdaCoefficient_ = 0D;
 
       useDepthFirstSearch_ = false;
 
-      optimizationStep_ = 0L;
+      optimizationStep_ = 0D;
+
+      numberOfSolutionsToCollect_ = 0;
 
       solutionLimit_ = 0L;
 
-      timeLimitMs_ = 0L;
-
-      lnsTimeLimitMs_ = 0L;
-
-      useLightPropagation_ = false;
-
-      fingerprintArcCostEvaluators_ = false;
+      if (timeLimitBuilder_ == null) {
+        timeLimit_ = null;
+      } else {
+        timeLimit_ = null;
+        timeLimitBuilder_ = null;
+      }
+      if (lnsTimeLimitBuilder_ == null) {
+        lnsTimeLimit_ = null;
+      } else {
+        lnsTimeLimit_ = null;
+        lnsTimeLimitBuilder_ = null;
+      }
+      useFullPropagation_ = false;
 
       logSearch_ = false;
+
+      logCostScalingFactor_ = 0D;
 
       return this;
     }
 
+    @Override
     public com.google.protobuf.Descriptors.Descriptor
         getDescriptorForType() {
       return com.google.ortools.constraintsolver.RoutingParameters.internal_static_operations_research_RoutingSearchParameters_descriptor;
     }
 
+    @Override
     public com.google.ortools.constraintsolver.RoutingSearchParameters getDefaultInstanceForType() {
       return com.google.ortools.constraintsolver.RoutingSearchParameters.getDefaultInstance();
     }
 
+    @Override
     public com.google.ortools.constraintsolver.RoutingSearchParameters build() {
       com.google.ortools.constraintsolver.RoutingSearchParameters result = buildPartial();
       if (!result.isInitialized()) {
@@ -3702,57 +6532,80 @@ private static final long serialVersionUID = 0L;
       return result;
     }
 
+    @Override
     public com.google.ortools.constraintsolver.RoutingSearchParameters buildPartial() {
       com.google.ortools.constraintsolver.RoutingSearchParameters result = new com.google.ortools.constraintsolver.RoutingSearchParameters(this);
       result.firstSolutionStrategy_ = firstSolutionStrategy_;
-      result.useFilteredFirstSolutionStrategy_ = useFilteredFirstSolutionStrategy_;
+      result.useUnfilteredFirstSolutionStrategy_ = useUnfilteredFirstSolutionStrategy_;
       result.savingsNeighborsRatio_ = savingsNeighborsRatio_;
+      result.savingsMaxMemoryUsageBytes_ = savingsMaxMemoryUsageBytes_;
       result.savingsAddReverseArcs_ = savingsAddReverseArcs_;
+      result.savingsArcCoefficient_ = savingsArcCoefficient_;
+      result.savingsParallelRoutes_ = savingsParallelRoutes_;
+      result.cheapestInsertionFarthestSeedsRatio_ = cheapestInsertionFarthestSeedsRatio_;
+      result.cheapestInsertionNeighborsRatio_ = cheapestInsertionNeighborsRatio_;
       if (localSearchOperatorsBuilder_ == null) {
         result.localSearchOperators_ = localSearchOperators_;
       } else {
         result.localSearchOperators_ = localSearchOperatorsBuilder_.build();
       }
+      result.relocateExpensiveChainNumArcsToConsider_ = relocateExpensiveChainNumArcsToConsider_;
       result.localSearchMetaheuristic_ = localSearchMetaheuristic_;
       result.guidedLocalSearchLambdaCoefficient_ = guidedLocalSearchLambdaCoefficient_;
       result.useDepthFirstSearch_ = useDepthFirstSearch_;
       result.optimizationStep_ = optimizationStep_;
+      result.numberOfSolutionsToCollect_ = numberOfSolutionsToCollect_;
       result.solutionLimit_ = solutionLimit_;
-      result.timeLimitMs_ = timeLimitMs_;
-      result.lnsTimeLimitMs_ = lnsTimeLimitMs_;
-      result.useLightPropagation_ = useLightPropagation_;
-      result.fingerprintArcCostEvaluators_ = fingerprintArcCostEvaluators_;
+      if (timeLimitBuilder_ == null) {
+        result.timeLimit_ = timeLimit_;
+      } else {
+        result.timeLimit_ = timeLimitBuilder_.build();
+      }
+      if (lnsTimeLimitBuilder_ == null) {
+        result.lnsTimeLimit_ = lnsTimeLimit_;
+      } else {
+        result.lnsTimeLimit_ = lnsTimeLimitBuilder_.build();
+      }
+      result.useFullPropagation_ = useFullPropagation_;
       result.logSearch_ = logSearch_;
+      result.logCostScalingFactor_ = logCostScalingFactor_;
       onBuilt();
       return result;
     }
 
+    @Override
     public Builder clone() {
-      return (Builder) super.clone();
+      return super.clone();
     }
+    @Override
     public Builder setField(
         com.google.protobuf.Descriptors.FieldDescriptor field,
-        java.lang.Object value) {
-      return (Builder) super.setField(field, value);
+        Object value) {
+      return super.setField(field, value);
     }
+    @Override
     public Builder clearField(
         com.google.protobuf.Descriptors.FieldDescriptor field) {
-      return (Builder) super.clearField(field);
+      return super.clearField(field);
     }
+    @Override
     public Builder clearOneof(
         com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-      return (Builder) super.clearOneof(oneof);
+      return super.clearOneof(oneof);
     }
+    @Override
     public Builder setRepeatedField(
         com.google.protobuf.Descriptors.FieldDescriptor field,
-        int index, java.lang.Object value) {
-      return (Builder) super.setRepeatedField(field, index, value);
+        int index, Object value) {
+      return super.setRepeatedField(field, index, value);
     }
+    @Override
     public Builder addRepeatedField(
         com.google.protobuf.Descriptors.FieldDescriptor field,
-        java.lang.Object value) {
-      return (Builder) super.addRepeatedField(field, value);
+        Object value) {
+      return super.addRepeatedField(field, value);
     }
+    @Override
     public Builder mergeFrom(com.google.protobuf.Message other) {
       if (other instanceof com.google.ortools.constraintsolver.RoutingSearchParameters) {
         return mergeFrom((com.google.ortools.constraintsolver.RoutingSearchParameters)other);
@@ -3767,17 +6620,35 @@ private static final long serialVersionUID = 0L;
       if (other.firstSolutionStrategy_ != 0) {
         setFirstSolutionStrategyValue(other.getFirstSolutionStrategyValue());
       }
-      if (other.getUseFilteredFirstSolutionStrategy() != false) {
-        setUseFilteredFirstSolutionStrategy(other.getUseFilteredFirstSolutionStrategy());
+      if (other.getUseUnfilteredFirstSolutionStrategy() != false) {
+        setUseUnfilteredFirstSolutionStrategy(other.getUseUnfilteredFirstSolutionStrategy());
       }
       if (other.getSavingsNeighborsRatio() != 0D) {
         setSavingsNeighborsRatio(other.getSavingsNeighborsRatio());
       }
+      if (other.getSavingsMaxMemoryUsageBytes() != 0D) {
+        setSavingsMaxMemoryUsageBytes(other.getSavingsMaxMemoryUsageBytes());
+      }
       if (other.getSavingsAddReverseArcs() != false) {
         setSavingsAddReverseArcs(other.getSavingsAddReverseArcs());
       }
+      if (other.getSavingsArcCoefficient() != 0D) {
+        setSavingsArcCoefficient(other.getSavingsArcCoefficient());
+      }
+      if (other.getSavingsParallelRoutes() != false) {
+        setSavingsParallelRoutes(other.getSavingsParallelRoutes());
+      }
+      if (other.getCheapestInsertionFarthestSeedsRatio() != 0D) {
+        setCheapestInsertionFarthestSeedsRatio(other.getCheapestInsertionFarthestSeedsRatio());
+      }
+      if (other.getCheapestInsertionNeighborsRatio() != 0D) {
+        setCheapestInsertionNeighborsRatio(other.getCheapestInsertionNeighborsRatio());
+      }
       if (other.hasLocalSearchOperators()) {
         mergeLocalSearchOperators(other.getLocalSearchOperators());
+      }
+      if (other.getRelocateExpensiveChainNumArcsToConsider() != 0) {
+        setRelocateExpensiveChainNumArcsToConsider(other.getRelocateExpensiveChainNumArcsToConsider());
       }
       if (other.localSearchMetaheuristic_ != 0) {
         setLocalSearchMetaheuristicValue(other.getLocalSearchMetaheuristicValue());
@@ -3788,36 +6659,41 @@ private static final long serialVersionUID = 0L;
       if (other.getUseDepthFirstSearch() != false) {
         setUseDepthFirstSearch(other.getUseDepthFirstSearch());
       }
-      if (other.getOptimizationStep() != 0L) {
+      if (other.getOptimizationStep() != 0D) {
         setOptimizationStep(other.getOptimizationStep());
+      }
+      if (other.getNumberOfSolutionsToCollect() != 0) {
+        setNumberOfSolutionsToCollect(other.getNumberOfSolutionsToCollect());
       }
       if (other.getSolutionLimit() != 0L) {
         setSolutionLimit(other.getSolutionLimit());
       }
-      if (other.getTimeLimitMs() != 0L) {
-        setTimeLimitMs(other.getTimeLimitMs());
+      if (other.hasTimeLimit()) {
+        mergeTimeLimit(other.getTimeLimit());
       }
-      if (other.getLnsTimeLimitMs() != 0L) {
-        setLnsTimeLimitMs(other.getLnsTimeLimitMs());
+      if (other.hasLnsTimeLimit()) {
+        mergeLnsTimeLimit(other.getLnsTimeLimit());
       }
-      if (other.getUseLightPropagation() != false) {
-        setUseLightPropagation(other.getUseLightPropagation());
-      }
-      if (other.getFingerprintArcCostEvaluators() != false) {
-        setFingerprintArcCostEvaluators(other.getFingerprintArcCostEvaluators());
+      if (other.getUseFullPropagation() != false) {
+        setUseFullPropagation(other.getUseFullPropagation());
       }
       if (other.getLogSearch() != false) {
         setLogSearch(other.getLogSearch());
+      }
+      if (other.getLogCostScalingFactor() != 0D) {
+        setLogCostScalingFactor(other.getLogCostScalingFactor());
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
       return this;
     }
 
+    @Override
     public final boolean isInitialized() {
       return true;
     }
 
+    @Override
     public Builder mergeFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -3867,6 +6743,7 @@ private static final long serialVersionUID = 0L;
      * <code>.operations_research.FirstSolutionStrategy.Value first_solution_strategy = 1;</code>
      */
     public com.google.ortools.constraintsolver.FirstSolutionStrategy.Value getFirstSolutionStrategy() {
+      @SuppressWarnings("deprecation")
       com.google.ortools.constraintsolver.FirstSolutionStrategy.Value result = com.google.ortools.constraintsolver.FirstSolutionStrategy.Value.valueOf(firstSolutionStrategy_);
       return result == null ? com.google.ortools.constraintsolver.FirstSolutionStrategy.Value.UNRECOGNIZED : result;
     }
@@ -3900,46 +6777,46 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private boolean useFilteredFirstSolutionStrategy_ ;
+    private boolean useUnfilteredFirstSolutionStrategy_ ;
     /**
      * <pre>
-     * These are advanced first solutions strategy settings which should not be
-     * modified unless you know what you are doing.
+     * --- Advanced first solutions strategy settings ---
+     * Don't touch these unless you know what you are doing.
      * Use filtered version of first solution strategy if available.
      * </pre>
      *
-     * <code>bool use_filtered_first_solution_strategy = 2;</code>
+     * <code>bool use_unfiltered_first_solution_strategy = 2;</code>
      */
-    public boolean getUseFilteredFirstSolutionStrategy() {
-      return useFilteredFirstSolutionStrategy_;
+    public boolean getUseUnfilteredFirstSolutionStrategy() {
+      return useUnfilteredFirstSolutionStrategy_;
     }
     /**
      * <pre>
-     * These are advanced first solutions strategy settings which should not be
-     * modified unless you know what you are doing.
+     * --- Advanced first solutions strategy settings ---
+     * Don't touch these unless you know what you are doing.
      * Use filtered version of first solution strategy if available.
      * </pre>
      *
-     * <code>bool use_filtered_first_solution_strategy = 2;</code>
+     * <code>bool use_unfiltered_first_solution_strategy = 2;</code>
      */
-    public Builder setUseFilteredFirstSolutionStrategy(boolean value) {
+    public Builder setUseUnfilteredFirstSolutionStrategy(boolean value) {
       
-      useFilteredFirstSolutionStrategy_ = value;
+      useUnfilteredFirstSolutionStrategy_ = value;
       onChanged();
       return this;
     }
     /**
      * <pre>
-     * These are advanced first solutions strategy settings which should not be
-     * modified unless you know what you are doing.
+     * --- Advanced first solutions strategy settings ---
+     * Don't touch these unless you know what you are doing.
      * Use filtered version of first solution strategy if available.
      * </pre>
      *
-     * <code>bool use_filtered_first_solution_strategy = 2;</code>
+     * <code>bool use_unfiltered_first_solution_strategy = 2;</code>
      */
-    public Builder clearUseFilteredFirstSolutionStrategy() {
+    public Builder clearUseUnfilteredFirstSolutionStrategy() {
       
-      useFilteredFirstSolutionStrategy_ = false;
+      useUnfilteredFirstSolutionStrategy_ = false;
       onChanged();
       return this;
     }
@@ -3948,9 +6825,8 @@ private static final long serialVersionUID = 0L;
     /**
      * <pre>
      * Parameters specific to the Savings first solution heuristic.
-     * Ratio (between 0 and 1) of neighbors to consider for each node when
-     * constructing the savings. If &lt;= 0 or greater than 1, its value is
-     * considered to be 1.0.
+     * Ratio (in ]0, 1]) of neighbors to consider for each node when constructing
+     * the savings. If unspecified, its value is considered to be 1.0.
      * </pre>
      *
      * <code>double savings_neighbors_ratio = 14;</code>
@@ -3961,9 +6837,8 @@ private static final long serialVersionUID = 0L;
     /**
      * <pre>
      * Parameters specific to the Savings first solution heuristic.
-     * Ratio (between 0 and 1) of neighbors to consider for each node when
-     * constructing the savings. If &lt;= 0 or greater than 1, its value is
-     * considered to be 1.0.
+     * Ratio (in ]0, 1]) of neighbors to consider for each node when constructing
+     * the savings. If unspecified, its value is considered to be 1.0.
      * </pre>
      *
      * <code>double savings_neighbors_ratio = 14;</code>
@@ -3977,9 +6852,8 @@ private static final long serialVersionUID = 0L;
     /**
      * <pre>
      * Parameters specific to the Savings first solution heuristic.
-     * Ratio (between 0 and 1) of neighbors to consider for each node when
-     * constructing the savings. If &lt;= 0 or greater than 1, its value is
-     * considered to be 1.0.
+     * Ratio (in ]0, 1]) of neighbors to consider for each node when constructing
+     * the savings. If unspecified, its value is considered to be 1.0.
      * </pre>
      *
      * <code>double savings_neighbors_ratio = 14;</code>
@@ -3987,6 +6861,59 @@ private static final long serialVersionUID = 0L;
     public Builder clearSavingsNeighborsRatio() {
       
       savingsNeighborsRatio_ = 0D;
+      onChanged();
+      return this;
+    }
+
+    private double savingsMaxMemoryUsageBytes_ ;
+    /**
+     * <pre>
+     * The number of neighbors considered for each node in the Savings heuristic
+     * is chosen so that the space used to store the savings doesn't exceed
+     * savings_max_memory_usage_bytes, which must be in ]0, 1e10].
+     * NOTE: If both savings_neighbors_ratio and savings_max_memory_usage_bytes
+     * are specified, the number of neighbors considered for each node will be the
+     * minimum of the two numbers determined by these parameters.
+     * </pre>
+     *
+     * <code>double savings_max_memory_usage_bytes = 23;</code>
+     */
+    public double getSavingsMaxMemoryUsageBytes() {
+      return savingsMaxMemoryUsageBytes_;
+    }
+    /**
+     * <pre>
+     * The number of neighbors considered for each node in the Savings heuristic
+     * is chosen so that the space used to store the savings doesn't exceed
+     * savings_max_memory_usage_bytes, which must be in ]0, 1e10].
+     * NOTE: If both savings_neighbors_ratio and savings_max_memory_usage_bytes
+     * are specified, the number of neighbors considered for each node will be the
+     * minimum of the two numbers determined by these parameters.
+     * </pre>
+     *
+     * <code>double savings_max_memory_usage_bytes = 23;</code>
+     */
+    public Builder setSavingsMaxMemoryUsageBytes(double value) {
+      
+      savingsMaxMemoryUsageBytes_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * The number of neighbors considered for each node in the Savings heuristic
+     * is chosen so that the space used to store the savings doesn't exceed
+     * savings_max_memory_usage_bytes, which must be in ]0, 1e10].
+     * NOTE: If both savings_neighbors_ratio and savings_max_memory_usage_bytes
+     * are specified, the number of neighbors considered for each node will be the
+     * minimum of the two numbers determined by these parameters.
+     * </pre>
+     *
+     * <code>double savings_max_memory_usage_bytes = 23;</code>
+     */
+    public Builder clearSavingsMaxMemoryUsageBytes() {
+      
+      savingsMaxMemoryUsageBytes_ = 0D;
       onChanged();
       return this;
     }
@@ -4032,7 +6959,186 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private com.google.ortools.constraintsolver.RoutingSearchParameters.LocalSearchNeighborhoodOperators localSearchOperators_ = null;
+    private double savingsArcCoefficient_ ;
+    /**
+     * <pre>
+     * Coefficient of the cost of the arc for which the saving value is being
+     * computed:
+     * Saving(a--&gt;b) = Cost(a--&gt;end) + Cost(start--&gt;b)
+     *                 - savings_arc_coefficient * Cost(a--&gt;b)
+     * This parameter must be greater than 0, and its default value is 1.
+     * </pre>
+     *
+     * <code>double savings_arc_coefficient = 18;</code>
+     */
+    public double getSavingsArcCoefficient() {
+      return savingsArcCoefficient_;
+    }
+    /**
+     * <pre>
+     * Coefficient of the cost of the arc for which the saving value is being
+     * computed:
+     * Saving(a--&gt;b) = Cost(a--&gt;end) + Cost(start--&gt;b)
+     *                 - savings_arc_coefficient * Cost(a--&gt;b)
+     * This parameter must be greater than 0, and its default value is 1.
+     * </pre>
+     *
+     * <code>double savings_arc_coefficient = 18;</code>
+     */
+    public Builder setSavingsArcCoefficient(double value) {
+      
+      savingsArcCoefficient_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * Coefficient of the cost of the arc for which the saving value is being
+     * computed:
+     * Saving(a--&gt;b) = Cost(a--&gt;end) + Cost(start--&gt;b)
+     *                 - savings_arc_coefficient * Cost(a--&gt;b)
+     * This parameter must be greater than 0, and its default value is 1.
+     * </pre>
+     *
+     * <code>double savings_arc_coefficient = 18;</code>
+     */
+    public Builder clearSavingsArcCoefficient() {
+      
+      savingsArcCoefficient_ = 0D;
+      onChanged();
+      return this;
+    }
+
+    private boolean savingsParallelRoutes_ ;
+    /**
+     * <pre>
+     * When true, the routes are built in parallel, sequentially otherwise.
+     * </pre>
+     *
+     * <code>bool savings_parallel_routes = 19;</code>
+     */
+    public boolean getSavingsParallelRoutes() {
+      return savingsParallelRoutes_;
+    }
+    /**
+     * <pre>
+     * When true, the routes are built in parallel, sequentially otherwise.
+     * </pre>
+     *
+     * <code>bool savings_parallel_routes = 19;</code>
+     */
+    public Builder setSavingsParallelRoutes(boolean value) {
+      
+      savingsParallelRoutes_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * When true, the routes are built in parallel, sequentially otherwise.
+     * </pre>
+     *
+     * <code>bool savings_parallel_routes = 19;</code>
+     */
+    public Builder clearSavingsParallelRoutes() {
+      
+      savingsParallelRoutes_ = false;
+      onChanged();
+      return this;
+    }
+
+    private double cheapestInsertionFarthestSeedsRatio_ ;
+    /**
+     * <pre>
+     * Ratio (between 0 and 1) of available vehicles in the model on which
+     * farthest nodes of the model are inserted as seeds in the
+     * GlobalCheapestInsertion first solution heuristic.
+     * </pre>
+     *
+     * <code>double cheapest_insertion_farthest_seeds_ratio = 16;</code>
+     */
+    public double getCheapestInsertionFarthestSeedsRatio() {
+      return cheapestInsertionFarthestSeedsRatio_;
+    }
+    /**
+     * <pre>
+     * Ratio (between 0 and 1) of available vehicles in the model on which
+     * farthest nodes of the model are inserted as seeds in the
+     * GlobalCheapestInsertion first solution heuristic.
+     * </pre>
+     *
+     * <code>double cheapest_insertion_farthest_seeds_ratio = 16;</code>
+     */
+    public Builder setCheapestInsertionFarthestSeedsRatio(double value) {
+      
+      cheapestInsertionFarthestSeedsRatio_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * Ratio (between 0 and 1) of available vehicles in the model on which
+     * farthest nodes of the model are inserted as seeds in the
+     * GlobalCheapestInsertion first solution heuristic.
+     * </pre>
+     *
+     * <code>double cheapest_insertion_farthest_seeds_ratio = 16;</code>
+     */
+    public Builder clearCheapestInsertionFarthestSeedsRatio() {
+      
+      cheapestInsertionFarthestSeedsRatio_ = 0D;
+      onChanged();
+      return this;
+    }
+
+    private double cheapestInsertionNeighborsRatio_ ;
+    /**
+     * <pre>
+     * Ratio (in ]0, 1]) of neighbors to consider for each node when creating
+     * new insertions in the parallel/sequential cheapest insertion heuristic.
+     * If not overridden, its default value is 1, meaning all neighbors will be
+     * considered.
+     * </pre>
+     *
+     * <code>double cheapest_insertion_neighbors_ratio = 21;</code>
+     */
+    public double getCheapestInsertionNeighborsRatio() {
+      return cheapestInsertionNeighborsRatio_;
+    }
+    /**
+     * <pre>
+     * Ratio (in ]0, 1]) of neighbors to consider for each node when creating
+     * new insertions in the parallel/sequential cheapest insertion heuristic.
+     * If not overridden, its default value is 1, meaning all neighbors will be
+     * considered.
+     * </pre>
+     *
+     * <code>double cheapest_insertion_neighbors_ratio = 21;</code>
+     */
+    public Builder setCheapestInsertionNeighborsRatio(double value) {
+      
+      cheapestInsertionNeighborsRatio_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * Ratio (in ]0, 1]) of neighbors to consider for each node when creating
+     * new insertions in the parallel/sequential cheapest insertion heuristic.
+     * If not overridden, its default value is 1, meaning all neighbors will be
+     * considered.
+     * </pre>
+     *
+     * <code>double cheapest_insertion_neighbors_ratio = 21;</code>
+     */
+    public Builder clearCheapestInsertionNeighborsRatio() {
+      
+      cheapestInsertionNeighborsRatio_ = 0D;
+      onChanged();
+      return this;
+    }
+
+    private com.google.ortools.constraintsolver.RoutingSearchParameters.LocalSearchNeighborhoodOperators localSearchOperators_;
     private com.google.protobuf.SingleFieldBuilderV3<
         com.google.ortools.constraintsolver.RoutingSearchParameters.LocalSearchNeighborhoodOperators, com.google.ortools.constraintsolver.RoutingSearchParameters.LocalSearchNeighborhoodOperators.Builder, com.google.ortools.constraintsolver.RoutingSearchParameters.LocalSearchNeighborhoodOperatorsOrBuilder> localSearchOperatorsBuilder_;
     /**
@@ -4149,6 +7255,62 @@ private static final long serialVersionUID = 0L;
       return localSearchOperatorsBuilder_;
     }
 
+    private int relocateExpensiveChainNumArcsToConsider_ ;
+    /**
+     * <pre>
+     * Number of expensive arcs to consider cutting in the RelocateExpensiveChain
+     * neighborhood operator (see
+     * LocalSearchNeighborhoodOperators.use_relocate_expensive_chain()).
+     * This parameter must be greater than 2.
+     * NOTE(user): The number of neighbors generated by the operator for
+     * relocate_expensive_chain_num_arcs_to_consider = K is around
+     * K*(K-1)/2 * number_of_routes * number_of_nodes.
+     * </pre>
+     *
+     * <code>int32 relocate_expensive_chain_num_arcs_to_consider = 20;</code>
+     */
+    public int getRelocateExpensiveChainNumArcsToConsider() {
+      return relocateExpensiveChainNumArcsToConsider_;
+    }
+    /**
+     * <pre>
+     * Number of expensive arcs to consider cutting in the RelocateExpensiveChain
+     * neighborhood operator (see
+     * LocalSearchNeighborhoodOperators.use_relocate_expensive_chain()).
+     * This parameter must be greater than 2.
+     * NOTE(user): The number of neighbors generated by the operator for
+     * relocate_expensive_chain_num_arcs_to_consider = K is around
+     * K*(K-1)/2 * number_of_routes * number_of_nodes.
+     * </pre>
+     *
+     * <code>int32 relocate_expensive_chain_num_arcs_to_consider = 20;</code>
+     */
+    public Builder setRelocateExpensiveChainNumArcsToConsider(int value) {
+      
+      relocateExpensiveChainNumArcsToConsider_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * Number of expensive arcs to consider cutting in the RelocateExpensiveChain
+     * neighborhood operator (see
+     * LocalSearchNeighborhoodOperators.use_relocate_expensive_chain()).
+     * This parameter must be greater than 2.
+     * NOTE(user): The number of neighbors generated by the operator for
+     * relocate_expensive_chain_num_arcs_to_consider = K is around
+     * K*(K-1)/2 * number_of_routes * number_of_nodes.
+     * </pre>
+     *
+     * <code>int32 relocate_expensive_chain_num_arcs_to_consider = 20;</code>
+     */
+    public Builder clearRelocateExpensiveChainNumArcsToConsider() {
+      
+      relocateExpensiveChainNumArcsToConsider_ = 0;
+      onChanged();
+      return this;
+    }
+
     private int localSearchMetaheuristic_ = 0;
     /**
      * <pre>
@@ -4180,6 +7342,7 @@ private static final long serialVersionUID = 0L;
      * <code>.operations_research.LocalSearchMetaheuristic.Value local_search_metaheuristic = 4;</code>
      */
     public com.google.ortools.constraintsolver.LocalSearchMetaheuristic.Value getLocalSearchMetaheuristic() {
+      @SuppressWarnings("deprecation")
       com.google.ortools.constraintsolver.LocalSearchMetaheuristic.Value result = com.google.ortools.constraintsolver.LocalSearchMetaheuristic.Value.valueOf(localSearchMetaheuristic_);
       return result == null ? com.google.ortools.constraintsolver.LocalSearchMetaheuristic.Value.UNRECOGNIZED : result;
     }
@@ -4219,7 +7382,7 @@ private static final long serialVersionUID = 0L;
      * These are advanced settings which should not be modified unless you know
      * what you are doing.
      * Lambda coefficient used to penalize arc costs when GUIDED_LOCAL_SEARCH is
-     * used.
+     * used. Must be positive.
      * </pre>
      *
      * <code>double guided_local_search_lambda_coefficient = 5;</code>
@@ -4232,7 +7395,7 @@ private static final long serialVersionUID = 0L;
      * These are advanced settings which should not be modified unless you know
      * what you are doing.
      * Lambda coefficient used to penalize arc costs when GUIDED_LOCAL_SEARCH is
-     * used.
+     * used. Must be positive.
      * </pre>
      *
      * <code>double guided_local_search_lambda_coefficient = 5;</code>
@@ -4248,7 +7411,7 @@ private static final long serialVersionUID = 0L;
      * These are advanced settings which should not be modified unless you know
      * what you are doing.
      * Lambda coefficient used to penalize arc costs when GUIDED_LOCAL_SEARCH is
-     * used.
+     * used. Must be positive.
      * </pre>
      *
      * <code>double guided_local_search_lambda_coefficient = 5;</code>
@@ -4304,25 +7467,29 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private long optimizationStep_ ;
+    private double optimizationStep_ ;
     /**
      * <pre>
-     * Minimum step by which the solution must be improved in local search.
+     * Minimum step by which the solution must be improved in local search. 0
+     * means "unspecified". If this value is fractional, it will get rounded to
+     * the nearest integer.
      * </pre>
      *
-     * <code>int64 optimization_step = 7;</code>
+     * <code>double optimization_step = 7;</code>
      */
-    public long getOptimizationStep() {
+    public double getOptimizationStep() {
       return optimizationStep_;
     }
     /**
      * <pre>
-     * Minimum step by which the solution must be improved in local search.
+     * Minimum step by which the solution must be improved in local search. 0
+     * means "unspecified". If this value is fractional, it will get rounded to
+     * the nearest integer.
      * </pre>
      *
-     * <code>int64 optimization_step = 7;</code>
+     * <code>double optimization_step = 7;</code>
      */
-    public Builder setOptimizationStep(long value) {
+    public Builder setOptimizationStep(double value) {
       
       optimizationStep_ = value;
       onChanged();
@@ -4330,14 +7497,57 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     * Minimum step by which the solution must be improved in local search.
+     * Minimum step by which the solution must be improved in local search. 0
+     * means "unspecified". If this value is fractional, it will get rounded to
+     * the nearest integer.
      * </pre>
      *
-     * <code>int64 optimization_step = 7;</code>
+     * <code>double optimization_step = 7;</code>
      */
     public Builder clearOptimizationStep() {
       
-      optimizationStep_ = 0L;
+      optimizationStep_ = 0D;
+      onChanged();
+      return this;
+    }
+
+    private int numberOfSolutionsToCollect_ ;
+    /**
+     * <pre>
+     * Number of solutions to collect during the search. Corresponds to the best
+     * solutions found during the search. 0 means "unspecified".
+     * </pre>
+     *
+     * <code>int32 number_of_solutions_to_collect = 17;</code>
+     */
+    public int getNumberOfSolutionsToCollect() {
+      return numberOfSolutionsToCollect_;
+    }
+    /**
+     * <pre>
+     * Number of solutions to collect during the search. Corresponds to the best
+     * solutions found during the search. 0 means "unspecified".
+     * </pre>
+     *
+     * <code>int32 number_of_solutions_to_collect = 17;</code>
+     */
+    public Builder setNumberOfSolutionsToCollect(int value) {
+      
+      numberOfSolutionsToCollect_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * Number of solutions to collect during the search. Corresponds to the best
+     * solutions found during the search. 0 means "unspecified".
+     * </pre>
+     *
+     * <code>int32 number_of_solutions_to_collect = 17;</code>
+     */
+    public Builder clearNumberOfSolutionsToCollect() {
+      
+      numberOfSolutionsToCollect_ = 0;
       onChanged();
       return this;
     }
@@ -4346,7 +7556,8 @@ private static final long serialVersionUID = 0L;
     /**
      * <pre>
      * -- Search limits --
-     * Limit to the number of solutions generated during the search.
+     * Limit to the number of solutions generated during the search. 0 means
+     * "unspecified".
      * </pre>
      *
      * <code>int64 solution_limit = 8;</code>
@@ -4357,7 +7568,8 @@ private static final long serialVersionUID = 0L;
     /**
      * <pre>
      * -- Search limits --
-     * Limit to the number of solutions generated during the search.
+     * Limit to the number of solutions generated during the search. 0 means
+     * "unspecified".
      * </pre>
      *
      * <code>int64 solution_limit = 8;</code>
@@ -4371,7 +7583,8 @@ private static final long serialVersionUID = 0L;
     /**
      * <pre>
      * -- Search limits --
-     * Limit to the number of solutions generated during the search.
+     * Limit to the number of solutions generated during the search. 0 means
+     * "unspecified".
      * </pre>
      *
      * <code>int64 solution_limit = 8;</code>
@@ -4383,120 +7596,358 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private long timeLimitMs_ ;
+    private com.google.protobuf.Duration timeLimit_;
+    private com.google.protobuf.SingleFieldBuilderV3<
+        com.google.protobuf.Duration, com.google.protobuf.Duration.Builder, com.google.protobuf.DurationOrBuilder> timeLimitBuilder_;
     /**
      * <pre>
-     * Limit in milliseconds to the time spent in the search.
+     * Limit to the time spent in the search.
      * </pre>
      *
-     * <code>int64 time_limit_ms = 9;</code>
+     * <code>.google.protobuf.Duration time_limit = 9;</code>
      */
-    public long getTimeLimitMs() {
-      return timeLimitMs_;
+    public boolean hasTimeLimit() {
+      return timeLimitBuilder_ != null || timeLimit_ != null;
     }
     /**
      * <pre>
-     * Limit in milliseconds to the time spent in the search.
+     * Limit to the time spent in the search.
      * </pre>
      *
-     * <code>int64 time_limit_ms = 9;</code>
+     * <code>.google.protobuf.Duration time_limit = 9;</code>
      */
-    public Builder setTimeLimitMs(long value) {
-      
-      timeLimitMs_ = value;
-      onChanged();
+    public com.google.protobuf.Duration getTimeLimit() {
+      if (timeLimitBuilder_ == null) {
+        return timeLimit_ == null ? com.google.protobuf.Duration.getDefaultInstance() : timeLimit_;
+      } else {
+        return timeLimitBuilder_.getMessage();
+      }
+    }
+    /**
+     * <pre>
+     * Limit to the time spent in the search.
+     * </pre>
+     *
+     * <code>.google.protobuf.Duration time_limit = 9;</code>
+     */
+    public Builder setTimeLimit(com.google.protobuf.Duration value) {
+      if (timeLimitBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        timeLimit_ = value;
+        onChanged();
+      } else {
+        timeLimitBuilder_.setMessage(value);
+      }
+
       return this;
     }
     /**
      * <pre>
-     * Limit in milliseconds to the time spent in the search.
+     * Limit to the time spent in the search.
      * </pre>
      *
-     * <code>int64 time_limit_ms = 9;</code>
+     * <code>.google.protobuf.Duration time_limit = 9;</code>
      */
-    public Builder clearTimeLimitMs() {
-      
-      timeLimitMs_ = 0L;
-      onChanged();
+    public Builder setTimeLimit(
+        com.google.protobuf.Duration.Builder builderForValue) {
+      if (timeLimitBuilder_ == null) {
+        timeLimit_ = builderForValue.build();
+        onChanged();
+      } else {
+        timeLimitBuilder_.setMessage(builderForValue.build());
+      }
+
       return this;
+    }
+    /**
+     * <pre>
+     * Limit to the time spent in the search.
+     * </pre>
+     *
+     * <code>.google.protobuf.Duration time_limit = 9;</code>
+     */
+    public Builder mergeTimeLimit(com.google.protobuf.Duration value) {
+      if (timeLimitBuilder_ == null) {
+        if (timeLimit_ != null) {
+          timeLimit_ =
+            com.google.protobuf.Duration.newBuilder(timeLimit_).mergeFrom(value).buildPartial();
+        } else {
+          timeLimit_ = value;
+        }
+        onChanged();
+      } else {
+        timeLimitBuilder_.mergeFrom(value);
+      }
+
+      return this;
+    }
+    /**
+     * <pre>
+     * Limit to the time spent in the search.
+     * </pre>
+     *
+     * <code>.google.protobuf.Duration time_limit = 9;</code>
+     */
+    public Builder clearTimeLimit() {
+      if (timeLimitBuilder_ == null) {
+        timeLimit_ = null;
+        onChanged();
+      } else {
+        timeLimit_ = null;
+        timeLimitBuilder_ = null;
+      }
+
+      return this;
+    }
+    /**
+     * <pre>
+     * Limit to the time spent in the search.
+     * </pre>
+     *
+     * <code>.google.protobuf.Duration time_limit = 9;</code>
+     */
+    public com.google.protobuf.Duration.Builder getTimeLimitBuilder() {
+      
+      onChanged();
+      return getTimeLimitFieldBuilder().getBuilder();
+    }
+    /**
+     * <pre>
+     * Limit to the time spent in the search.
+     * </pre>
+     *
+     * <code>.google.protobuf.Duration time_limit = 9;</code>
+     */
+    public com.google.protobuf.DurationOrBuilder getTimeLimitOrBuilder() {
+      if (timeLimitBuilder_ != null) {
+        return timeLimitBuilder_.getMessageOrBuilder();
+      } else {
+        return timeLimit_ == null ?
+            com.google.protobuf.Duration.getDefaultInstance() : timeLimit_;
+      }
+    }
+    /**
+     * <pre>
+     * Limit to the time spent in the search.
+     * </pre>
+     *
+     * <code>.google.protobuf.Duration time_limit = 9;</code>
+     */
+    private com.google.protobuf.SingleFieldBuilderV3<
+        com.google.protobuf.Duration, com.google.protobuf.Duration.Builder, com.google.protobuf.DurationOrBuilder> 
+        getTimeLimitFieldBuilder() {
+      if (timeLimitBuilder_ == null) {
+        timeLimitBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+            com.google.protobuf.Duration, com.google.protobuf.Duration.Builder, com.google.protobuf.DurationOrBuilder>(
+                getTimeLimit(),
+                getParentForChildren(),
+                isClean());
+        timeLimit_ = null;
+      }
+      return timeLimitBuilder_;
     }
 
-    private long lnsTimeLimitMs_ ;
+    private com.google.protobuf.Duration lnsTimeLimit_;
+    private com.google.protobuf.SingleFieldBuilderV3<
+        com.google.protobuf.Duration, com.google.protobuf.Duration.Builder, com.google.protobuf.DurationOrBuilder> lnsTimeLimitBuilder_;
     /**
      * <pre>
-     * Limit in milliseconds to the time spent in the completion search for each
-     * local search neighbor.
+     * Limit to the time spent in the completion search for each local search
+     * neighbor.
      * </pre>
      *
-     * <code>int64 lns_time_limit_ms = 10;</code>
+     * <code>.google.protobuf.Duration lns_time_limit = 10;</code>
      */
-    public long getLnsTimeLimitMs() {
-      return lnsTimeLimitMs_;
+    public boolean hasLnsTimeLimit() {
+      return lnsTimeLimitBuilder_ != null || lnsTimeLimit_ != null;
     }
     /**
      * <pre>
-     * Limit in milliseconds to the time spent in the completion search for each
-     * local search neighbor.
+     * Limit to the time spent in the completion search for each local search
+     * neighbor.
      * </pre>
      *
-     * <code>int64 lns_time_limit_ms = 10;</code>
+     * <code>.google.protobuf.Duration lns_time_limit = 10;</code>
      */
-    public Builder setLnsTimeLimitMs(long value) {
-      
-      lnsTimeLimitMs_ = value;
-      onChanged();
+    public com.google.protobuf.Duration getLnsTimeLimit() {
+      if (lnsTimeLimitBuilder_ == null) {
+        return lnsTimeLimit_ == null ? com.google.protobuf.Duration.getDefaultInstance() : lnsTimeLimit_;
+      } else {
+        return lnsTimeLimitBuilder_.getMessage();
+      }
+    }
+    /**
+     * <pre>
+     * Limit to the time spent in the completion search for each local search
+     * neighbor.
+     * </pre>
+     *
+     * <code>.google.protobuf.Duration lns_time_limit = 10;</code>
+     */
+    public Builder setLnsTimeLimit(com.google.protobuf.Duration value) {
+      if (lnsTimeLimitBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        lnsTimeLimit_ = value;
+        onChanged();
+      } else {
+        lnsTimeLimitBuilder_.setMessage(value);
+      }
+
       return this;
     }
     /**
      * <pre>
-     * Limit in milliseconds to the time spent in the completion search for each
-     * local search neighbor.
+     * Limit to the time spent in the completion search for each local search
+     * neighbor.
      * </pre>
      *
-     * <code>int64 lns_time_limit_ms = 10;</code>
+     * <code>.google.protobuf.Duration lns_time_limit = 10;</code>
      */
-    public Builder clearLnsTimeLimitMs() {
-      
-      lnsTimeLimitMs_ = 0L;
-      onChanged();
+    public Builder setLnsTimeLimit(
+        com.google.protobuf.Duration.Builder builderForValue) {
+      if (lnsTimeLimitBuilder_ == null) {
+        lnsTimeLimit_ = builderForValue.build();
+        onChanged();
+      } else {
+        lnsTimeLimitBuilder_.setMessage(builderForValue.build());
+      }
+
       return this;
+    }
+    /**
+     * <pre>
+     * Limit to the time spent in the completion search for each local search
+     * neighbor.
+     * </pre>
+     *
+     * <code>.google.protobuf.Duration lns_time_limit = 10;</code>
+     */
+    public Builder mergeLnsTimeLimit(com.google.protobuf.Duration value) {
+      if (lnsTimeLimitBuilder_ == null) {
+        if (lnsTimeLimit_ != null) {
+          lnsTimeLimit_ =
+            com.google.protobuf.Duration.newBuilder(lnsTimeLimit_).mergeFrom(value).buildPartial();
+        } else {
+          lnsTimeLimit_ = value;
+        }
+        onChanged();
+      } else {
+        lnsTimeLimitBuilder_.mergeFrom(value);
+      }
+
+      return this;
+    }
+    /**
+     * <pre>
+     * Limit to the time spent in the completion search for each local search
+     * neighbor.
+     * </pre>
+     *
+     * <code>.google.protobuf.Duration lns_time_limit = 10;</code>
+     */
+    public Builder clearLnsTimeLimit() {
+      if (lnsTimeLimitBuilder_ == null) {
+        lnsTimeLimit_ = null;
+        onChanged();
+      } else {
+        lnsTimeLimit_ = null;
+        lnsTimeLimitBuilder_ = null;
+      }
+
+      return this;
+    }
+    /**
+     * <pre>
+     * Limit to the time spent in the completion search for each local search
+     * neighbor.
+     * </pre>
+     *
+     * <code>.google.protobuf.Duration lns_time_limit = 10;</code>
+     */
+    public com.google.protobuf.Duration.Builder getLnsTimeLimitBuilder() {
+      
+      onChanged();
+      return getLnsTimeLimitFieldBuilder().getBuilder();
+    }
+    /**
+     * <pre>
+     * Limit to the time spent in the completion search for each local search
+     * neighbor.
+     * </pre>
+     *
+     * <code>.google.protobuf.Duration lns_time_limit = 10;</code>
+     */
+    public com.google.protobuf.DurationOrBuilder getLnsTimeLimitOrBuilder() {
+      if (lnsTimeLimitBuilder_ != null) {
+        return lnsTimeLimitBuilder_.getMessageOrBuilder();
+      } else {
+        return lnsTimeLimit_ == null ?
+            com.google.protobuf.Duration.getDefaultInstance() : lnsTimeLimit_;
+      }
+    }
+    /**
+     * <pre>
+     * Limit to the time spent in the completion search for each local search
+     * neighbor.
+     * </pre>
+     *
+     * <code>.google.protobuf.Duration lns_time_limit = 10;</code>
+     */
+    private com.google.protobuf.SingleFieldBuilderV3<
+        com.google.protobuf.Duration, com.google.protobuf.Duration.Builder, com.google.protobuf.DurationOrBuilder> 
+        getLnsTimeLimitFieldBuilder() {
+      if (lnsTimeLimitBuilder_ == null) {
+        lnsTimeLimitBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+            com.google.protobuf.Duration, com.google.protobuf.Duration.Builder, com.google.protobuf.DurationOrBuilder>(
+                getLnsTimeLimit(),
+                getParentForChildren(),
+                isClean());
+        lnsTimeLimit_ = null;
+      }
+      return lnsTimeLimitBuilder_;
     }
 
-    private boolean useLightPropagation_ ;
+    private boolean useFullPropagation_ ;
     /**
      * <pre>
      * --- Propagation control ---
      * These are advanced settings which should not be modified unless you know
      * what you are doing.
-     * Use constraints with light propagation in routing model. Extra propagation
-     * is only necessary when using depth-first search or for models which
-     * require strong propagation to finalize the value of secondary variables.
+     * Use constraints with full propagation in routing model (instead of 'light'
+     * propagation only). Full propagation is only necessary when using
+     * depth-first search or for models which require strong propagation to
+     * finalize the value of secondary variables.
      * Changing this setting to true will slow down the search in most cases and
      * increase memory consumption in all cases.
      * </pre>
      *
-     * <code>bool use_light_propagation = 11;</code>
+     * <code>bool use_full_propagation = 11;</code>
      */
-    public boolean getUseLightPropagation() {
-      return useLightPropagation_;
+    public boolean getUseFullPropagation() {
+      return useFullPropagation_;
     }
     /**
      * <pre>
      * --- Propagation control ---
      * These are advanced settings which should not be modified unless you know
      * what you are doing.
-     * Use constraints with light propagation in routing model. Extra propagation
-     * is only necessary when using depth-first search or for models which
-     * require strong propagation to finalize the value of secondary variables.
+     * Use constraints with full propagation in routing model (instead of 'light'
+     * propagation only). Full propagation is only necessary when using
+     * depth-first search or for models which require strong propagation to
+     * finalize the value of secondary variables.
      * Changing this setting to true will slow down the search in most cases and
      * increase memory consumption in all cases.
      * </pre>
      *
-     * <code>bool use_light_propagation = 11;</code>
+     * <code>bool use_full_propagation = 11;</code>
      */
-    public Builder setUseLightPropagation(boolean value) {
+    public Builder setUseFullPropagation(boolean value) {
       
-      useLightPropagation_ = value;
+      useFullPropagation_ = value;
       onChanged();
       return this;
     }
@@ -4505,71 +7956,19 @@ private static final long serialVersionUID = 0L;
      * --- Propagation control ---
      * These are advanced settings which should not be modified unless you know
      * what you are doing.
-     * Use constraints with light propagation in routing model. Extra propagation
-     * is only necessary when using depth-first search or for models which
-     * require strong propagation to finalize the value of secondary variables.
+     * Use constraints with full propagation in routing model (instead of 'light'
+     * propagation only). Full propagation is only necessary when using
+     * depth-first search or for models which require strong propagation to
+     * finalize the value of secondary variables.
      * Changing this setting to true will slow down the search in most cases and
      * increase memory consumption in all cases.
      * </pre>
      *
-     * <code>bool use_light_propagation = 11;</code>
+     * <code>bool use_full_propagation = 11;</code>
      */
-    public Builder clearUseLightPropagation() {
+    public Builder clearUseFullPropagation() {
       
-      useLightPropagation_ = false;
-      onChanged();
-      return this;
-    }
-
-    private boolean fingerprintArcCostEvaluators_ ;
-    /**
-     * <pre>
-     * --- Miscellaneous ---
-     * Some of these are advanced settings which should not be modified unless you
-     * know what you are doing.
-     * If true, arc cost evaluators will be fingerprinted. The fingerprint will
-     * be used when computing vehicle cost equivalent classes, otherwise the
-     * address of the evaluator will be used.
-     * </pre>
-     *
-     * <code>bool fingerprint_arc_cost_evaluators = 12;</code>
-     */
-    public boolean getFingerprintArcCostEvaluators() {
-      return fingerprintArcCostEvaluators_;
-    }
-    /**
-     * <pre>
-     * --- Miscellaneous ---
-     * Some of these are advanced settings which should not be modified unless you
-     * know what you are doing.
-     * If true, arc cost evaluators will be fingerprinted. The fingerprint will
-     * be used when computing vehicle cost equivalent classes, otherwise the
-     * address of the evaluator will be used.
-     * </pre>
-     *
-     * <code>bool fingerprint_arc_cost_evaluators = 12;</code>
-     */
-    public Builder setFingerprintArcCostEvaluators(boolean value) {
-      
-      fingerprintArcCostEvaluators_ = value;
-      onChanged();
-      return this;
-    }
-    /**
-     * <pre>
-     * --- Miscellaneous ---
-     * Some of these are advanced settings which should not be modified unless you
-     * know what you are doing.
-     * If true, arc cost evaluators will be fingerprinted. The fingerprint will
-     * be used when computing vehicle cost equivalent classes, otherwise the
-     * address of the evaluator will be used.
-     * </pre>
-     *
-     * <code>bool fingerprint_arc_cost_evaluators = 12;</code>
-     */
-    public Builder clearFingerprintArcCostEvaluators() {
-      
-      fingerprintArcCostEvaluators_ = false;
+      useFullPropagation_ = false;
       onChanged();
       return this;
     }
@@ -4577,6 +7976,9 @@ private static final long serialVersionUID = 0L;
     private boolean logSearch_ ;
     /**
      * <pre>
+     * --- Miscellaneous ---
+     * Some of these are advanced settings which should not be modified unless you
+     * know what you are doing.
      * Activates search logging. For each solution found during the search, the
      * following will be displayed: its objective value, the maximum objective
      * value since the beginning of the search, the elapsed time since the
@@ -4595,6 +7997,9 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
+     * --- Miscellaneous ---
+     * Some of these are advanced settings which should not be modified unless you
+     * know what you are doing.
      * Activates search logging. For each solution found during the search, the
      * following will be displayed: its objective value, the maximum objective
      * value since the beginning of the search, the elapsed time since the
@@ -4616,6 +8021,9 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
+     * --- Miscellaneous ---
+     * Some of these are advanced settings which should not be modified unless you
+     * know what you are doing.
      * Activates search logging. For each solution found during the search, the
      * following will be displayed: its objective value, the maximum objective
      * value since the beginning of the search, the elapsed time since the
@@ -4635,11 +8043,51 @@ private static final long serialVersionUID = 0L;
       onChanged();
       return this;
     }
+
+    private double logCostScalingFactor_ ;
+    /**
+     * <pre>
+     * In logs, cost values will be unscaled by this factor.
+     * </pre>
+     *
+     * <code>double log_cost_scaling_factor = 22;</code>
+     */
+    public double getLogCostScalingFactor() {
+      return logCostScalingFactor_;
+    }
+    /**
+     * <pre>
+     * In logs, cost values will be unscaled by this factor.
+     * </pre>
+     *
+     * <code>double log_cost_scaling_factor = 22;</code>
+     */
+    public Builder setLogCostScalingFactor(double value) {
+      
+      logCostScalingFactor_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * In logs, cost values will be unscaled by this factor.
+     * </pre>
+     *
+     * <code>double log_cost_scaling_factor = 22;</code>
+     */
+    public Builder clearLogCostScalingFactor() {
+      
+      logCostScalingFactor_ = 0D;
+      onChanged();
+      return this;
+    }
+    @Override
     public final Builder setUnknownFields(
         final com.google.protobuf.UnknownFieldSet unknownFields) {
-      return super.setUnknownFieldsProto3(unknownFields);
+      return super.setUnknownFields(unknownFields);
     }
 
+    @Override
     public final Builder mergeUnknownFields(
         final com.google.protobuf.UnknownFieldSet unknownFields) {
       return super.mergeUnknownFields(unknownFields);
@@ -4661,6 +8109,7 @@ private static final long serialVersionUID = 0L;
 
   private static final com.google.protobuf.Parser<RoutingSearchParameters>
       PARSER = new com.google.protobuf.AbstractParser<RoutingSearchParameters>() {
+    @Override
     public RoutingSearchParameters parsePartialFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -4673,11 +8122,12 @@ private static final long serialVersionUID = 0L;
     return PARSER;
   }
 
-  @java.lang.Override
+  @Override
   public com.google.protobuf.Parser<RoutingSearchParameters> getParserForType() {
     return PARSER;
   }
 
+  @Override
   public com.google.ortools.constraintsolver.RoutingSearchParameters getDefaultInstanceForType() {
     return DEFAULT_INSTANCE;
   }

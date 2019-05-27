@@ -92,7 +92,7 @@ public interface ConstraintSolverParametersOrBuilder extends
    *
    * <code>string profile_file = 8;</code>
    */
-  java.lang.String getProfileFile();
+  String getProfileFile();
   /**
    * <pre>
    * Export propagation profiling data to file.
@@ -167,24 +167,6 @@ public interface ConstraintSolverParametersOrBuilder extends
   boolean getPrintAddedConstraints();
 
   /**
-   * <pre>
-   * Export model to file.
-   * </pre>
-   *
-   * <code>string export_file = 14;</code>
-   */
-  java.lang.String getExportFile();
-  /**
-   * <pre>
-   * Export model to file.
-   * </pre>
-   *
-   * <code>string export_file = 14;</code>
-   */
-  com.google.protobuf.ByteString
-      getExportFileBytes();
-
-  /**
    * <code>bool disable_solve = 15;</code>
    */
   boolean getDisableSolve();
@@ -194,29 +176,9 @@ public interface ConstraintSolverParametersOrBuilder extends
    * Control the implementation of the table constraint.
    * </pre>
    *
-   * <code>bool use_compact_table = 100;</code>
-   */
-  boolean getUseCompactTable();
-
-  /**
    * <code>bool use_small_table = 101;</code>
    */
   boolean getUseSmallTable();
-
-  /**
-   * <code>bool use_sat_table = 102;</code>
-   */
-  boolean getUseSatTable();
-
-  /**
-   * <code>int32 ac4r_table_threshold = 103;</code>
-   */
-  int getAc4RTableThreshold();
-
-  /**
-   * <code>bool use_mdd_table = 104;</code>
-   */
-  boolean getUseMddTable();
 
   /**
    * <pre>
@@ -269,4 +231,25 @@ public interface ConstraintSolverParametersOrBuilder extends
    * <code>bool use_element_rmq = 111;</code>
    */
   boolean getUseElementRmq();
+
+  /**
+   * <pre>
+   * Skip locally optimal pairs of paths in PathOperators. Setting this
+   * parameter to true might skip valid neighbors if there are constraints
+   * linking paths together (such as precedences). In any other case this
+   * should only speed up the search without omitting any neighbors.
+   * </pre>
+   *
+   * <code>bool skip_locally_optimal_paths = 113;</code>
+   */
+  boolean getSkipLocallyOptimalPaths();
+
+  /**
+   * <pre>
+   * Control the behavior of local search.
+   * </pre>
+   *
+   * <code>int32 check_solution_period = 114;</code>
+   */
+  int getCheckSolutionPeriod();
 }
